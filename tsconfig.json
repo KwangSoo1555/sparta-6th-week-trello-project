@@ -16,10 +16,10 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false, 
-    "typeRoots": ["./node_modules/@types", "./types"], 
-    "allowJs": true, 
-    "strict": true, 
-    "esModuleInterop": true, 
+    "noFallthroughCasesInSwitch": false,
+    "typeRoots": ["./node_modules/@types", "./types"],
+    "allowJs": true,
+    "strict": true,
+    "esModuleInterop": true
   }
 }

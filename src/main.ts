@@ -15,17 +15,17 @@ async function bootstrap() {
 
   const port = ENV.SERVER_PORT || 3000;
 
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
+  
   // 포트로 서버 실행
   try {
     await app.listen(port);
     console.log(`Server is running on: ${port}, Great to see you! 😊`);
   } catch (error) {
     console.error(error);
-  }
-
-  if (module.hot) {
-    module.hot.accept();
-    module.hot.dispose(() => app.close());
   }
 }
 bootstrap();

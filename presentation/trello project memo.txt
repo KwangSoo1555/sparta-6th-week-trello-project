@@ -136,3 +136,19 @@ user info in board id : 1   2   3   4
 
 
 소셜
+인터페이스 (프로바이더스) 폴더가 
+폴더 /providers/google
+폴더 /providers/naver
+
+import { GoogleController } from providers/google
+import GoogleService
+
+interface OauthService {
+  callback(url: string): Promise<any>;
+}
+
+OOP / CleanCode
+
+
+2차 피드백 : 
+enum 파일의 폴더명은 type 인가 enum 인가
