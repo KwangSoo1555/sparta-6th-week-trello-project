@@ -3,6 +3,8 @@ import { AppModule } from "./app.module";
 
 import { ENV } from "./common/constants/env.constant";
 
+declare const module: any;
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ["error", "warn"],
@@ -19,6 +21,11 @@ async function bootstrap() {
     console.log(`Server is running on: ${port}, Great to see you! 😊`);
   } catch (error) {
     console.error(error);
+  }
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
   }
 }
 bootstrap();
