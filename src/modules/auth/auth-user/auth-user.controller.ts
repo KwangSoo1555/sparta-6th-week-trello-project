@@ -16,13 +16,13 @@ export class AuthUserController {
     return this.authUserService.signUp(signUpDto);
   }
 
-  @Post("sign-in")
+  @Post("log-in")
   @UsePipes(ValidationPipe)
-  signIn(
+  logIn(
     @Ip() ip: string,
     @Headers("user-agent") userAgent: string,
     @Body() signInDto: UserSignInDto,
   ) {
-    return this.authUserService.signIn(signInDto, ip, userAgent);
+    return this.authUserService.logIn(signInDto, ip, userAgent);
   }
 }

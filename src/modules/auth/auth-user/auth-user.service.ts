@@ -17,6 +17,7 @@ import { UserEntity } from "src/entities/users.entity";
 import { UserSignUpDto, UserSignInDto } from "./auth-user.dto";
 import { MESSAGES } from "src/common/constants/message.constant";
 import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
+import { ENV } from "src/common/constants/env.constant";
 
 @Injectable()
 export class AuthUserService {
@@ -66,7 +67,7 @@ export class AuthUserService {
     return signUpUser;
   }
 
-  async signIn(signInDto: UserSignInDto, ip: string, userAgent: string) {
+  async logIn(signInDto: UserSignInDto, ip: string, userAgent: string) {
     const { email, password } = signInDto;
 
     const user = await this.checkUser({ email });
@@ -85,13 +86,13 @@ export class AuthUserService {
 
     const accessToken = jwt.sign(
       payload,
-      this.configService.get<string>('ACCESS_TOKEN_SECRET'),
+      ENV.ACCESS_TOKEN_SECRET,
       { expiresIn: AUTH_CONSTANT.ACCESS_TOKEN_EXPIRES_IN },
     );
 
     const refreshToken = jwt.sign(
       payload,
-      this.configService.get<string>('REFRESH_TOKEN_SECRET'),
+      ENV.REFRESH_TOKEN_SECRET,
       { expiresIn: AUTH_CONSTANT.REFRESH_TOKEN_EXPIRES_IN },
     );
 
