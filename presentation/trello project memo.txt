@@ -19,10 +19,20 @@ trello project
   3-2. user role 에 관련되서 user 테이블에서 role 을 정해주고 board 에 
         들어가야 되나? 아니면 board 에 들어 갔을 때 role 이 정해져야 되나?
 
-  3-3. linked list 합격
+  3-3. linked list 합격, 그리고 튜터님한테 card 테이블과 list 테이블의 next_index 개념 설명 해보기
 
   3-4. card 테이블에 컨텐츠 (업로드 파일들), 코멘트가 들어가 있는데 이거를 테이블을 나눌까 아니면 합칠까
         카드 컨텐츠 
+
+4. 파일 트리 구조
+  4-1. 엔티티, 디티오 어캐함? src 로 빼서 전역으로 구조화 해야되나 아니면 각 모듈에 controller, service, repository 처럼 
+        하위에 갔다 놓아야 되나?
+
+  4-2. 레파지토리 필요하나? 서비스에서 메서드 참조할 때 한꺼번에 비지니스 로직 + 데이터베이스 CRUD 까지 작업해도 괜찮?
+        방장은 개인적으로 레파지토리를 팠고, 하나의 레파지토리는 하나의 테이블만 참조하는 원칙을 지킨다는 방식을 
+        기저에 두면 서비스에서 메서드 참조하는 것이 좀 더 보기 편해서 이렇게 함.
+
+  4-3. 라우터들을 modules 라는 폴더를 따로 만들어서 한 번에 관리하는 방식은?
 
 
 
@@ -94,3 +104,51 @@ Test1234!@
 
 안지워지는 폴더 지우는 명령여
 rm -rf 폴더명 + 탭
+
+
+
+
+
+
+
+{user_id : 1, member_id : 1, board : 1}  => 보드 만든 admin 놈
+{user_id : 2, member_id : 1, board : 1}  => 1번 보드에 초대 받은 놈
+{user_id : 3, member_id : 1, board : 1}  => 1번 보드에 초대 받은 놈
+
+카드 만들기 (1 번이 2, 3 번을 지목해서 카드를 만든다 라고 하면)
+{user_id : 1, card_id : 1 member_id : 2, 3}
+
+나중에 멤버를 묶을 때
+member_id : 1, user_id : [1, 2, 3], board_id : 1
+
+
+
+user info in board id : 1   2   3   4
+
+                             1   2   1   2
+
+                             1   1   2   2
+
+
+1  1  1
+
+1  2  3
+
+
+소셜
+인터페이스 (프로바이더스) 폴더가 
+폴더 /providers/google
+폴더 /providers/naver
+
+import { GoogleController } from providers/google
+import GoogleService
+
+interface OauthService {
+  callback(url: string): Promise<any>;
+}
+
+OOP / CleanCode
+
+
+2차 피드백 : 
+enum 파일의 폴더명은 type 인가 enum 인가

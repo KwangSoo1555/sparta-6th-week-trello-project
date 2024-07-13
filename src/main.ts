@@ -3,6 +3,8 @@ import { AppModule } from "./app.module";
 
 import { ENV } from "./common/constants/env.constant";
 
+declare const module: any;
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ["error", "warn"],
@@ -13,6 +15,11 @@ async function bootstrap() {
 
   const port = ENV.SERVER_PORT || 3000;
 
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
+  
   // 포트로 서버 실행
   try {
     await app.listen(port);
