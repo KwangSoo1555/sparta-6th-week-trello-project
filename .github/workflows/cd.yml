@@ -5,7 +5,7 @@ on:
   workflow_run: # 특정 workflow가 실행됐을 때
     workflows: ["sparta-6th-week-trello-project CI"] # CI workflow
     types: [completed] # 완료 되었을 때
-    branches: [dev] # dev 브랜치
+    branches: [main] # dev 브랜치
 
 jobs:
   deploy:
