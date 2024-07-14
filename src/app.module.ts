@@ -3,8 +3,9 @@ import { TypeOrmModule } from "./database/typeorm/typeorm.module";
 import { ConfigModule } from "@nestjs/config";
 
 import { EmailVerificationModule } from "./modules/auth/email/email-verification.module";
-import { UserAuthModule } from "./modules/auth/user-auth/user-auth.module";
+import { UserAuthModule } from "./modules/auth/users-auth/user-auth.module";
 import { JwtModule } from "./modules/auth/jwt/jwt.module";
+import { UsersModule } from "./modules/users/users.module";
 import { BoardModule } from "./modules/board/board.module";
 import { ListModule } from "./modules/list/list.module";
 import { CardModule } from "./modules/cards/card.module";
@@ -20,11 +21,11 @@ import { AppService } from "./app.service";
     EmailVerificationModule,
     UserAuthModule,
     JwtModule,
+    UsersModule,
     BoardModule,
+    ListModule,
     CardModule,
     FileModule,
-    CardModule,
-    ListModule,
   ],
   controllers: [AppController],
   providers: [AppService],

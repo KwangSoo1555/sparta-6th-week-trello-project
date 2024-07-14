@@ -4,7 +4,7 @@ import { ExtractJwt, Strategy } from "passport-jwt";
 import { PassportStrategy, AuthGuard } from "@nestjs/passport";
 import { JwtPayload } from "jsonwebtoken";
 
-import { UserAuthService } from "src/modules/auth/user-auth/user-auth.service";
+import { UserAuthService } from "src/modules/auth/users-auth/user-auth.service";
 
 import { MESSAGES } from "src/common/constants/messages.constant";
 

@@ -1,8 +1,8 @@
 import { Controller, Post, UsePipes, ValidationPipe, UseGuards, Headers, Ip } from "@nestjs/common";
 
-import { JwtService } from "./jwt.service";
+import { JwtService } from "src/modules/auth/jwt/jwt.service";
 
-import { JwtRefreshGuards } from "./jwt-strategy.service";
+import { JwtRefreshGuards } from "src/modules/auth/jwt/jwt-strategy.service";
 import { RequestUserAndToken } from "src/common/custom/user-request-jwt";
 
 @Controller("auth")

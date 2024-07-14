@@ -11,7 +11,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
 import { ConfigService } from "@nestjs/config";
-import { EmailVerificationService } from "../email/email-verification.service";
+import { EmailVerificationService } from "src/modules/auth/email/email-verification.service";
 
 import { UsersEntity } from "src/entities/users.entity";
 import { RefreshTokensEntity } from "src/entities/refresh-tokens.entity";
