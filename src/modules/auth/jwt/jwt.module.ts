@@ -1,5 +1,5 @@
 import { Module, forwardRef } from "@nestjs/common";
-import { TypeOrmModule as NestTypeOrmModule } from "@nestjs/typeorm";   
+import { TypeOrmModule as NestTypeOrmModule } from "@nestjs/typeorm";
 import { JwtModule as NestJwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { UserAuthModule } from "../user-auth/user-auth.module";
@@ -15,7 +15,7 @@ import { ENV } from "src/common/constants/env.constant";
 
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: 'jwt', session: false }),
+    PassportModule.register({ defaultStrategy: "jwt", session: false }),
     NestJwtModule.registerAsync({
       useFactory: (configService: ConfigService) => ({
         isGlobal: true,

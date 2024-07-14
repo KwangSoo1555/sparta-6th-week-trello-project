@@ -8,8 +8,10 @@ import {
   ManyToOne,
   JoinColumn,
 } from "typeorm";
+
 import { CardsEntity } from "./cards.entity";
 import { BoardsEntity } from "./boards.entity";
+import { IsNotEmpty, IsString } from "class-validator";
 
 @Entity("lists")
 export class ListsEntity {
@@ -19,9 +21,11 @@ export class ListsEntity {
   @Column({ type: "int", name: "board_id" })
   boardId: number;
 
-  @Column({ type: "varchar", name: "user_id" })
-  userId: string;
+  // @Column({ type: "varchar", name: "user_id", nullable: true })
+  // userId: string;
 
+  @IsNotEmpty({ message: "타이틀을 작성해 주세요." })
+  @IsString()
   @Column({ type: "varchar", length: 200 })
   title: string;
 
