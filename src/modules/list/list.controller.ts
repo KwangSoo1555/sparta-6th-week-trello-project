@@ -9,12 +9,13 @@ export class ListController {
 
   @Post()
   async create(@Body() createListDto: CreateListDto) {
-    const data = await this.listService.create(createListDto);
+    //const { userId } = req.user;  유저id 어떻게 가져오지
+    const list = await this.listService.create(createListDto);
 
     return {
       statusCode: HttpStatus.CREATED,
       message: "리스트가 생성되었습니다.",
-      data,
+      list,
     };
   }
 
@@ -35,6 +36,6 @@ export class ListController {
 
   @Delete(":id")
   remove(@Param("id") id: string) {
-    return this.listService.remove(+id);
+    return this.listService.delete(+id);
   }
 }
