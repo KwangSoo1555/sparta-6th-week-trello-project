@@ -1,8 +1,9 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "./database/typeorm/typeorm.module";
 
-import { EmailVerificationModule } from "./modules/auth/email-verification/email-verification.module";
-import { AuthUserModule } from "./modules/auth/auth-user/auth-user.module";
+import { EmailVerificationModule } from "./modules/auth/email/email-verification.module"
+import { UserAuthModule } from "./modules/auth/user-auth/user-auth.module"
+import { JwtModule } from './modules/auth/jwt/jwt.module';
 import { BoardModule } from "./modules/board/board.module";
 import { FileModule } from "./modules/file/file.module";
 
@@ -12,10 +13,11 @@ import { AppService } from "./app.service";
 @Module({
   imports: [
     TypeOrmModule,
+    EmailVerificationModule,
+    UserAuthModule,
+    JwtModule,
     BoardModule,
     FileModule,
-    EmailVerificationModule,
-    AuthUserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

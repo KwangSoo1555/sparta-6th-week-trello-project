@@ -11,24 +11,27 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
 import { ConfigService } from "@nestjs/config";
-import { EmailVerificationService } from "../email-verification/email-verification.service";
+import { EmailVerificationService } from "../email/email-verification.service";
 
 import { UserEntity } from "src/entities/users.entity";
-import { UserSignUpDto, UserSignInDto } from "./auth-user.dto";
-import { MESSAGES } from "src/common/constants/message.constant";
+import { RefreshTokenEntity } from "src/entities/refresh-token.entity";
+import { UserSignUpDto, UserSignInDto } from "./user-auth.dto";
+import { MESSAGES } from "src/common/constants/messages.constant";
 import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
 import { ENV } from "src/common/constants/env.constant";
 
 @Injectable()
-export class AuthUserService {
+export class UserAuthService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly emailVerificationService: EmailVerificationService,
     private readonly configService: ConfigService,
+    @InjectRepository(RefreshTokenEntity)
+    private readonly refreshTokenRepository: Repository<RefreshTokenEntity>,
   ) {}
 
-  async checkUser(params: { email?: string, userId?: number }) {
+  async checkUser(params: { email?: string; userId?: number }) {
     return this.userRepository.findOne({ where: { ...params } });
   }
 
@@ -47,8 +50,7 @@ export class AuthUserService {
 
     // 이미 존재하는 유저인지 확인
     const existingUser = await this.checkUser({ email });
-    if (existingUser)
-      throw new ConflictException(MESSAGES.AUTH.SIGN_UP.EMAIL.DUPLICATED);
+    if (existingUser) throw new ConflictException(MESSAGES.AUTH.SIGN_UP.EMAIL.DUPLICATED);
 
     // 비밀번호 해싱
     const hashedPassword = await bcrypt.hash(password, AUTH_CONSTANT.HASH_SALT_ROUNDS);
@@ -73,8 +75,7 @@ export class AuthUserService {
     const user = await this.checkUser({ email });
 
     // 유저 존재 여부 확인
-    if (!user) 
-      throw new NotFoundException(MESSAGES.AUTH.SIGN_IN.EMAIL.NOT_FOUND);
+    if (!user) throw new NotFoundException(MESSAGES.AUTH.SIGN_IN.EMAIL.NOT_FOUND);
 
     // 비밀번호 일치 여부 확인
     const isPasswordMatch = await bcrypt.compare(password, user.password);
@@ -84,22 +85,26 @@ export class AuthUserService {
     // JWT 발급
     const payload = { userId: user.id };
 
-    const accessToken = jwt.sign(
-      payload,
-      ENV.ACCESS_TOKEN_SECRET,
-      { expiresIn: AUTH_CONSTANT.ACCESS_TOKEN_EXPIRES_IN },
-    );
+    const accessToken = jwt.sign(payload, ENV.ACCESS_TOKEN_SECRET, {
+      expiresIn: AUTH_CONSTANT.ACCESS_TOKEN_EXPIRES_IN,
+    });
 
-    const refreshToken = jwt.sign(
-      payload,
-      ENV.REFRESH_TOKEN_SECRET,
-      { expiresIn: AUTH_CONSTANT.REFRESH_TOKEN_EXPIRES_IN },
-    );
+    const refreshToken = jwt.sign(payload, ENV.REFRESH_TOKEN_SECRET, {
+      expiresIn: AUTH_CONSTANT.REFRESH_TOKEN_EXPIRES_IN,
+    });
 
     const hashedRefreshToken = bcrypt.hashSync(refreshToken, AUTH_CONSTANT.HASH_SALT_ROUNDS);
 
     // hashed refresh token 을 jwt entity 에 저장
-    // await this.jwtRepository.storeRefreshToken(user.id, hashedRefreshToken, ip, userAgent);
+    await this.refreshTokenRepository.upsert(
+      {
+        userId: user.id,
+        refreshToken: hashedRefreshToken,
+        ip,
+        userAgent,
+      },
+      ["userId"],
+    );
 
     return {
       accessToken,
