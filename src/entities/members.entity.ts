@@ -10,12 +10,13 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { UserEntity } from "./users.entity";
-import { BoardEntity } from "./board.entity";
-import { CardAssigneeEntity } from "./card-assignee.entity";
 
-@Entity("member")
-export class MemberEntity {
+import { UsersEntity } from "./users.entity";
+import { BoardsEntity } from "./boards.entity";
+import { CardAssigneesEntity } from "./card-assignees.entity";
+
+@Entity("members")
+export class MembersEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -41,14 +42,14 @@ export class MemberEntity {
   @UpdateDateColumn({ name: "expires_at" })
   expiresAt: Date;
 
-  @ManyToOne(() => UserEntity, (user) => user.member)
+  @ManyToOne(() => UsersEntity, (user) => user.member)
   @JoinColumn({ name: "user_id" })
-  user: UserEntity;
+  user: UsersEntity;
 
-  @ManyToOne(() => BoardEntity, (board) => board.member)
+  @ManyToOne(() => BoardsEntity, (board) => board.member)
   @JoinColumn({ name: "board_id" })
-  board: BoardEntity[];
+  board: BoardsEntity[];
 
-  @OneToMany(() => CardAssigneeEntity, (cardAssignee) => cardAssignee.member)
-  cardAssignee: CardAssigneeEntity[];
+  @OneToMany(() => CardAssigneesEntity, (cardAssignee) => cardAssignee.member)
+  cardAssignee: CardAssigneesEntity[];
 }

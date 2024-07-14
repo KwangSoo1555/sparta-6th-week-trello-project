@@ -5,7 +5,7 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
-import { RefreshTokenEntity } from "src/entities/refresh-token.entity"
+import { RefreshTokensEntity } from "src/entities/refresh-tokens.entity"
 import { ENV } from "src/common/constants/env.constant";
 import { MESSAGES } from "src/common/constants/messages.constant";
 import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
@@ -13,8 +13,8 @@ import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
 @Injectable()
 export class JwtService {
   constructor(
-    @InjectRepository(RefreshTokenEntity)
-    private jwtRepository: Repository<RefreshTokenEntity>,
+    @InjectRepository(RefreshTokensEntity)
+    private jwtRepository: Repository<RefreshTokensEntity>,
   ) {}
 
   async tokenReissue(userId: number, refreshToken: string, ip: string, userAgent: string) {

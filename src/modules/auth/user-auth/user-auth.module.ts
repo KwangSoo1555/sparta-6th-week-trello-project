@@ -8,12 +8,12 @@ import { UserAuthController } from "./user-auth.controller";
 
 import { JwtStrategyService } from "../jwt/jwt-strategy.service";
 
-import { UserEntity } from "src/entities/users.entity";
-import { RefreshTokenEntity } from "src/entities/refresh-token.entity";
+import { UsersEntity } from "src/entities/users.entity";
+import { RefreshTokensEntity } from "src/entities/refresh-tokens.entity";
 
 @Module({
   imports: [
-    NestTypeOrmModule.forFeature([UserEntity, RefreshTokenEntity]),
+    NestTypeOrmModule.forFeature([UsersEntity, RefreshTokensEntity]),
     EmailVerificationModule,
     forwardRef(() => JwtModule),
   ],

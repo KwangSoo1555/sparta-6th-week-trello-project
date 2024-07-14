@@ -10,7 +10,7 @@ import { JwtController } from "./jwt.controller";
 import { JwtService } from "./jwt.service";
 import { JwtStrategyService } from "./jwt-strategy.service";
 
-import { RefreshTokenEntity } from "src/entities/refresh-token.entity";
+import { RefreshTokensEntity } from "src/entities/refresh-tokens.entity";
 import { ENV } from "src/common/constants/env.constant";
 
 @Module({
@@ -23,10 +23,10 @@ import { ENV } from "src/common/constants/env.constant";
       }),
       inject: [ConfigService],
     }),
-    NestTypeOrmModule.forFeature([RefreshTokenEntity]),
+    NestTypeOrmModule.forFeature([RefreshTokensEntity]),
     forwardRef(() => UserAuthModule),
   ],
   controllers: [JwtController],
-  providers: [JwtService],
+  providers: [JwtService, JwtStrategyService],
 })
 export class JwtModule {}

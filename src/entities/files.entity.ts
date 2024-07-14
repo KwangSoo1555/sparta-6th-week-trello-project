@@ -1,9 +1,9 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
-import { CardEntity } from "./card.entity";
+import { CardsEntity } from "./cards.entity";
 
-@Entity("file")
-export class FileEntity {
+@Entity("files")
+export class FilesEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -22,7 +22,7 @@ export class FileEntity {
   @Column({ type: "datetime", nullable: false, name: "updated_at" })
   updatedAt: Date;
 
-  @ManyToOne(() => CardEntity, (card) => card.file)
+  @ManyToOne(() => CardsEntity, (card) => card.file)
   @JoinColumn({ name: "card_id" })
-  card: CardEntity;
+  card: CardsEntity;
 }

@@ -13,8 +13,8 @@ import { Repository } from "typeorm";
 import { ConfigService } from "@nestjs/config";
 import { EmailVerificationService } from "../email/email-verification.service";
 
-import { UserEntity } from "src/entities/users.entity";
-import { RefreshTokenEntity } from "src/entities/refresh-token.entity";
+import { UsersEntity } from "src/entities/users.entity";
+import { RefreshTokensEntity } from "src/entities/refresh-tokens.entity";
 import { UserSignUpDto, UserSignInDto } from "./user-auth.dto";
 import { MESSAGES } from "src/common/constants/messages.constant";
 import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
@@ -23,12 +23,12 @@ import { ENV } from "src/common/constants/env.constant";
 @Injectable()
 export class UserAuthService {
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(UsersEntity)
+    private readonly userRepository: Repository<UsersEntity>,
     private readonly emailVerificationService: EmailVerificationService,
     private readonly configService: ConfigService,
-    @InjectRepository(RefreshTokenEntity)
-    private readonly refreshTokenRepository: Repository<RefreshTokenEntity>,
+    @InjectRepository(RefreshTokensEntity)
+    private readonly refreshTokenRepository: Repository<RefreshTokensEntity>,
   ) {}
 
   async checkUser(params: { email?: string; userId?: number }) {

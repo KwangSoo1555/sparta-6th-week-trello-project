@@ -103,9 +103,4 @@ export class JwtStrategyService extends PassportStrategy(Strategy) {
 export class JwtAccessGuards extends AuthGuard("jwt") {}
 
 @Injectable()
-export class JwtRefreshGuards extends AuthGuard("jwt") {
-  canActivate(context: ExecutionContext) {
-    console.log("JwtRefreshGuards: canActivate called");
-    return super.canActivate(context);
-  }
-}
+export class JwtRefreshGuards extends AuthGuard("jwt") {}

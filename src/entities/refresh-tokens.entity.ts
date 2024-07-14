@@ -8,10 +8,10 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-import { UserEntity } from "./users.entity";
+import { UsersEntity } from "./users.entity";
 
-@Entity("refresh_token")
-export class RefreshTokenEntity {
+@Entity("refresh_tokens")
+export class RefreshTokensEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -36,7 +36,7 @@ export class RefreshTokenEntity {
   @UpdateDateColumn({ name: "expires_at" })
   expiresAt: Date;
 
-  @OneToOne(() => UserEntity, (user) => user.refreshToken)
+  @OneToOne(() => UsersEntity, (user) => user.refreshToken)
   @JoinColumn({ name: "user_id" })
-  user: UserEntity;
+  user: UsersEntity;
 }

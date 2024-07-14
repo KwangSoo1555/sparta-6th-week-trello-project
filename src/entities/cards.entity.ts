@@ -1,12 +1,12 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-import { FileEntity } from "./file.entity";
-import { CardCommentEntity } from "./card-comment.entity";
-import { ListEntity } from "./list.entity";
-import { CardAssigneeEntity } from "./card-assignee.entity";
+import { FilesEntity } from "./files.entity";
+import { CardCommentsEntity } from "./card-comments.entity";
+import { ListsEntity } from "./lists.entity";
+import { CardAssigneesEntity } from "./card-assignees.entity";
 
-@Entity("card")
-export class CardEntity {
+@Entity("cards")
+export class CardsEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -37,15 +37,15 @@ export class CardEntity {
   @Column({ type: "datetime", nullable: false, name: "updated_at" })
   updatedAt: Date;
 
-  @ManyToOne(() => ListEntity, (list) => list.card)
-  list: ListEntity;
+  @ManyToOne(() => ListsEntity, (list) => list.card)
+  list: ListsEntity;
 
-  @OneToMany(() => FileEntity, (file) => file.card)
-  file: FileEntity[];
+  @OneToMany(() => FilesEntity, (file) => file.card)
+  file: FilesEntity[];
 
-  @OneToMany(() => CardCommentEntity, (cardComment) => cardComment.card)
-  comments: CardCommentEntity[];
+  @OneToMany(() => CardCommentsEntity, (cardComment) => cardComment.card)
+  comment: CardCommentsEntity[];
 
-  @OneToMany(() => CardAssigneeEntity, (cardAssignee) => cardAssignee.card)
-  cardAssignee: CardAssigneeEntity[];
+  @OneToMany(() => CardAssigneesEntity, (cardAssignee) => cardAssignee.card)
+  cardAssignee: CardAssigneesEntity[];
 }
