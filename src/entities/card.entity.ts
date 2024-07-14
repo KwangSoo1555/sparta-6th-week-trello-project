@@ -28,7 +28,7 @@ export class CardEntity {
   @Column({ type: "bigint", nullable: true, name: "next_index" })
   nextIndex: number;
 
-  @Column({ type: "date", nullable: true, name: "card_dead_line" })
+  @Column({ type: "datetime", nullable: false, name: "card_dead_line" })
   cardDeadLine: Date;
 
   @Column({ type: "varchar", nullable: true, name: "check_comment" })
