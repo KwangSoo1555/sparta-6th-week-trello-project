@@ -19,7 +19,7 @@ async function bootstrap() {
     module.hot.accept();
     module.hot.dispose(() => app.close());
   }
-  
+
   // 포트로 서버 실행
   try {
     await app.listen(port);

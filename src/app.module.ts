@@ -9,6 +9,7 @@ import { FileModule } from "./modules/file/file.module";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { CardModule } from "./modules/cards/card.module";
 
 @Module({
   imports: [

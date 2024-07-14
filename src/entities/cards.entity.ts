@@ -1,4 +1,12 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
 import { FilesEntity } from "./files.entity";
 import { CardCommentsEntity } from "./card-comments.entity";
@@ -14,28 +22,31 @@ export class CardsEntity {
   listId: number;
 
   @Column({ type: "varchar", nullable: false })
-  context: string;
+  content: string;
 
-  @Column({ type: "bigint", nullable: false, name: "next_index" })
+  // bigint 관련해서 한번 이야기해보기
+  @Column({ type: "bigint", nullable: true, name: "next_index" })
   nextIndex: number;
 
-  @Column({ type: "date", nullable: true, name: "card_dead_line" })
+  @Column({ type: "datetime", nullable: false, name: "card_dead_line" })
   cardDeadLine: Date;
 
   @Column({ type: "varchar", nullable: true, name: "check_comment" })
-  checkComment: string;
+  checkComment: string; // <-이녀석 존재가 무엇인지??
 
-  @Column({ type: "boolean", nullable: false, name: "is_done" })
+  @Column({ type: "boolean", default: true, name: "is_done" })
   isDone: boolean;
 
-  @Column({ type: "varchar", nullable: false, name: "background_color" })
+  @Column({ type: "varchar", default: "dark", name: "background_color" })
   backgroundColor: string;
 
-  @Column({ type: "datetime", nullable: false, name: "created_at" })
+  @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
 
-  @Column({ type: "datetime", nullable: false, name: "updated_at" })
+  @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
+
+  //-----------------------------------------------------------------------//
 
   @ManyToOne(() => ListsEntity, (list) => list.card)
   list: ListsEntity;
