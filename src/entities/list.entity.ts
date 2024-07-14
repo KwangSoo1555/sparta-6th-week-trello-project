@@ -10,6 +10,7 @@ import {
 } from "typeorm";
 import { CardEntity } from "./card.entity";
 import { BoardEntity } from "./board.entity";
+import { IsNotEmpty, IsString } from "class-validator";
 
 @Entity("list")
 export class ListEntity {
@@ -22,6 +23,8 @@ export class ListEntity {
   @Column({ type: "varchar", name: "user_id" })
   userId: string;
 
+  @IsNotEmpty({ message: "타이틀을 작성해 주세요." })
+  @IsString()
   @Column({ type: "varchar", length: 200 })
   title: string;
 
