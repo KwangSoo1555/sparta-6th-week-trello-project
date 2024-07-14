@@ -1,9 +1,9 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { CardEntity } from "./card.entity";
-import { MemberEntity } from "./member.entity";
+import { CardsEntity } from "./cards.entity";
+import { MembersEntity } from "./members.entity";
 
-@Entity("card_comment")
-export class CardCommentEntity {
+@Entity("card_comments")
+export class CardCommentsEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -16,10 +16,10 @@ export class CardCommentEntity {
   @Column({ type: "text" })
   content: string;
 
-  @ManyToOne(() => CardEntity, (card) => card.comments)
-  card: CardEntity;
+  @ManyToOne(() => CardsEntity, (card) => card.comment)
+  card: CardsEntity;
 
-  @OneToMany(() => MemberEntity, (member) => member.userId)
+  @OneToMany(() => MembersEntity, (member) => member.user)
   @JoinColumn({ name: "user_id" })
-  member: MemberEntity;
+  member: MembersEntity;
 }
