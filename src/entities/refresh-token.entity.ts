@@ -7,7 +7,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-
 import { UserEntity } from "./users.entity";
 
 @Entity("refresh_token")
@@ -25,9 +24,9 @@ export class RefreshTokenEntity {
   ip: string;
 
   @Column({ name: "user_agent" })
-  userAgent: string;
+  userAgent: Date;
 
-  @CreateDateColumn({ name: "created_at" })
+  @CreateDateColumn({ name: "created_ad" })
   createdAt: Date;
 
   @UpdateDateColumn({ name: "updated_at" })
@@ -36,7 +35,7 @@ export class RefreshTokenEntity {
   @UpdateDateColumn({ name: "expires_at" })
   expiresAt: Date;
 
-  @OneToOne(() => UserEntity, (user) => user.refreshToken)
+  @OneToOne(() => UserEntity)
   @JoinColumn({ name: "user_id" })
   user: UserEntity;
 }

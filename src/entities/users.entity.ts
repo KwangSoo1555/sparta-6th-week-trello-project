@@ -7,12 +7,10 @@ import {
   OneToOne,
   OneToMany,
 } from "typeorm";
-import { IsEnum } from "class-validator";
-
 import { RefreshTokenEntity } from "./refresh-token.entity";
-import { MemberEntity } from "./member.entity";
-
 import { SocialProvider } from "src/common/constants/types/member-role.type";
+import { IsEnum } from "class-validator";
+import { MemberEntity } from "./member.entity";
 
 @Entity("user")
 export class UserEntity {
@@ -28,8 +26,8 @@ export class UserEntity {
   @Column()
   password: string;
 
-  @Column({ name: "social_id", default: null })
-  socialId: string;
+  @Column({ name: "social_id" })
+  socialId: number;
 
   @IsEnum(SocialProvider)
   @Column({ type: "enum", enum: SocialProvider, default: SocialProvider.LOCAL })
