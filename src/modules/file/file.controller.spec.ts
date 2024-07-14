@@ -1,8 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { FileController } from './file.controller';
-import { FileService } from './file.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { FileController } from "./file.controller";
+import { FileService } from "./file.service";
 
-describe('FileController', () => {
+describe("FileController", () => {
   let controller: FileController;
   let fileService: FileService;
 
@@ -14,7 +14,7 @@ describe('FileController', () => {
           provide: FileService,
           useValue: {
             getFile: jest.fn((filename: string) => {
-              return 'Method not implemented.';
+              return "Method not implemented.";
             }),
           },
         },
@@ -26,7 +26,7 @@ describe('FileController', () => {
   });
 
   it('should return "Method not implemented." for getFile method', () => {
-    const filename = 'example.txt';
-    expect(controller.getFile(filename)).toBe('Method not implemented.');
+    const filename = "example.txt";
+    expect(controller.getFile(filename)).toBe("Method not implemented.");
   });
 });

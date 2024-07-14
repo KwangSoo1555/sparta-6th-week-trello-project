@@ -45,12 +45,9 @@ export class RefreshTokenStrategy extends PassportStrategy(Strategy, "refreshTok
   }
 
   async validate(payload: JwtPayload) {
-    console.log(payload);
     const { userId } = payload;
-    console.log(userId);
 
     const user = await this.userAuthService.checkUser({ id: userId });
-    console.log(user)
     if (!user) throw new UnauthorizedException(MESSAGES.AUTH.COMMON.JWT.INVALID);
 
     return user;

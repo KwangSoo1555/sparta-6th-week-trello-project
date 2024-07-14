@@ -22,6 +22,7 @@ import { AppService } from "./app.service";
     BoardModule,
     CardModule,
     FileModule,
+    CardModule,
   ],
   controllers: [AppController],
   providers: [AppService],

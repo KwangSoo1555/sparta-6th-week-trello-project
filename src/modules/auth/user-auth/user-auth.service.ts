@@ -47,7 +47,7 @@ export class UserAuthService {
     )
       throw new BadRequestException(MESSAGES.AUTH.SIGN_UP.EMAIL.VERIFICATION_CODE.INCONSISTENT);
 
-    // 이미 존재하는 유저인지 확인
+    // 이미 존재하는 유저인 경우 에러 처리
     const existingUser = await this.checkUser({ email });
     if (existingUser) throw new ConflictException(MESSAGES.AUTH.SIGN_UP.EMAIL.DUPLICATED);
 
@@ -92,6 +92,7 @@ export class UserAuthService {
       expiresIn: AUTH_CONSTANT.REFRESH_TOKEN_EXPIRES_IN,
     });
 
+    // refresh token 해싱
     const hashedRefreshToken = bcrypt.hashSync(refreshToken, AUTH_CONSTANT.HASH_SALT_ROUNDS);
 
     // hashed refresh token 을 jwt entity 에 저장
@@ -108,6 +109,17 @@ export class UserAuthService {
     return {
       accessToken,
       refreshToken,
+    };
+  }
+
+  async logOut(userId: number) {
+    await this.refreshTokenRepository.update(
+      { userId },
+      { refreshToken: null },
+    );
+
+    return {
+      message: MESSAGES.AUTH.SIGN_OUT.SUCCEED,
     };
   }
 }
