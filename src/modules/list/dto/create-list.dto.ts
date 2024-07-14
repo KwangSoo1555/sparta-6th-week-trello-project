@@ -10,7 +10,7 @@ export class CreateListDto {
   @IsNumber()
   boardId: number;
 
-  //   @IsNotEmpty()
-  //   @IsNumber()
-  //   nextIndex: number;
+  @IsNotEmpty()
+  @IsNumber()
+  nextIndex: number;
 }

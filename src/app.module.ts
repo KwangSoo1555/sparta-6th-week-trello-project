@@ -21,7 +21,6 @@ import { ListModule } from "./modules/list/list.module";
     BoardModule,
     FileModule,
     CardModule,
-    ,
     ListModule,
   ],
   controllers: [AppController],
