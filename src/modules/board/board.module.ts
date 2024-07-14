@@ -1,7 +1,9 @@
 import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+
 import { BoardService } from "./board.service";
 import { BoardController } from "./board.controller";
-import { TypeOrmModule } from "@nestjs/typeorm";
+
 import { BoardsEntity } from 'src/entities/boards.entity';
 
 @Module({
