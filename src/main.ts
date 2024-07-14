@@ -1,19 +1,18 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
-
-import { ENV } from "./common/constants/env.constant";
+import { ConfigService } from "@nestjs/config";
 
 declare const module: any;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ["error", "warn"],
-  });
-
+  });  
   // 프로젝트 초기 버전 및 start point 설정
   app.setGlobalPrefix("api/v1");
-
-  const port = ENV.SERVER_PORT || 3000;
+  
+  const configService = app.get(ConfigService);
+  const port = configService.get<number>("SERVER_PORT") || 3000;
 
   if (module.hot) {
     module.hot.accept();

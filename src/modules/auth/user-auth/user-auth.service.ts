@@ -18,7 +18,6 @@ import { RefreshTokensEntity } from "src/entities/refresh-tokens.entity";
 import { UserSignUpDto, UserSignInDto } from "./user-auth.dto";
 import { MESSAGES } from "src/common/constants/messages.constant";
 import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
-import { ENV } from "src/common/constants/env.constant";
 
 @Injectable()
 export class UserAuthService {
@@ -31,7 +30,7 @@ export class UserAuthService {
     private readonly refreshTokenRepository: Repository<RefreshTokensEntity>,
   ) {}
 
-  async checkUser(params: { email?: string; userId?: number }) {
+  async checkUser(params: { email?: string; id?: number }) {
     return this.userRepository.findOne({ where: { ...params } });
   }
 
@@ -85,11 +84,11 @@ export class UserAuthService {
     // JWT 발급
     const payload = { userId: user.id };
 
-    const accessToken = jwt.sign(payload, ENV.ACCESS_TOKEN_SECRET, {
+    const accessToken = jwt.sign(payload, this.configService.get("ACCESS_TOKEN_SECRET"), {
       expiresIn: AUTH_CONSTANT.ACCESS_TOKEN_EXPIRES_IN,
     });
 
-    const refreshToken = jwt.sign(payload, ENV.REFRESH_TOKEN_SECRET, {
+    const refreshToken = jwt.sign(payload, this.configService.get("REFRESH_TOKEN_SECRET"), {
       expiresIn: AUTH_CONSTANT.REFRESH_TOKEN_EXPIRES_IN,
     });
 
