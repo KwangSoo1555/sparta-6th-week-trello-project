@@ -1,5 +1,4 @@
 import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule as NestTypeOrmModule } from "@nestjs/typeorm";
 import { TypeOrmConfig } from "./typeorm.config";
 
@@ -7,9 +6,6 @@ import { TypeOrmConfig } from "./typeorm.config";
   imports: [
     NestTypeOrmModule.forRootAsync({
       useClass: TypeOrmConfig,
-    }),
-    ConfigModule.forRoot({
-      isGlobal: true,
     }),
   ],
 })

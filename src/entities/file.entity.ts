@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 import { CardEntity } from "./card.entity";
 
@@ -16,10 +16,10 @@ export class FileEntity {
   @Column({ type: "varchar", nullable: false, name: "file_url" })
   fileUrl: string;
 
-  @CreateDateColumn({ type: "datetime", nullable: false, name: "created_at" })
+  @Column({ type: "datetime", nullable: false, name: "created_at" })
   createdAt: Date;
 
-  @UpdateDateColumn({ type: "datetime", nullable: false, name: "updated_at" })
+  @Column({ type: "datetime", nullable: false, name: "updated_at" })
   updatedAt: Date;
 
   @ManyToOne(() => CardEntity, (card) => card.file)
