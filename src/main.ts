@@ -11,7 +11,7 @@ async function bootstrap() {
   });
 
   // 프로젝트 초기 버전 및 start point 설정
-  app.setGlobalPrefix("api/v1");
+  app.setGlobalPrefix("api");
 
   const port = ENV.SERVER_PORT || 3000;
 
@@ -19,7 +19,7 @@ async function bootstrap() {
     module.hot.accept();
     module.hot.dispose(() => app.close());
   }
-  
+
   // 포트로 서버 실행
   try {
     await app.listen(port);
