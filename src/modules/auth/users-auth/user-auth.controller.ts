@@ -10,9 +10,9 @@ import {
   UseGuards,
 } from "@nestjs/common";
 
-import { UserAuthService } from "./user-auth.service";
-import { JwtRefreshGuards } from "../jwt/jwt-strategy.service";
-import { UserSignUpDto, UserSignInDto } from "./user-auth.dto";
+import { UserAuthService } from "src/modules/auth/users-auth/user-auth.service";
+import { JwtRefreshGuards } from "src/modules/auth/jwt/jwt-strategy.service";
+import { UserSignUpDto, UserSignInDto } from "src/modules/auth/users-auth/user-auth.dto";
 import { RequestUserAndToken } from "src/common/custom/user-request-jwt"
 
 @Controller("auth")

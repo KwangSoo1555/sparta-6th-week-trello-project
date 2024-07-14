@@ -1,15 +1,14 @@
 import { Module, forwardRef } from "@nestjs/common";
 import { TypeOrmModule as NestTypeOrmModule } from "@nestjs/typeorm";
 import { JwtModule as NestJwtModule } from "@nestjs/jwt";
-import { PassportModule } from "@nestjs/passport";
-import { AccessTokenStrategy, RefreshTokenStrategy } from "./jwt-strategy.service";
+import { AccessTokenStrategy, RefreshTokenStrategy } from "src/modules/auth/jwt/jwt-strategy.service";
 
-import { UserAuthModule } from "../user-auth/user-auth.module";
+import { UserAuthModule } from "src/modules/auth/users-auth/user-auth.module";
 
-import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ConfigService } from "@nestjs/config";
 
-import { JwtService } from "./jwt.service";
-import { JwtController } from "./jwt.controller";
+import { JwtService } from "src/modules/auth/jwt/jwt.service";
+import { JwtController } from "src/modules/auth/jwt/jwt.controller";
 
 import { RefreshTokensEntity } from "src/entities/refresh-tokens.entity";
 
