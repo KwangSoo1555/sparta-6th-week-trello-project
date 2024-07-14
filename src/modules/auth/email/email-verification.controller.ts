@@ -1,8 +1,8 @@
 import { Controller, Post, Body, UsePipes, ValidationPipe } from "@nestjs/common";
 
-import { EmailVerificationService } from "./email-verification.service";
+import { EmailVerificationService } from "src/modules/auth/email/email-verification.service";
 
-import { EmailVerificationDto } from "./email-verification.dto";
+import { EmailVerificationDto } from "src/modules/auth/email/email-verification.dto";
 
 @Controller("auth")
 export class EmailVerificationController {

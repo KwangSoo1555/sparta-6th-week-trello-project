@@ -1,13 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CardEntity } from "src/entities/card.entity";
+import { CardsEntity } from "src/entities/cards.entity";
 import { Repository } from "typeorm";
 import { CreateCardDto } from "./dtos/create.cardDto";
 
 @Injectable()
 export class CardService {
   constructor(
-    @InjectRepository(CardEntity) private readonly cardRepository: Repository<CardEntity>,
+    @InjectRepository(CardsEntity)
+    private readonly cardRepository: Repository<CardsEntity>,
   ) {}
 
   // 카드 생성 API

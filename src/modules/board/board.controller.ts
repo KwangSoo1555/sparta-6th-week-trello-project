@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 
-import { BoardEntity } from "../../entities/board.entity"; 
+import { BoardsEntity } from "../../entities/boards.entity"; 
 
 import { GenerateBoardDto } from "./dto/board.generate.dto";
 import { BoardService } from "./board.service";

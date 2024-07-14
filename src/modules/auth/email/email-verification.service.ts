@@ -1,9 +1,9 @@
 import nodemailer from "nodemailer";
 import { Injectable, HttpStatus } from "@nestjs/common";
 
-import { EmailVerificationDto } from "./email-verification.dto";
+import { EmailVerificationDto } from "src/modules/auth/email/email-verification.dto";
 import { ENV } from "src/common/constants/env.constant";
-import { MESSAGES } from "src/common/constants/message.constant";
+import { MESSAGES } from "src/common/constants/messages.constant";
 import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
 
 @Injectable()

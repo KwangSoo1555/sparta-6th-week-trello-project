@@ -2,15 +2,15 @@ import { Injectable } from "@nestjs/common";
 import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { DataSource, DataSourceOptions } from "typeorm";
 
-import { UserEntity } from "src/entities/users.entity";
-import { RefreshTokenEntity } from "src/entities/refresh-token.entity";
-import { MemberEntity } from "src/entities/member.entity";
-import { BoardEntity } from "src/entities/board.entity";
-import { ListEntity } from "src/entities/list.entity";
-import { CardEntity } from "src/entities/card.entity";
-import { CardAssigneeEntity } from "src/entities/card-assignee.entity";
-import { CardCommentEntity } from "src/entities/card-comment.entity";
-import { FileEntity } from "src/entities/file.entity";
+import { UsersEntity } from "src/entities/users.entity";
+import { RefreshTokensEntity } from "src/entities/refresh-tokens.entity";
+import { MembersEntity } from "src/entities/members.entity";
+import { BoardsEntity } from "src/entities/boards.entity";
+import { ListsEntity } from "src/entities/lists.entity";
+import { CardsEntity } from "src/entities/cards.entity";
+import { CardAssigneesEntity } from "src/entities/card-assignees.entity";
+import { CardCommentsEntity } from "src/entities/card-comments.entity";
+import { FilesEntity } from "src/entities/files.entity";
 
 import { ENV } from "src/common/constants/env.constant";
 
@@ -25,15 +25,15 @@ export class TypeOrmConfig implements TypeOrmOptionsFactory {
       synchronize: true, // 개발 환경에서는 true로 설정, 프로덕션 환경에서는 false로 설정 후 마이그레이션으로 실행
       logging: ["error", "warn"], // 로그 출력 여부
       entities: [
-        UserEntity,
-        RefreshTokenEntity,
-        BoardEntity,
-        FileEntity,
-        MemberEntity,
-        ListEntity,
-        CardEntity,
-        CardAssigneeEntity,
-        CardCommentEntity,
+        UsersEntity,
+        RefreshTokensEntity,
+        BoardsEntity,
+        FilesEntity,
+        MembersEntity,
+        ListsEntity,
+        CardsEntity,
+        CardAssigneesEntity,
+        CardCommentsEntity,
       ], // 수정된 부분
     };
     this.typeOrm = new DataSource(options);

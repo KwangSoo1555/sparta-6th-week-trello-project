@@ -4,14 +4,14 @@ import _ from "lodash";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 
-import { BoardEntity } from "../../entities/board.entity"; //지울 예정
+import { BoardsEntity } from "../../entities/boards.entity"; //지울 예정
 import { GenerateBoardDto } from "./dto/board.generate.dto";
 
 @Injectable()
 export class BoardService {
   constructor(
-    @InjectRepository(BoardEntity)
-    private boardRepository: Repository<BoardEntity>,
+    @InjectRepository(BoardsEntity)
+    private boardRepository: Repository<BoardsEntity>,
   ) {}
   async generateBoard(title: string, content: string, color: string) {
     await this.boardRepository.save({

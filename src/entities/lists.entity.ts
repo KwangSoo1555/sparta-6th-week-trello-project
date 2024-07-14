@@ -8,11 +8,11 @@ import {
   ManyToOne,
   JoinColumn,
 } from "typeorm";
-import { CardEntity } from "./card.entity";
-import { BoardEntity } from "./board.entity";
+import { CardsEntity } from "./cards.entity";
+import { BoardsEntity } from "./boards.entity";
 
-@Entity("list")
-export class ListEntity {
+@Entity("lists")
+export class ListsEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -34,10 +34,10 @@ export class ListEntity {
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @ManyToOne(() => BoardEntity, (board) => board.list)
+  @ManyToOne(() => BoardsEntity, (board) => board.list)
   @JoinColumn({ name: "board_id" })
-  board: BoardEntity;
+  board: BoardsEntity;
 
-  @OneToMany(() => CardEntity, (card) => card.list)
-  card: CardEntity[];
+  @OneToMany(() => CardsEntity, (card) => card.list)
+  card: CardsEntity[];
 }
