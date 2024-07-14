@@ -15,8 +15,6 @@ import { RefreshTokensEntity } from "src/entities/refresh-tokens.entity";
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    PassportModule.register({ session: false }),
     NestJwtModule.registerAsync({
       useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>("ACCESS_TOKEN_SECRET"),
