@@ -8,7 +8,7 @@ const options: DataSourceOptions = {
   url: ENV.MYSQL_URI,
   synchronize: true, // 개발 환경에서는 true로 설정, 프로덕션 환경에서는 false로 설정 후 마이그레이션으로 실행
   logging: ["error", "warn"], // 로그 출력 여부
-  entities: [__dirname + '/**/*.entity{.ts,.js}'],
+  entities: [__dirname + "/**/*.entity{.ts,.js}"],
 };
 
 export class TypeOrmConfig implements TypeOrmOptionsFactory {
