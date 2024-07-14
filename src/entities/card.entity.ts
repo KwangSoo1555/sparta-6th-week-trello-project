@@ -1,4 +1,12 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
 import { FileEntity } from "./file.entity";
 import { CardCommentEntity } from "./card-comment.entity";
@@ -14,31 +22,29 @@ export class CardEntity {
   @Column({ type: "int", nullable: false, name: "list_id" })
   listId: number;
 
-  // 타이틀 관련??
-  @IsNotEmpty({ message: "카드내용을 입력해주세요." })
   @Column({ type: "varchar", nullable: false })
-  content: string; // <- 이거 내용 확인 context는 문맥
+  content: string;
 
   // bigint 관련해서 한번 이야기해보기
-  @Column({ type: "bigint", nullable: false, name: "next_index" })
+  @Column({ type: "bigint", nullable: true, name: "next_index" })
   nextIndex: number;
 
   @Column({ type: "date", nullable: true, name: "card_dead_line" })
-  cardDeadLine: Date; // 마감일
+  cardDeadLine: Date;
 
   @Column({ type: "varchar", nullable: true, name: "check_comment" })
   checkComment: string; // <-이녀석 존재가 무엇인지??
 
-  @Column({ type: "boolean", default: false, name: "is_done" })
-  isDone: boolean; // 일 끝냈어?
+  @Column({ type: "boolean", default: true, name: "is_done" })
+  isDone: boolean;
 
   @Column({ type: "varchar", default: "dark", name: "background_color" })
   backgroundColor: string;
 
-  @Column({ type: "datetime", nullable: false, name: "created_at" })
+  @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
 
-  @Column({ type: "datetime", nullable: false, name: "updated_at" })
+  @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
   //-----------------------------------------------------------------------//

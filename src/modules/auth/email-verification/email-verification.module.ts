@@ -5,5 +5,6 @@ import { EmailVerificationService } from "./email-verification.service";
 @Module({
   controllers: [EmailVerificationController],
   providers: [EmailVerificationService],
+  exports: [EmailVerificationService],
 })
 export class EmailVerificationModule {}

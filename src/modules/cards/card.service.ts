@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
-import { CreateCardDto } from "./dto/CreateCardDto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CardEntity } from "src/entities/card.entity";
 import { Repository } from "typeorm";
+import { CreateCardDto } from "./dtos/create.cardDto";
 
 @Injectable()
 export class CardService {
@@ -12,8 +12,8 @@ export class CardService {
 
   // 카드 생성 API
   // id는 생성 되고 나서 발생하는 거니까 list id를 넣는다.
-  async create({ listId }: CreateCardDto) {
-    const newCard = await this.cardRepository.save({ listId });
+  async create(createCardDto: CreateCardDto) {
+    const newCard = await this.cardRepository.save(createCardDto);
 
     return newCard;
   }

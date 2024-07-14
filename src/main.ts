@@ -11,7 +11,7 @@ async function bootstrap() {
   });
 
   // 프로젝트 초기 버전 및 start point 설정
-  app.setGlobalPrefix("api");
+  app.setGlobalPrefix("api/v1");
 
   const port = ENV.SERVER_PORT || 3000;
 

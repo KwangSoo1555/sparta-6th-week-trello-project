@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Param, ParseIntPipe, Post } from "@nestjs/common";
 import { CardService } from "./card.service";
-import { CreateCardDto } from "./dto/CreateCardDto";
+import { CreateCardDto } from "./dtos/create.cardDto";
 
 @Controller("card")
 export class CardController {
@@ -10,10 +10,12 @@ export class CardController {
   // listId는 애당초 가지고 있는지?
   // 로그인 한 사람이 현재 리스트에서 카드를 만드니까 현재 리스트의 id가 자동으로 입력이 되는것인지?
 
-  @Post("lists/:listId/cards")
+  @Post(":listId")
   async create(@Body() createCardDto: CreateCardDto) {
     return await this.cardService.create(createCardDto);
   }
+
+  // @Param("listId") listId: number
 
   // @Patch(":id")
   // update(@Param("id") id: number, @Body() updateCard: UpdateCard) {
@@ -21,8 +23,9 @@ export class CardController {
   // }
 
   @Delete(":id")
-  delete(@Param("id") id: number) {
-    return this.cardService.delete(+id);
+  // ParseIntPipe = number가 아닌 타입을 가져올 때 자동으로 숫자로 변환시켜주는 것
+  delete(@Param("id", ParseIntPipe) id) {
+    return this.cardService.delete(id);
   }
 
   // 순서이동
