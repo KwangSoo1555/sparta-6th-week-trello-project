@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import "dotenv/config";
 
 export const ENV = {
   // 서버 포트
@@ -12,9 +12,6 @@ export const ENV = {
   REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
 
   // nodemailer 인증 관련
-  MAIL_HOST: process.env.MAIL_HOST,
-  MAIL_PORT: process.env.MAIL_PORT,
-  MAIL_SECURE: process.env.MAIL_SECURE,
   MAIL_AUTH_USER: process.env.MAIL_AUTH_USER,
   MAIL_AUTH_PASS: process.env.MAIL_AUTH_PASS,
 

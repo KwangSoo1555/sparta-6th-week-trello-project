@@ -7,11 +7,11 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-import { MemberEntity } from "./member.entity";
-import { ListEntity } from "./list.entity";
+import { MembersEntity } from "./members.entity";
+import { ListsEntity } from "./lists.entity";
 
-@Entity("board")
-export class BoardEntity {
+@Entity("boards")
+export class BoardsEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -30,9 +30,9 @@ export class BoardEntity {
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @OneToMany(() => MemberEntity, (member) => member.board)
-  member: MemberEntity[];
+  @OneToMany(() => MembersEntity, (member) => member.board)
+  member: MembersEntity[];
 
-  @OneToMany(() => ListEntity, (list) => list.board)
-  list: ListEntity[];
+  @OneToMany(() => ListsEntity, (list) => list.board)
+  list: ListsEntity[];
 }

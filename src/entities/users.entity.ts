@@ -7,13 +7,15 @@ import {
   OneToOne,
   OneToMany,
 } from "typeorm";
-import { RefreshTokenEntity } from "./refresh-token.entity";
-import { SocialProvider } from "src/common/constants/types/member-role.type";
 import { IsEnum } from "class-validator";
-import { MemberEntity } from "./member.entity";
 
-@Entity("user")
-export class UserEntity {
+import { RefreshTokensEntity } from "./refresh-tokens.entity";
+import { MembersEntity } from "./members.entity";
+
+import { SocialProvider } from "src/common/constants/types/member-role.type";
+
+@Entity("users")
+export class UsersEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -26,8 +28,8 @@ export class UserEntity {
   @Column()
   password: string;
 
-  @Column({ name: "social_id" })
-  socialId: number;
+  @Column({ name: "social_id", default: null })
+  socialId: string;
 
   @IsEnum(SocialProvider)
   @Column({ type: "enum", enum: SocialProvider, default: SocialProvider.LOCAL })
@@ -46,9 +48,9 @@ export class UserEntity {
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @OneToOne(() => RefreshTokenEntity, (refreshToken) => refreshToken.user)
-  refreshToken: RefreshTokenEntity;
+  @OneToOne(() => RefreshTokensEntity, (refreshToken) => refreshToken.user)
+  refreshToken: RefreshTokensEntity;
 
-  @OneToMany(() => MemberEntity, (member) => member.user)
-  member: MemberEntity[];
+  @OneToMany(() => MembersEntity, (member) => member.user)
+  member: MembersEntity[];
 }

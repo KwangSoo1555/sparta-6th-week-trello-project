@@ -3,12 +3,12 @@ import { CreateListDto } from "./dto/create-list.dto";
 import { UpdateListDto } from "./dto/update-list.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { ListEntity } from "src/entities/list.entity";
+import { ListsEntity } from "src/entities/lists.entity";
 
 @Injectable()
 export class ListService {
   constructor(
-    @InjectRepository(ListEntity) private readonly listRepository: Repository<ListEntity>,
+    @InjectRepository(ListsEntity) private readonly listRepository: Repository<ListsEntity>,
   ) {}
 
   async create(createListDto: CreateListDto) {
