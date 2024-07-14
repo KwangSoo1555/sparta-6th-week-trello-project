@@ -12,9 +12,8 @@ import { FileEntity } from "./file.entity";
 import { CardCommentEntity } from "./card-comment.entity";
 import { ListEntity } from "./list.entity";
 import { CardAssigneeEntity } from "./card-assignee.entity";
-import { IsNotEmpty } from "class-validator";
 
-@Entity("cards") // <- 엔티티 이름은 대부분 s 형태
+@Entity("card") // <- 엔티티 이름은 대부분 s 형태
 export class CardEntity {
   @PrimaryGeneratedColumn()
   id: number;

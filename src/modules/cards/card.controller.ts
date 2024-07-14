@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Param, ParseIntPipe, Post } from "@nestjs/com
 import { CardService } from "./card.service";
 import { CreateCardDto } from "./dtos/create.cardDto";
 
-@Controller("card")
+@Controller("lists/:listId/cards")
 export class CardController {
   constructor(private readonly cardService: CardService) {}
 
@@ -10,9 +10,12 @@ export class CardController {
   // listId는 애당초 가지고 있는지?
   // 로그인 한 사람이 현재 리스트에서 카드를 만드니까 현재 리스트의 id가 자동으로 입력이 되는것인지?
 
-  @Post(":listId")
-  async create(@Body() createCardDto: CreateCardDto) {
-    return await this.cardService.create(createCardDto);
+  @Post()
+  async create(
+    @Body() createCardDto: CreateCardDto,
+    @Param("listId", ParseIntPipe) listId: number,
+  ) {
+    return await this.cardService.create(createCardDto, listId);
   }
 
   // @Param("listId") listId: number

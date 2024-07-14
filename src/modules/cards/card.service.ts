@@ -12,8 +12,9 @@ export class CardService {
 
   // 카드 생성 API
   // id는 생성 되고 나서 발생하는 거니까 list id를 넣는다.
-  async create(createCardDto: CreateCardDto) {
-    const newCard = await this.cardRepository.save(createCardDto);
+  async create(createCardDto: CreateCardDto, listId: number) {
+    const newItem = { ...createCardDto, listId };
+    const newCard = await this.cardRepository.save(newItem);
 
     return newCard;
   }
