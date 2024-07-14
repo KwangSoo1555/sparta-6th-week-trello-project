@@ -18,7 +18,7 @@ export class RefreshTokensEntity {
   @Column({ name: "user_id" })
   userId: number;
 
-  @Column({ name: "refresh_token" })
+  @Column({ name: "refresh_token", nullable: true })
   refreshToken: string;
 
   @Column()

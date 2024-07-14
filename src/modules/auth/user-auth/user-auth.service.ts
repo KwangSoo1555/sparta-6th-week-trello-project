@@ -18,7 +18,6 @@ import { RefreshTokensEntity } from "src/entities/refresh-tokens.entity";
 import { UserSignUpDto, UserSignInDto } from "./user-auth.dto";
 import { MESSAGES } from "src/common/constants/messages.constant";
 import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
-import { ENV } from "src/common/constants/env.constant";
 
 @Injectable()
 export class UserAuthService {
@@ -31,7 +30,7 @@ export class UserAuthService {
     private readonly refreshTokenRepository: Repository<RefreshTokensEntity>,
   ) {}
 
-  async checkUser(params: { email?: string; userId?: number }) {
+  async checkUser(params: { email?: string; id?: number }) {
     return this.userRepository.findOne({ where: { ...params } });
   }
 
@@ -48,7 +47,7 @@ export class UserAuthService {
     )
       throw new BadRequestException(MESSAGES.AUTH.SIGN_UP.EMAIL.VERIFICATION_CODE.INCONSISTENT);
 
-    // 이미 존재하는 유저인지 확인
+    // 이미 존재하는 유저인 경우 에러 처리
     const existingUser = await this.checkUser({ email });
     if (existingUser) throw new ConflictException(MESSAGES.AUTH.SIGN_UP.EMAIL.DUPLICATED);
 
@@ -85,14 +84,15 @@ export class UserAuthService {
     // JWT 발급
     const payload = { userId: user.id };
 
-    const accessToken = jwt.sign(payload, ENV.ACCESS_TOKEN_SECRET, {
+    const accessToken = jwt.sign(payload, this.configService.get("ACCESS_TOKEN_SECRET"), {
       expiresIn: AUTH_CONSTANT.ACCESS_TOKEN_EXPIRES_IN,
     });
 
-    const refreshToken = jwt.sign(payload, ENV.REFRESH_TOKEN_SECRET, {
+    const refreshToken = jwt.sign(payload, this.configService.get("REFRESH_TOKEN_SECRET"), {
       expiresIn: AUTH_CONSTANT.REFRESH_TOKEN_EXPIRES_IN,
     });
 
+    // refresh token 해싱
     const hashedRefreshToken = bcrypt.hashSync(refreshToken, AUTH_CONSTANT.HASH_SALT_ROUNDS);
 
     // hashed refresh token 을 jwt entity 에 저장
@@ -109,6 +109,17 @@ export class UserAuthService {
     return {
       accessToken,
       refreshToken,
+    };
+  }
+
+  async logOut(userId: number) {
+    await this.refreshTokenRepository.update(
+      { userId },
+      { refreshToken: null },
+    );
+
+    return {
+      message: MESSAGES.AUTH.SIGN_OUT.SUCCEED,
     };
   }
 }

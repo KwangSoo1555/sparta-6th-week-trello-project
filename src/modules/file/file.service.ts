@@ -4,7 +4,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
-import { ENV } from "src/common/constants/env.constant";
 import { FilesEntity } from "src/entities/files.entity";
 import { CardsEntity } from "src/entities/cards.entity";
 import { MESSAGES } from "src/common/constants/messages.constant";
@@ -46,7 +45,7 @@ export class FileService {
     return this.fileRepository.save({
       cardId: cardId,
       title: file.originalname,
-      fileUrl: `https://${ENV.AWS_BUCKET}.s3.${ENV.AWS_S3_REGION}.amazonaws.com/${file.originalname}`,
+      fileUrl: `https://${this.configService.get("AWS_BUCKET")}.s3.${this.configService.get("AWS_S3_REGION")}.amazonaws.com/${file.originalname}`,
     });
   }
 }

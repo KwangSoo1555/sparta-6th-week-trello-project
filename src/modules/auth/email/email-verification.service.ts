@@ -1,18 +1,23 @@
 import nodemailer from "nodemailer";
 import { Injectable, HttpStatus } from "@nestjs/common";
 
+import { ConfigService } from "@nestjs/config";
+
 import { EmailVerificationDto } from "src/modules/auth/email/email-verification.dto";
-import { ENV } from "src/common/constants/env.constant";
 import { MESSAGES } from "src/common/constants/messages.constant";
 import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
 
 @Injectable()
 export class EmailVerificationService {
+  constructor(
+    private configService: ConfigService
+  ) {}
+
   smtpTransport = nodemailer.createTransport({
     service: "naver",
     auth: {
-      user: ENV.MAIL_AUTH_USER,
-      pass: ENV.MAIL_AUTH_PASS,
+      user: this.configService.get<string>("MAIL_AUTH_USER"),
+      pass: this.configService.get<string>("MAIL_AUTH_PASS"),
     },
   });
 

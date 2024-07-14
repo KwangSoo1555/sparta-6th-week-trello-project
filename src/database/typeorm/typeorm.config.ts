@@ -2,6 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { DataSource, DataSourceOptions } from "typeorm";
 
+import { ConfigService } from "@nestjs/config";
+
 import { UsersEntity } from "src/entities/users.entity";
 import { RefreshTokensEntity } from "src/entities/refresh-tokens.entity";
 import { MembersEntity } from "src/entities/members.entity";
@@ -12,16 +14,14 @@ import { CardAssigneesEntity } from "src/entities/card-assignees.entity";
 import { CardCommentsEntity } from "src/entities/card-comments.entity";
 import { FilesEntity } from "src/entities/files.entity";
 
-import { ENV } from "src/common/constants/env.constant";
-
 @Injectable()
 export class TypeOrmConfig implements TypeOrmOptionsFactory {
   private typeOrm: DataSource;
 
-  constructor() {
+  constructor(private configService: ConfigService) {
     const options: DataSourceOptions = {
       type: "mysql", // 데이터베이스 유형
-      url: ENV.MYSQL_URI,
+      url: configService.get<string>("MYSQL_URI"),
       synchronize: true, // 개발 환경에서는 true로 설정, 프로덕션 환경에서는 false로 설정 후 마이그레이션으로 실행
       logging: ["error", "warn"], // 로그 출력 여부
       entities: [

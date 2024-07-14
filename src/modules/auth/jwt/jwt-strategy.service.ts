@@ -1,61 +1,4 @@
-// import { Injectable, UnauthorizedException } from "@nestjs/common";
-// import { ConfigService } from "@nestjs/config";
-// import { ExtractJwt, Strategy } from "passport-jwt";
-// import { PassportStrategy, AuthGuard } from "@nestjs/passport";
-// import { JwtPayload } from "jsonwebtoken";
-
-// import { UserAuthService } from "src/modules/auth/user-auth/user-auth.service";
-
-// import { ENV } from "src/common/constants/env.constant";
-// import { MESSAGES } from "src/common/constants/messages.constant";
-
-// @Injectable()
-// export class JwtStrategyService extends PassportStrategy(Strategy, "jwt") {
-//   constructor(
-//     private userAuthService: UserAuthService,
-//     private configService: ConfigService,
-//   ) {
-//     super({
-//       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-//       ignoreExpiration: false,
-//       // secretOrKey: (payload: JwtPayload, done) => {
-//       //   const secret =
-//       //     payload.type === "access"
-//       //       ? configService.get<string>(ENV.ACCESS_TOKEN_SECRET)
-//       //       : configService.get<string>(ENV.REFRESH_TOKEN_SECRET);
-//       //   done(null, secret);
-//       // },
-//       secretOrKeyProvider: (request, rawJwtToken, done) => {
-//         try {
-//           const token = rawJwtToken.split('.')[1];
-//           const payload = JSON.parse(Buffer.from(token, 'base64').toString());
-//           const secret = payload.type === 'access' 
-//             ? this.configService.get<string>(ENV.ACCESS_TOKEN_SECRET)
-//             : this.configService.get<string>(ENV.REFRESH_TOKEN_SECRET);
-//           done(null, secret);
-//         } catch (error) {
-//           done(error, null);
-//         }
-//       },
-//     });
-//   }
-
-//   async validate(payload: JwtPayload) {
-//     const user = await this.userAuthService.checkUser({ userId: payload.userId });
-//     if (!user) throw new UnauthorizedException(MESSAGES.AUTH.COMMON.JWT.INVALID);
-
-//     return user;
-//   }
-// }
-
-// @Injectable()
-// export class JwtAccessGuards extends AuthGuard("jwt") {}
-
-// @Injectable()
-// export class JwtRefreshGuards extends AuthGuard("jwt") {}
-
-
-import { Injectable, UnauthorizedException, ExecutionContext } from "@nestjs/common";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { PassportStrategy, AuthGuard } from "@nestjs/passport";
@@ -63,44 +6,57 @@ import { JwtPayload } from "jsonwebtoken";
 
 import { UserAuthService } from "src/modules/auth/user-auth/user-auth.service";
 
-import { ENV } from "src/common/constants/env.constant";
 import { MESSAGES } from "src/common/constants/messages.constant";
 
+// Access token validation
 @Injectable()
-export class JwtStrategyService extends PassportStrategy(Strategy) {
+export class AccessTokenStrategy extends PassportStrategy(Strategy, "accessToken") {
   constructor(
     private userAuthService: UserAuthService,
     private configService: ConfigService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false,
-      secretOrKeyProvider: (request, rawJwtToken, done) => {
-        try {
-          const token = rawJwtToken.split('.')[1];
-          const payload = JSON.parse(Buffer.from(token, 'base64').toString());
-          const secret = payload.type === 'access' 
-            ? this.configService.get<string>(ENV.ACCESS_TOKEN_SECRET)
-            : this.configService.get<string>(ENV.REFRESH_TOKEN_SECRET);
-          done(null, secret);
-        } catch (error) {
-          done(error, null);
-        }
-      }
+      secretOrKey: configService.get<string>("ACCESS_TOKEN_SECRET"),
     });
   }
 
   async validate(payload: JwtPayload) {
-    console.log("Payload:", payload); // 디버깅을 위해 추가
-    const user = await this.userAuthService.checkUser({ userId: payload.userId });
+    const { userId } = payload;
+
+    const user = await this.userAuthService.checkUser({ id: userId });
     if (!user) throw new UnauthorizedException(MESSAGES.AUTH.COMMON.JWT.INVALID);
 
     return user;
   }
 }
 
+// Refresh token validation
 @Injectable()
-export class JwtAccessGuards extends AuthGuard("jwt") {}
+export class RefreshTokenStrategy extends PassportStrategy(Strategy, "refreshToken") {
+  constructor(
+    private userAuthService: UserAuthService,
+    private configService: ConfigService,
+  ) {
+    super({
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: configService.get<string>("REFRESH_TOKEN_SECRET"),
+    });
+  }
+
+  async validate(payload: JwtPayload) {
+    const { userId } = payload;
+
+    const user = await this.userAuthService.checkUser({ id: userId });
+    if (!user) throw new UnauthorizedException(MESSAGES.AUTH.COMMON.JWT.INVALID);
+
+    return user;
+  }
+}
+
+// 인증 가드를 설정하여 보호된 라우트에 접근할 때 access token 과 refresh token 을 검증
+@Injectable()
+export class JwtAccessGuards extends AuthGuard("accessToken") {}
 
 @Injectable()
-export class JwtRefreshGuards extends AuthGuard("jwt") {}
+export class JwtRefreshGuards extends AuthGuard("refreshToken") {}
