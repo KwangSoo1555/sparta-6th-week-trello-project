@@ -25,7 +25,7 @@ export class CardsEntity {
   content: string;
 
   // bigint 관련해서 한번 이야기해보기
-  @Column({ type: "bigint", nullable: true, name: "next_index" })
+  @Column({ type: "bigint", unique: true, name: "card_next_index" })
   nextIndex: number;
 
   @Column({ type: "datetime", nullable: false, name: "card_dead_line" })

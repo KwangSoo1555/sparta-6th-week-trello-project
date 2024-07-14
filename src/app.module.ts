@@ -1,6 +1,5 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "./database/typeorm/typeorm.module";
-
 import { EmailVerificationModule } from "./modules/auth/email/email-verification.module";
 import { UserAuthModule } from "./modules/auth/user-auth/user-auth.module";
 import { JwtModule } from "./modules/auth/jwt/jwt.module";

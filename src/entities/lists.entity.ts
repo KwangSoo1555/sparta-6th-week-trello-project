@@ -21,8 +21,8 @@ export class ListsEntity {
   @Column({ type: "int", name: "board_id" })
   boardId: number;
 
-  @Column({ type: "varchar", name: "user_id" })
-  userId: string;
+  // @Column({ type: "varchar", name: "user_id", nullable: true })
+  // userId: string;
 
   @IsNotEmpty({ message: "타이틀을 작성해 주세요." })
   @IsString()

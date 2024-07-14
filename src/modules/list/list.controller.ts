@@ -3,14 +3,13 @@ import { ListService } from "./list.service";
 import { CreateListDto } from "./dto/create-list.dto";
 import { UpdateListDto } from "./dto/update-list.dto";
 
-@Controller("lists")
+@Controller("boards/:boardId/lists")
 export class ListController {
   constructor(private readonly listService: ListService) {}
 
   @Post()
-  async create(@Body() createListDto: CreateListDto) {
-    //const { userId } = req.user;  유저id 어떻게 가져오지
-    const list = await this.listService.create(createListDto);
+  async create(@Body() createListDto: CreateListDto, @Param("boardId") boardId: number) {
+    const list = await this.listService.create(createListDto, boardId);
 
     return {
       statusCode: HttpStatus.CREATED,

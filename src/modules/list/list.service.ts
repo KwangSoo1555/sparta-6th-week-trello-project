@@ -11,18 +11,19 @@ export class ListService {
     @InjectRepository(ListsEntity) private readonly listRepository: Repository<ListsEntity>,
   ) {}
 
-  async create(createListDto: CreateListDto) {
-    const { title, boardId } = createListDto;
-    const list = await this.listRepository.save({
-      title,
-      boardId,
-    });
+  async create(createListDto: CreateListDto, boardId: number) {
+    const list = { ...createListDto, boardId };
+    const newList = await this.listRepository.save(list);
 
-    return list;
+    return newList;
   }
 
-  findAll() {
-    return `This action returns all list`;
+  async findAll(): Promise<ListsEntity[]> {
+    return await this.listRepository.find({
+      order: {
+        createdAt: "ASC",
+      },
+    });
   }
 
   findOne(id: number) {
