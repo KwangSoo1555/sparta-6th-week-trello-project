@@ -11,7 +11,7 @@ import {
 import { FileService } from "./file.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { FileSizeValidationPipe } from "src/common/pipes/file-size-validation.pipe";
-import { MESSAGES } from "src/common/constants/message.constant";
+import { MESSAGES } from "src/common/constants/messages.constant";
 
 @Controller("file")
 export class FileController {

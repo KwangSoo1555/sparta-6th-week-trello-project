@@ -5,9 +5,9 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 import { ENV } from "src/common/constants/env.constant";
-import { FileEntity } from "src/entities/file.entity";
-import { CardEntity } from "src/entities/card.entity";
-import { MESSAGES } from "src/common/constants/message.constant";
+import { FilesEntity } from "src/entities/files.entity";
+import { CardsEntity } from "src/entities/cards.entity";
+import { MESSAGES } from "src/common/constants/messages.constant";
 import { ConfigService } from "@nestjs/config";
 
 @Injectable()
@@ -15,10 +15,10 @@ export class FileService {
   private readonly s3: S3Client;
 
   constructor(
-    @InjectRepository(FileEntity)
-    private readonly fileRepository: Repository<FileEntity>,
-    @InjectRepository(CardEntity)
-    private readonly cardRepository: Repository<CardEntity>,
+    @InjectRepository(FilesEntity)
+    private readonly fileRepository: Repository<FilesEntity>,
+    @InjectRepository(CardsEntity)
+    private readonly cardRepository: Repository<CardsEntity>,
     private configService: ConfigService,
   ) {
     this.s3 = new S3Client({
