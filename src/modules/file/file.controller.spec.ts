@@ -9,14 +9,24 @@ describe('FileController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [FileController],
-      providers: [FileService],
+      providers: [
+        {
+          provide: FileService,
+          useValue: {
+            getFile: jest.fn((filename: string) => {
+              return 'Method not implemented.';
+            }),
+          },
+        },
+      ],
     }).compile();
 
     controller = module.get<FileController>(FileController);
     fileService = module.get<FileService>(FileService);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  it('should return "Method not implemented." for getFile method', () => {
+    const filename = 'example.txt';
+    expect(controller.getFile(filename)).toBe('Method not implemented.');
   });
 });
