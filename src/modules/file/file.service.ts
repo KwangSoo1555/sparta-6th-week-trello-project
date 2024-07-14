@@ -4,11 +4,11 @@ import { InjectRepository } from "@nestjs/typeorm";
 
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
-import { ENV } from 'src/common/constants/env.constant';
+import { ENV } from "src/common/constants/env.constant";
 import { FileEntity } from "src/entities/file.entity";
 import { CardEntity } from "src/entities/card.entity";
 import { MESSAGES } from "src/common/constants/message.constant";
-import { ConfigService } from '@nestjs/config';
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class FileService {
@@ -19,7 +19,7 @@ export class FileService {
     private readonly fileRepository: Repository<FileEntity>,
     @InjectRepository(CardEntity)
     private readonly cardRepository: Repository<CardEntity>,
-    private configService: ConfigService
+    private configService: ConfigService,
   ) {
     this.s3 = new S3Client({
       region: configService.get("AWS_S3_REGION"),
@@ -32,8 +32,8 @@ export class FileService {
 
   async uploadFile(file: Express.Multer.File, cardId: number) {
     const cardCheck = await this.cardRepository.findOne({ where: { id: cardId } });
-    if(!cardCheck){
-      throw new BadRequestException(MESSAGES.FILES.NOT_CARD.CARD_NOT_FOUND)
+    if (!cardCheck) {
+      throw new BadRequestException(MESSAGES.FILES.NOT_CARD.CARD_NOT_FOUND);
     }
     const command = new PutObjectCommand({
       Bucket: this.configService.get("AWS_BUCKET"),
