@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsDate, IsNotEmpty, IsString } from "class-validator";
+import { IsDate, IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateCardDto {
   @IsString()
@@ -14,4 +14,8 @@ export class CreateCardDto {
   @IsString()
   @IsNotEmpty({ message: "체크 코멘트가 입력되지 않았습니다" })
   checkComment: string;
+
+  @IsNumber()
+  @IsNotEmpty({ message: "넥스트 인덱스가 입력되지 않았습니다" })
+  nextIndex: number;
 }
