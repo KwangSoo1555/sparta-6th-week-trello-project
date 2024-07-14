@@ -29,7 +29,7 @@ export class FileController {
     const data = await this.fileService.uploadFile(file, cardId);
     return {
       message: MESSAGES.FILES.CREATE.UPLOAD_SUCCEED,
-      data
-    }
+      data,
+    };
   }
 }
