@@ -34,4 +34,9 @@ export class BoardController {
   async deleteBoard(@Param("boardId") boardId: string) {
     return await this.boardService.deleteBoard(boardId);
   }
+
+  @Post("v1/boards/:boardId/invite")
+  async inviteBoard(@Param("BoardId") boardId: string) {
+    return await this.boardService.inviteBoard(boardId);
+  }
 }
