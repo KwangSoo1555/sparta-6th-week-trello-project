@@ -1,6 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { ConfigService } from "@nestjs/config";
+import { ValidationPipe } from "@nestjs/common";
 
 declare const module: any;
 
@@ -8,6 +9,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ["error", "warn"],
   });  
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  );
   // 프로젝트 초기 버전 및 start point 설정
   app.setGlobalPrefix("api/v1");
   

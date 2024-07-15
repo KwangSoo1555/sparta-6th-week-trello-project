@@ -73,8 +73,10 @@ export const MESSAGES = {
     CREATE: {
       UPLOAD_SUCCEED: "파일이 성공적으로 업로드되었습니다.",
     },
+  },
+  CARD: {
     NOT_CARD: {
       CARD_NOT_FOUND: "존재하지 않는 카드입니다.",
     },
-  },
+  }
 };
