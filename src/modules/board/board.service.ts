@@ -6,7 +6,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 
 import { BoardsEntity } from "../../entities/boards.entity"; //지울 예정
 import { GenerateBoardDto } from "./dto/board.generate.dto";
-import { Color } from "src/common/constants/types/color.type";
 
 @Injectable()
 export class BoardService {
@@ -15,7 +14,7 @@ export class BoardService {
     private boardRepository: Repository<BoardsEntity>,
   ) {}
 
-  async generateBoard(title: string, content: string, color: Color) {
+  async generateBoard(title: string, content: string, color: string) {
     await this.boardRepository.save({
       title,
       content,
@@ -23,7 +22,7 @@ export class BoardService {
     });
   }
 
-  async modifyBoard(boardId: string, title: string, content: string, color: Color) {
+  async modifyBoard(boardId: string, title: string, content: string, color: string) {
     await this.boardRepository.update(boardId, {
       title,
       content,
