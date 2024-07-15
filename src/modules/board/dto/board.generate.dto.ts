@@ -1,15 +1,15 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsString } from "class-validator";
+import { Color } from "src/common/constants/types/color.type";
 
 export declare class GenerateBoardDto {
   @IsString()
-  @IsNotEmpty({ message: "제목이 입력되지 않았습니다" })
+  @IsNotEmpty({})
   title: string;
 
   @IsString()
-  @IsNotEmpty({ message: "내용이 입력되지 않았습니다" })
+  @IsNotEmpty({})
   content: string;
 
-  @IsString()
-  @IsNotEmpty({ message: "색깔이 입력되지 않았습니다" })
-  color: string;
+  @IsEnum(Color, {})
+  color: Color;
 }

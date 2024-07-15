@@ -20,6 +20,7 @@ export class BoardService {
       content,
       color,
     });
+    return { Message: "세로운 파일이 생성되었습니다!" };
   }
 
   async modifyBoard(boardId: string, title: string, content: string, color: string) {
