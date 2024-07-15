@@ -1,5 +1,3 @@
-import { IsEnum } from "class-validator";
-import { MemberRole } from "src/common/constants/types/member-role.type";
 import {
   Column,
   CreateDateColumn,
@@ -10,6 +8,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { IsEnum } from "class-validator";
+import { MemberRole } from "src/common/custom/types/enum-member-roles"
 
 import { UsersEntity } from "./users.entity";
 import { BoardsEntity } from "./boards.entity";

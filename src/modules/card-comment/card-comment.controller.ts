@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Param, Patch, Post } from "@nestjs/common";
 import { CardCommentService } from "./card-comment.service";
-import { RequestUserAndToken } from "src/common/custom/user-request-jwt";
+import { RequestUserAndToken } from "src/common/custom/decorator/user-request-jwt"
 import { UsersEntity } from "src/entities/users.entity";
 import { CreateCardCommentDto } from "./dto/card-comment.update.dto";
 import { UpdateCardCommentDto } from "./dto/card-comment.create.dto";
