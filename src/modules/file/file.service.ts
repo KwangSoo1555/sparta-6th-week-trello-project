@@ -32,7 +32,7 @@ export class FileService {
   async uploadFile(file: Express.Multer.File, cardId: number) {
     const cardCheck = await this.cardRepository.findOne({ where: { id: cardId } });
     if (!cardCheck) {
-      throw new BadRequestException(MESSAGES.FILES.NOT_CARD.CARD_NOT_FOUND);
+      throw new BadRequestException(MESSAGES.CARD.NOT_CARD.CARD_NOT_FOUND);
     }
     const command = new PutObjectCommand({
       Bucket: this.configService.get("AWS_BUCKET"),
