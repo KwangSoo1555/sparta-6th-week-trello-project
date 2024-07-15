@@ -8,7 +8,7 @@ declare const module: any;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ["error", "warn"],
-  });  
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -16,7 +16,7 @@ async function bootstrap() {
   );
   // 프로젝트 초기 버전 및 start point 설정
   app.setGlobalPrefix("api/v1");
-  
+
   const configService = app.get(ConfigService);
   const port = configService.get<number>("SERVER_PORT") || 3000;
 
