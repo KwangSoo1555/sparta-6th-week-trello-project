@@ -13,8 +13,17 @@ export class BoardService {
     @InjectRepository(BoardsEntity)
     private boardRepository: Repository<BoardsEntity>,
   ) {}
+
   async generateBoard(title: string, content: string, color: string) {
     await this.boardRepository.save({
+      title,
+      content,
+      color,
+    });
+  }
+
+  async modifyBoard(boardId: string, title: string, content: string, color: string) {
+    await this.boardRepository.update(boardId, {
       title,
       content,
       color,
