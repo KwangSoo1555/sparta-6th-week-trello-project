@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
 
 import { BoardsEntity } from "../../entities/boards.entity";
 
@@ -21,12 +21,17 @@ export class BoardController {
   }
 
   @Patch("v1/boards/:boardId")
-  async ModifyBoard(@Param("boardId") boardId: string, @Body() modifyBoardDto: ModifyBoardDto) {
+  async modifyBoard(@Param("boardId") boardId: string, @Body() modifyBoardDto: ModifyBoardDto) {
     return await this.boardService.modifyBoard(
       boardId,
       modifyBoardDto.title,
       modifyBoardDto.content,
       modifyBoardDto.color,
     );
+  }
+
+  @Delete("v1/boards/:boardId")
+  async deleteBoard(@Param("boardId") boardId: string) {
+    return await this.boardService.deleteBoard(boardId);
   }
 }
