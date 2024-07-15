@@ -3,7 +3,7 @@ import { Controller, Post, UsePipes, ValidationPipe, UseGuards, Headers, Ip } fr
 import { JwtService } from "src/modules/auth/jwt/jwt.service";
 
 import { JwtRefreshGuards } from "src/modules/auth/jwt/jwt-strategy.service";
-import { RequestUserAndToken } from "src/common/custom/user-request-jwt";
+import { RequestUserAndToken } from "src/common/custom/decorator/user-request-jwt";
 
 @Controller("auth")
 export class JwtController {
