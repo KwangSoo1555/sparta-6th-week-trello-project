@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Param, Post } from "@nestjs/common";
 import { CardCommentService } from "./card-comment.service";
 import { RequestUserAndToken } from "src/common/custom/user-request-jwt";
 import { CreateCardCommentDto } from "./dto/card-comment.dto";
@@ -14,7 +14,12 @@ export class CardCommentController {
     @Body() createCardCommentDto: CreateCardCommentDto,
     @RequestUserAndToken() user: UsersEntity,
   ) {
-    const id =1
-    return this.cardCommentService.commentCreate(cardId, createCardCommentDto.content, id);
+    return this.cardCommentService.commentCreate(cardId, createCardCommentDto.content, user.id);
+  }
+
+  @Delete("comment/:commentId")
+  async commentDelete(@Param("commentId") commentId: number, @RequestUserAndToken() user: UsersEntity) {
+    await this.cardCommentService.commentDelete(user.id, commentId);
+    return { message: "댓글을 성공적으로 삭제하였습니다." };
   }
 }
