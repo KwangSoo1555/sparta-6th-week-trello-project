@@ -7,6 +7,10 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { BoardsEntity } from "../../entities/boards.entity"; //지울 예정
 import { GenerateBoardDto } from "./dto/board.generate.dto";
 
+//constant
+import { BOARD_CONSTANT } from "src/common/constants/boardcontant";
+import { Color } from "src/common/constants/types/color.type";
+
 @Injectable()
 export class BoardService {
   constructor(
@@ -14,21 +18,22 @@ export class BoardService {
     private boardRepository: Repository<BoardsEntity>,
   ) {}
 
-  async generateBoard(title: string, content: string, color: string) {
+  async generateBoard(title: string, content: string, color: Color) {
     await this.boardRepository.save({
       title,
       content,
       color,
     });
-    return { Message: "세로운 파일이 생성되었습니다!" };
+    return { Message: BOARD_CONSTANT.GENERATE_BOARD };
   }
 
-  async modifyBoard(boardId: string, title: string, content: string, color: string) {
+  async modifyBoard(boardId: string, title: string, content: string, color: Color) {
     await this.boardRepository.update(boardId, {
       title,
       content,
       color,
     });
+    return { Message: BOARD_CONSTANT.MODIFY_BOARD };
   }
 
   async deleteBoard(boardId: string) {
@@ -36,7 +41,8 @@ export class BoardService {
     if (isNaN(id)) {
       throw new Error("Invalid boardId"); // 유효하지 않은 ID에 대한 오류 처리
     }
-    return await this.boardRepository.delete({ id: id });
+    await this.boardRepository.delete({ id: id });
+    return { message: BOARD_CONSTANT.DELETE_BOARD };
   }
 
   async inviteBoard(boardId: string) {
@@ -44,5 +50,7 @@ export class BoardService {
     if (isNaN(id)) {
       throw new Error("Invalid boardId"); // 유효하지 않은 ID에 대한 오류 처리
     }
+
+    return { message: BOARD_CONSTANT.MAKE_INVITECODE };
   }
 }
