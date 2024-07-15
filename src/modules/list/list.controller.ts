@@ -19,22 +19,22 @@ export class ListController {
   }
 
   @Get()
-  findAll() {
-    return this.listService.findAll();
-  }
-
-  @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.listService.findOne(+id);
+  async findAll() {
+    return await this.listService.findAll();
   }
 
   @Patch(":id")
-  update(@Param("id") id: string, @Body() updateListDto: UpdateListDto) {
-    return this.listService.update(+id, updateListDto);
+  async update(@Param("id") id: number, @Body() updateListDto: UpdateListDto) {
+    return await this.listService.update(id, updateListDto);
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.listService.delete(+id);
+  async remove(@Param("id") id: string) {
+    await this.listService.delete(+id);
+    return {
+      statusCode: HttpStatus.OK,
+      message: "해당 리스트가 삭제되었습니다.",
+      id,
+    };
   }
 }
