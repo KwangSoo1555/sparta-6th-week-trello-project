@@ -1,15 +1,16 @@
 import { IsNotEmpty, IsString } from "class-validator";
+import { DTO_CONSTANT } from "src/common/constants/dto.constant.";
+import { Color } from "src/common/constants/types/color.type";
 
 export declare class GenerateBoardDto {
   @IsString()
-  @IsNotEmpty({ message: "제목이 입력되지 않았습니다" })
+  @IsNotEmpty({ message: DTO_CONSTANT.NOT_INPUT_TITLE })
   title: string;
 
   @IsString()
-  @IsNotEmpty({ message: "내용이 입력되지 않았습니다" })
+  @IsNotEmpty({ message: DTO_CONSTANT.NOT_INPUT_CONTENT })
   content: string;
 
   @IsString()
-  @IsNotEmpty({ message: "색깔이 입력되지 않았습니다" })
-  color: string;
+  color: Color;
 }
