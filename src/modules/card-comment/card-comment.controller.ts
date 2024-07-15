@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Param, Patch, Post } from "@nestjs/common";
 import { CardCommentService } from "./card-comment.service";
-import { RequestUserAndToken } from "src/common/custom/decorator/user-request-jwt"
+import { RequestUserAndToken } from "src/common/custom/decorator/user-request-jwt";
 import { UsersEntity } from "src/entities/users.entity";
 import { CreateCardCommentDto } from "./dto/card-comment.update.dto";
 import { UpdateCardCommentDto } from "./dto/card-comment.create.dto";
@@ -35,5 +35,23 @@ export class CardCommentController {
   ) {
     await this.cardCommentService.commentDelete(user.id, commentId);
     return { message: "댓글을 성공적으로 삭제하였습니다." };
+  }
+
+  @Patch(":cardId/dead-line")
+  async dateTimeCard(@Param("cardId") cardId: number, @Body("dataTime") dataTime: string) {
+    await this.cardCommentService.dateTimeCard(cardId, dataTime);
+    return { message: "카드에 날짜 수정되었습니다." };
+  }
+
+  @Post(":cardId/check-list")
+  async cardCheckList(@Param("cardId") cardId: number, @Body("content") content: string) {
+    const data = await this.cardCommentService.cardCheckList(cardId, content);
+    return { message: "체크리스트가 추가되었습니다.", data };
+  }
+
+  @Patch("check-lists/:checkListId")
+  async checkList(@Param("checkListId") checkListId: number) {
+    const data = await this.cardCommentService.checkList(checkListId);
+    return { message: "체크리스트 변경사항되었습니다.", data };
   }
 }

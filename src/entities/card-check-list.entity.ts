@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { CardsEntity } from "./cards.entity";
 
 @Entity('card-check-list')
@@ -22,5 +22,6 @@ export class CardCheckListEntity {
   updatedAt: Date;
 
   @ManyToOne(() => CardsEntity, (card) => card.checklists)
+  @JoinColumn({name: 'card_id'})
   card: CardsEntity;
 }
