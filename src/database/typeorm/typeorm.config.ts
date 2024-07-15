@@ -13,6 +13,7 @@ import { CardsEntity } from "src/entities/cards.entity";
 import { CardAssigneesEntity } from "src/entities/card-assignees.entity";
 import { CardCommentsEntity } from "src/entities/card-comments.entity";
 import { FilesEntity } from "src/entities/files.entity";
+import { CardCheckListEntity } from "src/entities/card-check-list.entity";
 
 @Injectable()
 export class TypeOrmConfig implements TypeOrmOptionsFactory {
@@ -34,6 +35,7 @@ export class TypeOrmConfig implements TypeOrmOptionsFactory {
         CardsEntity,
         CardAssigneesEntity,
         CardCommentsEntity,
+        CardCheckListEntity
       ], // 수정된 부분
     };
     this.typeOrm = new DataSource(options);
