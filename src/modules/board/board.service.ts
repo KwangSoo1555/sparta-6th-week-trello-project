@@ -9,7 +9,7 @@ import { GenerateBoardDto } from "./dto/board.generate.dto";
 
 //constant
 import { RESPOND_CONSTANT } from "src/common/constants/respond.contant";
-import { Color } from "src/common/constants/types/color.type";
+import { Color } from "src/common/custom/types/color.type";
 
 @Injectable()
 export class BoardService {
