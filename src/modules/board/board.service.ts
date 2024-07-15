@@ -35,6 +35,13 @@ export class BoardService {
     if (isNaN(id)) {
       throw new Error("Invalid boardId"); // 유효하지 않은 ID에 대한 오류 처리
     }
-    await this.boardRepository.delete({ id: id });
+    return await this.boardRepository.delete({ id: id });
+  }
+
+  async inviteBoard(boardId: string) {
+    const id = Number(boardId);
+    if (isNaN(id)) {
+      throw new Error("Invalid boardId"); // 유효하지 않은 ID에 대한 오류 처리
+    }
   }
 }
