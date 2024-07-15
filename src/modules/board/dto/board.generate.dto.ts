@@ -2,7 +2,7 @@ import { IsEnum, IsNotEmpty, IsString } from "class-validator";
 import { Color } from "src/common/constants/types/color.type";
 
 //constant
-import { DTO_CONSTANT } from "src/common/constants/dtoconstant";
+import { DTO_CONSTANT } from "src/common/constants/dto.constant";
 
 export declare class GenerateBoardDto {
   @IsString({ message: DTO_CONSTANT.NOT_INPUT_STRING })
