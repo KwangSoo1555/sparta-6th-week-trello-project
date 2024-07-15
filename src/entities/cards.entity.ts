@@ -22,6 +22,9 @@ export class CardsEntity {
   @Column({ type: "int", nullable: false, name: "list_id" })
   listId: number;
 
+  @Column({ type: "varchar", nullable: true, name: "card_title" })
+  cardTitle: string;
+
   @Column({ type: "varchar", nullable: false })
   content: string;
 
@@ -40,8 +43,6 @@ export class CardsEntity {
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
-
-  //-----------------------------------------------------------------------//
 
   @ManyToOne(() => ListsEntity, (list) => list.card)
   list: ListsEntity;
