@@ -28,4 +28,25 @@ export class CardCommentService {
 
     return comment;
   }
+  
+  async commentDelete(userId: number, commentId: number) {
+    const data = await this.cardCommentRepository.findOne({
+      where: {
+        id: commentId,
+      },
+    });
+    if (!data) {
+      throw new BadRequestException("없는 댓글입니다.");
+    }
+    const comment = await this.cardCommentRepository.findOne({
+      where: {
+        id: commentId,
+        userId: userId,
+      },
+    });
+    if (!comment) {
+      throw new BadRequestException("댓글을 삭제 할 권한이 없습니다.");
+    }
+    return this.cardCommentRepository.delete(comment.id);
+  }
 }
