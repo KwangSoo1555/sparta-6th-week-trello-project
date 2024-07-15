@@ -15,7 +15,7 @@ import { EmailVerificationService } from "src/modules/auth/email/email-verificat
 
 import { UsersEntity } from "src/entities/users.entity";
 import { RefreshTokensEntity } from "src/entities/refresh-tokens.entity";
-import { UserSignUpDto, UserSignInDto } from "./user-auth.dto";
+import { UserSignUpDto, UserLogInDto } from "./user-auth.dto";
 import { MESSAGES } from "src/common/constants/messages.constant";
 import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
 
@@ -68,16 +68,14 @@ export class UserAuthService {
     return signUpUser;
   }
 
-  async logIn(signInDto: UserSignInDto, ip: string, userAgent: string) {
-    const { email, password } = signInDto;
-
-    const user = await this.checkUser({ email });
+  async logIn(logInDto: UserLogInDto, ip: string, userAgent: string) {
+    const user = await this.checkUser({ email: logInDto.email });
 
     // 유저 존재 여부 확인
     if (!user) throw new NotFoundException(MESSAGES.AUTH.SIGN_IN.EMAIL.NOT_FOUND);
 
     // 비밀번호 일치 여부 확인
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    const isPasswordMatch = await bcrypt.compare(logInDto.password, user.password);
     if (!isPasswordMatch)
       throw new UnauthorizedException(MESSAGES.AUTH.SIGN_IN.PASSWORD.INCONSISTENT);
 

@@ -12,8 +12,8 @@ import {
 
 import { UserAuthService } from "src/modules/auth/users-auth/user-auth.service";
 import { JwtRefreshGuards } from "src/modules/auth/jwt/jwt-strategy.service";
-import { UserSignUpDto, UserSignInDto } from "src/modules/auth/users-auth/user-auth.dto";
-import { RequestUserAndToken } from "src/common/custom/user-request-jwt"
+import { UserSignUpDto, UserLogInDto } from "src/modules/auth/users-auth/user-auth.dto";
+import { RequestUserAndToken } from "src/common/custom/decorator/user-request-jwt"
 
 @Controller("auth")
 export class UserAuthController {
@@ -21,7 +21,9 @@ export class UserAuthController {
 
   @Post("sign-up")
   @UsePipes(ValidationPipe)
-  signUp(@Body() signUpDto: UserSignUpDto) {
+  signUp(
+    @Body() signUpDto: UserSignUpDto
+  ) {
     return this.userAuthService.signUp(signUpDto);
   }
 
@@ -30,9 +32,9 @@ export class UserAuthController {
   logIn(
     @Ip() ip: string,
     @Headers("User-Agent") userAgent: string,
-    @Body() signInDto: UserSignInDto,
+    @Body() logInDto: UserLogInDto,
   ) {
-    return this.userAuthService.logIn(signInDto, ip, userAgent);
+    return this.userAuthService.logIn(logInDto, ip, userAgent);
   }
 
   @Patch("log-out")

@@ -60,6 +60,14 @@ export const MESSAGES = {
       SUCCEED: "내 정보 조회에 성공했습니다.",
     },
     UPDATE_ME: {
+      EMAIL: {
+        DUPLICATED: "이메일이 이미 존재합니다.",
+      },
+      PASSWORD: {
+        CURRENT_PASSWORD_REQUIRED: "현재 비밀번호를 입력해 주세요.",
+        CURRENT_PASSWORD_INCONSISTENT: "현재 비밀번호가 일치하지 않습니다.",
+        NEW_PASSWORD_NOT_EQUAL_CURRENT_PASSWORD: "현재 비밀번호와 새로운 비밀번호는 같을 수 없습니다.",
+      },
       SUCCEED: "내 정보 수정에 성공했습니다.",
     },
     COMMON: {
