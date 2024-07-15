@@ -10,6 +10,7 @@ import { BoardModule } from "./modules/board/board.module";
 import { ListModule } from "./modules/list/list.module";
 import { CardModule } from "./modules/cards/card.module";
 import { FileModule } from "./modules/file/file.module";
+import { CardCommentModule } from "./modules/card-comment/card-comment.module";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
@@ -26,6 +27,7 @@ import { AppService } from "./app.service";
     ListModule,
     CardModule,
     FileModule,
+    CardCommentModule
   ],
   controllers: [AppController],
   providers: [AppService],

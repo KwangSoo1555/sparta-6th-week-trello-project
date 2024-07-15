@@ -17,6 +17,7 @@ export class CardCommentsEntity {
   content: string;
 
   @ManyToOne(() => CardsEntity, (card) => card.comment)
+  @JoinColumn({name: 'card_id'})
   card: CardsEntity;
 
   @OneToMany(() => MembersEntity, (member) => member.user)
