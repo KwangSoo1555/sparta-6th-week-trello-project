@@ -13,6 +13,7 @@ import { CardCommentsEntity } from "./card-comments.entity";
 import { ListsEntity } from "./lists.entity";
 import { CardAssigneesEntity } from "./card-assignees.entity";
 import { CardCheckListEntity } from "./card-check-list.entity";
+import { NotificationEntity } from "./notification.entity";
 
 @Entity("cards")
 export class CardsEntity {
@@ -31,7 +32,7 @@ export class CardsEntity {
   @Column({ type: "bigint", unique: true, name: "card_next_index" })
   nextIndex: number;
 
-  @Column({ type: "datetime", nullable: false, name: "card_dead_line" })
+  @Column({ type: "datetime", nullable: true, name: "card_dead_line" })
   cardDeadLine: Date;
 
   @Column({ type: "varchar", default: "dark", name: "background_color" })
@@ -57,4 +58,7 @@ export class CardsEntity {
 
   @OneToMany(() => CardCheckListEntity, (checklist) => checklist.card)
   checklists: CardCheckListEntity[];
+
+  @OneToMany(() => NotificationEntity, (notification)=> notification.card)
+  notification: NotificationEntity[];
 }

@@ -14,6 +14,7 @@ import { MemberRoles } from "src/common/custom/types/enum-member-roles"
 import { UsersEntity } from "./users.entity";
 import { BoardsEntity } from "./boards.entity";
 import { CardAssigneesEntity } from "./card-assignees.entity";
+import { NotificationEntity } from "./notification.entity";
 
 @Entity("members")
 export class MembersEntity {
@@ -52,4 +53,7 @@ export class MembersEntity {
 
   @OneToMany(() => CardAssigneesEntity, (cardAssignee) => cardAssignee.member)
   cardAssignee: CardAssigneesEntity[];
+
+  @OneToMany(()=> NotificationEntity, (notification) => notification.members)
+  notification: NotificationEntity[];
 }
