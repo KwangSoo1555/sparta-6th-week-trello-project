@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { CardsEntity } from "./cards.entity";
 import { MembersEntity } from "./members.entity";
+import { IsNotEmpty, IsString } from "class-validator";
 
 @Entity("card_comments")
 export class CardCommentsEntity {
@@ -13,6 +14,8 @@ export class CardCommentsEntity {
   @Column({ name: "card_id" })
   cardId: number;
 
+  @IsString()
+  @IsNotEmpty({message: '본문 내용을 작성해주세요.'})
   @Column({ type: "text" })
   content: string;
 
