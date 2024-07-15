@@ -1,4 +1,4 @@
-export enum SocialProvider {
+export enum SocialProviders {
   LOCAL = "LOCAL",
   KAKAO = "KAKAO",
   NAVER = "NAVER",

@@ -9,7 +9,7 @@ import { GenerateBoardDto } from "./dto/board.generate.dto";
 
 //constant
 import { BOARD_CONSTANT } from "src/common/constants/board.contant";
-import { Color } from "src/common/constants/types/color.type";
+import { Colors } from "src/common/custom/types/enum-color.type";
 
 @Injectable()
 export class BoardService {
@@ -18,7 +18,7 @@ export class BoardService {
     private boardRepository: Repository<BoardsEntity>,
   ) {}
 
-  async generateBoard(title: string, content: string, color: Color) {
+  async generateBoard(title: string, content: string, color: Colors) {
     await this.boardRepository.save({
       title,
       content,
@@ -27,7 +27,7 @@ export class BoardService {
     return { Message: BOARD_CONSTANT.GENERATE_BOARD };
   }
 
-  async modifyBoard(boardId: string, title: string, content: string, color: Color) {
+  async modifyBoard(boardId: string, title: string, content: string, color: Colors) {
     await this.boardRepository.update(boardId, {
       title,
       content,

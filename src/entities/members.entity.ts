@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { IsEnum } from "class-validator";
-import { MemberRole } from "src/common/custom/types/enum-member-roles"
+import { MemberRoles } from "src/common/custom/types/enum-member-roles"
 
 import { UsersEntity } from "./users.entity";
 import { BoardsEntity } from "./boards.entity";
@@ -26,9 +26,9 @@ export class MembersEntity {
   @Column({ name: "board_id" })
   boardId: number;
 
-  @IsEnum(MemberRole)
-  @Column({ type: "enum", enum: MemberRole, default: MemberRole.ADMIN })
-  role: MemberRole;
+  @IsEnum(MemberRoles)
+  @Column({ type: "enum", enum: MemberRoles, default: MemberRoles.ADMIN })
+  role: MemberRoles;
 
   @Column({ name: "user_agent" })
   userAgent: Date;
