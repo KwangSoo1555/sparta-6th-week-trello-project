@@ -5,6 +5,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { CardCommentsEntity } from "src/entities/card-comments.entity";
 import { CardsEntity } from "src/entities/cards.entity";
 import { MESSAGES } from "src/common/constants/messages.constant";
+import { CardCheckListEntity } from "src/entities/card-check-list.entity";
 
 @Injectable()
 export class CardCommentService {
@@ -13,6 +14,8 @@ export class CardCommentService {
     private readonly cardRepository: Repository<CardsEntity>,
     @InjectRepository(CardCommentsEntity)
     private readonly cardCommentRepository: Repository<CardCommentsEntity>,
+    @InjectRepository(CardCheckListEntity)
+    private readonly cardCheckListRepository: Repository<CardCheckListEntity>,
   ) {}
 
   async findCommentById(commentId: number) {

@@ -1,15 +1,19 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsString } from "class-validator";
+import { Colors } from "src/common/custom/types/enum-color.type";
+
+//constant
+import { DTO_CONSTANT } from "src/common/constants/dto.constant";
 
 export declare class GenerateBoardDto {
-  @IsString()
-  @IsNotEmpty({ message: "제목이 입력되지 않았습니다" })
+  @IsString({ message: DTO_CONSTANT.NOT_INPUT_STRING })
+  @IsNotEmpty({ message: DTO_CONSTANT.NOT_INPUT })
   title: string;
 
-  @IsString()
-  @IsNotEmpty({ message: "내용이 입력되지 않았습니다" })
+  @IsString({ message: DTO_CONSTANT.NOT_INPUT_STRING })
+  @IsNotEmpty({ message: DTO_CONSTANT.NOT_INPUT })
   content: string;
 
-  @IsString()
-  @IsNotEmpty({ message: "색깔이 입력되지 않았습니다" })
-  color: string;
+  @IsEnum(Colors, { message: DTO_CONSTANT.BOARD.NOT_LIST_IN_COLOR })
+  @IsEnum(Colors, { message: DTO_CONSTANT.NOT_INPUT })
+  color: Colors;
 }

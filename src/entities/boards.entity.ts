@@ -10,6 +10,8 @@ import {
 import { MembersEntity } from "./members.entity";
 import { ListsEntity } from "./lists.entity";
 
+import { Colors } from "src/common/custom/types/enum-color.type";
+
 @Entity("boards")
 export class BoardsEntity {
   @PrimaryGeneratedColumn()
@@ -21,8 +23,8 @@ export class BoardsEntity {
   @Column({ type: "varchar", length: 200, nullable: false })
   content: string;
 
-  @Column({ type: "varchar", nullable: false })
-  color: string;
+  @Column({ type: "enum", enum: Colors, default: Colors.WHITE })
+  color: Colors;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
