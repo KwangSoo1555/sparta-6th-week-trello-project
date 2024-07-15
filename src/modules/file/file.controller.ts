@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -31,5 +32,11 @@ export class FileController {
       message: MESSAGES.FILES.CREATE.UPLOAD_SUCCEED,
       data,
     };
+  }
+
+  @Delete(":cardId/:fileId")
+  async fileDelete(@Param("cardId") cardId: number, @Param("fileId") fileId: number) {
+    await this.fileService.fileDelete(cardId, fileId);
+    return { message: "파일이 성공적으로 삭제되었습니다." };
   }
 }
