@@ -18,25 +18,28 @@ export class CardService {
   // 카드 생성 API
   // id는 생성 되고 나서 발생하는 거니까 list id를 넣는다.
   async create(createCardDto: CreateCardDto, listId: number) {
+    await this.findByListId(listId);
+
     const newItem = { ...createCardDto, listId };
     const newCard = await this.cardRepository.save(newItem);
 
     return newCard;
   }
 
-  // 카드 수정 API
-  async update(listId: number, cardId: number, updateCardDto: UpdateCardDto) {
-    // 카드리스트가 존재하는지 확인
+  async findByListId(listId: number) {
     const existingList = await this.cardRepository.findOne({
       where: {
         listId,
       },
     });
     if (!existingList) {
-      throw new BadRequestException("카드 리스트가 존재하지 안습니다.");
+      throw new BadRequestException("해당 리스트가 존재하지 안습니다.");
     }
 
-    // 카드 아이디로 수정하고 싶은 카드 조회
+    return existingList;
+  }
+
+  async findByCardId(cardId: number) {
     const existingCard = await this.cardRepository.findOne({
       where: {
         id: cardId,
@@ -46,6 +49,15 @@ export class CardService {
     if (!existingCard) {
       throw new BadRequestException("존재하지 않는 카드입니다.");
     }
+    return existingCard;
+  }
+
+  // 수정할떄 member 예외처리
+  // 카드 수정 API
+  async update(listId: number, cardId: number, updateCardDto: UpdateCardDto) {
+    // 카드리스트가 존재하는지 확인
+    await this.findByListId(listId);
+    const existingCard = await this.findByCardId(cardId);
 
     // 카드 내용 수정 - 1
     existingCard.cardTitle = updateCardDto.cardTitle;
@@ -77,22 +89,13 @@ export class CardService {
     const saveCardMemberData = await this.cardAssigneeRepository.save(cardMember);
 
     // 분리1 분리2 해서 각자 맞게 저장하고 그 변수들을 합쳐서 리턴..
-    const updateCard = { ...updatedCard, ...saveCardMemberData };
-
-    return updateCard;
+    return { ...updatedCard, ...saveCardMemberData };
   }
 
   // 카드 삭제 API
   async delete(listId: number, cardId: number) {
-    const existingList = await this.cardRepository.findOne({
-      where: { listId },
-    });
+    await this.findByListId(listId);
 
-    if (!existingList) {
-      throw new BadRequestException("해당 리스트가 존재하지 않습니다.");
-    }
-
-    await this.cardRepository.delete(cardId);
-    return;
+    return this.cardRepository.delete(cardId);
   }
 }

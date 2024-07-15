@@ -16,11 +16,6 @@ import { UpdateCardDto } from "./dtos/update.cardDto";
 export class CardController {
   constructor(private readonly cardService: CardService) {}
 
-  // 내가 궁금한 것
-  // listId는 애당초 가지고 있는지?
-  // 로그인 한 사람이 현재 리스트에서 카드를 만드니까 현재 리스트의 id가 자동으로 입력이 되는것인지?
-
-  // 야매 성공 listId를 자동을 받아오는 코드를 service에서 만들어서 넣어야함. <- 이거 길현님이 하실 것
   @Post()
   async create(
     @Body() createCardDto: CreateCardDto,

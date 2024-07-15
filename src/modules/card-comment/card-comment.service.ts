@@ -18,13 +18,13 @@ export class CardCommentService {
     private readonly cardCheckListRepository: Repository<CardCheckListEntity>,
   ) {}
 
-  async findCommentById(commentId: number){
+  async findCommentById(commentId: number) {
     const comment = await this.cardCommentRepository.findOne({
       where: { id: commentId },
     });
 
     if (!comment) {
-      throw new BadRequestException('해당 댓글을 찾을 수 없습니다.');
+      throw new BadRequestException("해당 댓글을 찾을 수 없습니다.");
     }
 
     return comment;
@@ -46,22 +46,22 @@ export class CardCommentService {
   }
 
   async commentPatch(commentId: number, userId: number, content: string) {
-    await this.findCommentById(commentId)
+    await this.findCommentById(commentId);
     const result = await this.cardCommentRepository.update(
       { id: commentId, userId: userId },
-      { content: content }
+      { content: content },
     );
-  
+
     if (result.affected === 0) {
-      throw new BadRequestException('댓글을 수정할 권한이 없습니다.');
+      throw new BadRequestException("댓글을 수정할 권한이 없습니다.");
     }
   }
-  
+
   async commentDelete(userId: number, commentId: number) {
     const comment = await this.findCommentById(commentId);
 
     if (comment.userId !== userId) {
-      throw new BadRequestException('댓글을 삭제할 권한이 없습니다.');
+      throw new BadRequestException("댓글을 삭제할 권한이 없습니다.");
     }
 
     await this.cardCommentRepository.delete(comment.id);
