@@ -1,14 +1,18 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CardsEntity } from "src/entities/cards.entity";
 import { Repository } from "typeorm";
 import { CreateCardDto } from "./dtos/create.cardDto";
+import { UpdateCardDto } from "./dtos/update.cardDto";
+import { CardAssigneesEntity } from "src/entities/card-assignees.entity";
 
 @Injectable()
 export class CardService {
   constructor(
     @InjectRepository(CardsEntity)
     private readonly cardRepository: Repository<CardsEntity>,
+    @InjectRepository(CardAssigneesEntity)
+    private readonly cardAssigneeRepository: Repository<CardAssigneesEntity>,
   ) {}
 
   // 카드 생성 API
@@ -20,11 +24,75 @@ export class CardService {
     return newCard;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} card`;
+  // 카드 수정 API
+  async update(listId: number, cardId: number, updateCardDto: UpdateCardDto) {
+    // 카드리스트가 존재하는지 확인
+    const existingList = await this.cardRepository.findOne({
+      where: {
+        listId,
+      },
+    });
+    if (!existingList) {
+      throw new BadRequestException("카드 리스트가 존재하지 안습니다.");
+    }
+
+    // 카드 아이디로 수정하고 싶은 카드 조회
+    const existingCard = await this.cardRepository.findOne({
+      where: {
+        id: cardId,
+      },
+    });
+
+    if (!existingCard) {
+      throw new BadRequestException("존재하지 않는 카드입니다.");
+    }
+
+    // 카드 내용 수정 - 1
+    existingCard.cardTitle = updateCardDto.cardTitle;
+    existingCard.content = updateCardDto.content;
+    existingCard.backgroundColor = updateCardDto.backgroundColor;
+
+    // 카드 내용 수정 - 2
+    const updatedCard = await this.cardRepository.save(existingCard);
+
+    // 작업자에 대한것은 2차적으로
+    // Dto를 통해서 받은 변경하려는 멤버의 숫자 선언
+    const inputCardMember = updateCardDto.cardMember;
+
+    // 카드에 어사이니가 존재하는지 확인
+    let cardMember = await this.cardAssigneeRepository.findOne({
+      where: { cardId: cardId },
+    });
+
+    //작업자 데이터가 있으면 수정 // 없으면 생성작업자 할당 및 변경
+    if (!cardMember) {
+      cardMember = this.cardAssigneeRepository.create({
+        cardId: cardId,
+        memberId: inputCardMember,
+      });
+    } else {
+      cardMember.memberId = updateCardDto.cardMember;
+    }
+
+    const saveCardMemberData = await this.cardAssigneeRepository.save(cardMember);
+
+    // 분리1 분리2 해서 각자 맞게 저장하고 그 변수들을 합쳐서 리턴..
+    const updateCard = { ...updatedCard, ...saveCardMemberData };
+
+    return updateCard;
   }
 
-  delete(id: number) {
-    return `this action returns a #${id} card`;
+  // 카드 삭제 API
+  async delete(listId: number, cardId: number) {
+    const existingList = await this.cardRepository.findOne({
+      where: { listId },
+    });
+
+    if (!existingList) {
+      throw new BadRequestException("해당 리스트가 존재하지 않습니다.");
+    }
+
+    await this.cardRepository.delete(cardId);
+    return;
   }
 }
