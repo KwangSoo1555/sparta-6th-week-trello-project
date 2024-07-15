@@ -29,6 +29,7 @@ export class CardController {
     };
   }
 
+  // 만규님 말씀은 생성에서만 listID가 필요하니  수정 삭제는 빼자 그러므로 기본 URL쪽을 수정하자.
   @Patch(":cardId")
   async update(
     @Param("listId", ParseIntPipe) listId: number,
