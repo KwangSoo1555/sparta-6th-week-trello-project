@@ -10,7 +10,7 @@ import {
 import { MembersEntity } from "./members.entity";
 import { ListsEntity } from "./lists.entity";
 
-import { Color } from "src/common/constants/types/color.type";
+import { Colors } from "src/common/custom/types/enum-color.type";
 
 @Entity("boards")
 export class BoardsEntity {
@@ -23,8 +23,8 @@ export class BoardsEntity {
   @Column({ type: "varchar", length: 200, nullable: false })
   content: string;
 
-  @Column({ type: "enum", enum: Color, default: Color.WHITE })
-  color: Color;
+  @Column({ type: "enum", enum: Colors, default: Colors.WHITE })
+  color: Colors;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;

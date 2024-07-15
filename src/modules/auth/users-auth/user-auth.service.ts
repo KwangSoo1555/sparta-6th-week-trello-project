@@ -116,6 +116,11 @@ export class UserAuthService {
       { refreshToken: null },
     );
 
+    // 유저가 로그아웃 하면 유저의 모든 access token 만료
+    // 왜냐? 유저가 로그아웃 하면 access token 도 expire 해야 하기 때문
+    // 그렇지 않으면 유저가 로그아웃 한 후에도 crud 가 가능하기 때문
+    
+
     return {
       message: MESSAGES.AUTH.SIGN_OUT.SUCCEED,
     };
