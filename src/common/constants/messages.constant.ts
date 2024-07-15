@@ -78,5 +78,15 @@ export const MESSAGES = {
     NOT_CARD: {
       CARD_NOT_FOUND: "존재하지 않는 카드입니다.",
     },
-  }
+  },
+  NOT_INPUT: "값을 입력해주십시오",
+  NOT_INPUT_STRING: "문자열을 입력해주세요",
+  NOT_INPUT_NUMBER: "숫자를 입력해주세요",
+  BOARD: {
+    NOT_LIST_IN_COLOR: "존재하지 않는 색깔입니다",
+  },
+  CARD_COMMENTS: {},
+  CARDS: {},
+  FILE: {},
+  LIST: {},
 };
