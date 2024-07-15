@@ -8,7 +8,7 @@ import { BoardsEntity } from "../../entities/boards.entity"; //지울 예정
 import { GenerateBoardDto } from "./dto/board.generate.dto";
 
 //constant
-import { BOARD_CONSTANT } from "src/common/constants/boardcontant";
+import { BOARD_CONSTANT } from "src/common/constants/board.contant";
 import { Color } from "src/common/constants/types/color.type";
 
 @Injectable()

@@ -23,7 +23,7 @@ export class BoardsEntity {
   @Column({ type: "varchar", length: 200, nullable: false })
   content: string;
 
-  @Column({ type: "enum", default: Color.WHITE })
+  @Column({ type: "enum", enum: Color, default: Color.WHITE })
   color: Color;
 
   @CreateDateColumn({ name: "created_at" })
