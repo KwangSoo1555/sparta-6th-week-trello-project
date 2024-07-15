@@ -12,7 +12,7 @@ import { IsEnum } from "class-validator";
 import { RefreshTokensEntity } from "./refresh-tokens.entity";
 import { MembersEntity } from "./members.entity";
 
-import { SocialProvider } from "src/common/constants/types/member-role.type";
+import { SocialProviders } from "src/common/custom/types/enum-social-provider";
 
 @Entity("users")
 export class UsersEntity {
@@ -31,9 +31,9 @@ export class UsersEntity {
   @Column({ name: "social_id", default: null })
   socialId: string;
 
-  @IsEnum(SocialProvider)
-  @Column({ type: "enum", enum: SocialProvider, default: SocialProvider.LOCAL })
-  provider: SocialProvider;
+  @IsEnum(SocialProviders)
+  @Column({ type: "enum", enum: SocialProviders, default: SocialProviders.LOCAL })
+  provider: SocialProviders;
 
   @Column({
     name: "img_url",
