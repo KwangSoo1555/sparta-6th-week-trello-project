@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
 
-import { BoardsEntity } from "../../entities/boards.entity"; 
+import { BoardsEntity } from "../../entities/boards.entity";
 
 import { GenerateBoardDto } from "./dto/board.generate.dto";
 import { BoardService } from "./board.service";
+import { ModifyBoardDto } from "./dto/board.modify.dto";
 
 @Controller("board")
 export class BoardController {
@@ -16,6 +17,16 @@ export class BoardController {
       generateBoardDto.title,
       generateBoardDto.content,
       generateBoardDto.color,
+    );
+  }
+
+  @Patch("v1/boards/:boardId")
+  async ModifyBoard(@Param("boardId") boardId: string, @Body() modifyBoardDto: ModifyBoardDto) {
+    return await this.boardService.modifyBoard(
+      boardId,
+      modifyBoardDto.title,
+      modifyBoardDto.content,
+      modifyBoardDto.color,
     );
   }
 }
