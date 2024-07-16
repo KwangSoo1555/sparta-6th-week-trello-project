@@ -8,8 +8,8 @@ export class CardCommentsEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: "user_id" })
-  userId: number;
+  @Column({ name: "member_id" })
+  memberId: number;
 
   @Column({ name: "card_id" })
   cardId: number;
@@ -23,7 +23,7 @@ export class CardCommentsEntity {
   @JoinColumn({name: 'card_id'})
   card: CardsEntity;
 
-  @OneToMany(() => MembersEntity, (member) => member.user)
-  @JoinColumn({ name: "user_id" })
+  @ManyToOne(() => MembersEntity, (member) => member.user)
+  @JoinColumn({ name: "member_id" })
   member: MembersEntity;
 }
