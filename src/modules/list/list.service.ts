@@ -4,11 +4,13 @@ import { UpdateListDto } from "./dto/update-list.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { ListsEntity } from "src/entities/lists.entity";
+import { CardsEntity } from "src/entities/cards.entity";
 
 @Injectable()
 export class ListService {
   constructor(
     @InjectRepository(ListsEntity) private readonly listRepository: Repository<ListsEntity>,
+    @InjectRepository(CardsEntity) private readonly cardRepository: Repository<CardsEntity>,
   ) {}
 
   async create(createListDto: CreateListDto, boardId: number) {
@@ -21,16 +23,23 @@ export class ListService {
   }
 
   async findOne(id: number): Promise<ListsEntity> {
-    const list = await this.listRepository.findOne({ where: { id } });
+    const list = await this.listRepository.findOne({
+      where: { id },
+      relations: ["cards"],
+    });
     if (!list) {
       throw new NotFoundException("해당 리스트가 존재하지 않습니다.");
     }
+    list.card = await this.cardRepository.find({
+      where: { listId: list.id },
+      select: ["content"],
+    });
     return list;
   }
 
   async addNode(listId: number, value: number): Promise<ListsEntity> {
     const list = await this.findOne(listId);
-    list.addNode(value);
+    list.addNode(list.nextIndex);
     list.nextIndex++;
     return await this.listRepository.save(list);
   }
