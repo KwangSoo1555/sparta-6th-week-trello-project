@@ -9,12 +9,13 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { IsEnum } from "class-validator";
-import { MemberRoles } from "src/common/custom/types/enum-member-roles";
+import { MemberRoles } from "../common/custom/types/enum-member-roles";
 
 import { UsersEntity } from "./users.entity";
 import { BoardsEntity } from "./boards.entity";
 import { CardAssigneesEntity } from "./card-assignees.entity";
 import { NotificationEntity } from "./notification.entity";
+import { CardCommentsEntity } from "./card-comments.entity";
 
 @Entity("members")
 export class MembersEntity {
@@ -37,6 +38,9 @@ export class MembersEntity {
   @ManyToOne(() => UsersEntity, (user) => user.member)
   @JoinColumn({ name: "user_id" })
   user: UsersEntity;
+
+  @ManyToOne(()=> CardCommentsEntity, (cardComment)=> cardComment.member)
+  cardComment: CardCommentsEntity[]
 
   @ManyToOne(() => BoardsEntity, (board) => board.member)
   @JoinColumn({ name: "board_id" })
