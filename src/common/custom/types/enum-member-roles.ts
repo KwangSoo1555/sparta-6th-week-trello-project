@@ -1,5 +1,5 @@
 export enum MemberRoles {
-  ONLYVIEW = "OnlyView",
+  ONLY_VIEW = "OnlyView",
   EDITOR = "Editor",
   ADMIN = "Admin",
 }
