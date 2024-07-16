@@ -6,6 +6,7 @@ import { EmailVerificationModule } from "./modules/auth/email/email-verification
 import { UserAuthModule } from "./modules/auth/users-auth/user-auth.module";
 import { JwtModule } from "./modules/auth/jwt/jwt.module";
 import { UsersModule } from "./modules/users/users.module";
+import { MembersModule } from './modules/members/members.module';
 import { BoardModule } from "./modules/board/board.module";
 import { ListModule } from "./modules/list/list.module";
 import { CardModule } from "./modules/cards/card.module";
@@ -24,6 +25,7 @@ import { EventsModule } from './modules/events/events.module';
     UserAuthModule,
     JwtModule,
     UsersModule,
+    MembersModule,
     BoardModule,
     ListModule,
     CardModule,
