@@ -66,7 +66,8 @@ export const MESSAGES = {
       PASSWORD: {
         CURRENT_PASSWORD_REQUIRED: "현재 비밀번호를 입력해 주세요.",
         CURRENT_PASSWORD_INCONSISTENT: "현재 비밀번호가 일치하지 않습니다.",
-        NEW_PASSWORD_NOT_EQUAL_CURRENT_PASSWORD: "현재 비밀번호와 새로운 비밀번호는 같을 수 없습니다.",
+        NEW_PASSWORD_NOT_EQUAL_CURRENT_PASSWORD:
+          "현재 비밀번호와 새로운 비밀번호는 같을 수 없습니다.",
       },
       SUCCEED: "내 정보 수정에 성공했습니다.",
     },
@@ -86,5 +87,18 @@ export const MESSAGES = {
     NOT_CARD: {
       CARD_NOT_FOUND: "존재하지 않는 카드입니다.",
     },
-  }
+    CREATE_SUCCEED: "카드가 성공적으로 생성되었습니다.",
+    DELETE_SUCCEED: "카드가 성공적으로 삭제되었습니다.",
+  },
+  BOARD: {
+    CREATE_SUCCEED: "새로운 board가 생성되었습니다",
+    UPDATE_SUCCEED: "해당 board가 수정되었습니다",
+    DELETE_SUCCEED: "해당 보드가 삭제되었습니다",
+    MAKE_INVITECODE: "초대링크가 생성되었습니다!",
+  },
+  LIST: {
+    CREATE_SUCCEED: "리스트가 생성되었습니다.",
+    DELETE_SUCCEED: "해당 리스트가 삭제되었습니다.",
+    NOT_EXISTS: "해당 리스트가 존재하지 않습니다.",
+  },
 };
