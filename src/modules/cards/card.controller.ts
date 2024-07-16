@@ -11,6 +11,7 @@ import {
 import { CardService } from "./card.service";
 import { CreateCardDto } from "./dtos/create.cardDto";
 import { UpdateCardDto } from "./dtos/update.cardDto";
+import { MESSAGES } from "src/common/constants/messages.constant";
 
 @Controller("lists/:listId/cards")
 export class CardController {
@@ -23,7 +24,7 @@ export class CardController {
   ) {
     const data = await this.cardService.create(createCardDto, listId);
     return {
-      message: "카드가 성공적으로 생성되었습니다.",
+      message: MESSAGES.CARD.CREATE_SUCCEED,
       status: HttpStatus.CREATED,
       data,
     };
@@ -47,7 +48,7 @@ export class CardController {
   ) {
     const data = await this.cardService.delete(listId, cardId);
     return {
-      message: "카드가 성공적으로 삭제되었습니다.",
+      message: MESSAGES.CARD.DELETE_SUCCEED,
       status: HttpStatus.OK,
       data,
     };
