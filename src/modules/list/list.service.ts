@@ -17,14 +17,7 @@ export class ListService {
     const list = new ListsEntity();
     list.boardId = boardId;
     list.title = createListDto.title;
-    list.nextIndex = createListDto.nextIndex || 1;
-    list.addNode(list.nextIndex);
     return await this.listRepository.save(list);
-    // return {
-    //   ...saveList,
-    //   head: list.getHead,
-    //   tail: list.getTail,
-    // };
   }
 
   async findOne(id: number): Promise<ListsEntity> {
@@ -40,13 +33,6 @@ export class ListService {
       select: ["content"],
     });
     return list;
-  }
-
-  async addNode(listId: number, value: number): Promise<ListsEntity> {
-    const list = await this.findOne(listId);
-    list.addNode(list.nextIndex);
-    list.nextIndex++;
-    return await this.listRepository.save(list);
   }
 
   async findAll(): Promise<ListsEntity[]> {
@@ -73,8 +59,7 @@ export class ListService {
   // }
 
   async delete(id: number): Promise<void> {
-    const list = await this.findOne(id);
-    await list.deleteAllNodes();
+    await this.findOne(id);
     await this.listRepository.delete({ id });
   }
 }

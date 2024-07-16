@@ -12,5 +12,5 @@ export class CreateListDto {
 
   @IsNotEmpty()
   @IsNumber()
-  nextIndex: number;
+  nextIndex?: number;
 }
