@@ -32,7 +32,9 @@ export class UsersService {
     // 유저가 새로운 이메일 입력 시 이메일 중복 체크
     if (updateUserDto.email) {
       const isEmailExist = await this.checkUser({ email: updateUserDto.email });
-      if (isEmailExist) throw new ConflictException(MESSAGES.USERS.UPDATE_ME.EMAIL.DUPLICATED);
+      if (isEmailExist) throw new ConflictException(
+        MESSAGES.USERS.UPDATE_ME.EMAIL.DUPLICATED
+      );
     }
 
     // 유저가 새로운 비밀번호 입력 시 현재 비밀번호 체크
