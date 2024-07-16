@@ -2,6 +2,7 @@ export const ENV = {
   //server
   SERVER_PORT: process.env.SERVER_PORT,
   MYSQL_URI: process.env.MYSQL_URI,
+
   //redis
   REDIS_HOST: process.env.REDIS_HOST,
   REDIS_PORT: process.env.REDIS_PORT,
