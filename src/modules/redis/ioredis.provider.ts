@@ -1,7 +1,9 @@
 import { ENV } from "src/common/constants/env.constant";
-
+import { Module, Global } from "@nestjs/common";
 import Redis from "ioredis";
 
+@Global()
+@Module({})
 async function main() {
   try {
     const redisDB = new Redis({

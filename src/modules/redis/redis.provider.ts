@@ -1,4 +1,6 @@
 import { ENV } from "src/common/constants/env.constant";
+import { createClient } from "redis";
+
 const dotenv = require("dotenv");
 const redis = require("redis");
 
