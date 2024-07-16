@@ -10,6 +10,7 @@ import { GenerateBoardDto } from "./dto/board.generate.dto";
 //constant
 import { BOARD_CONSTANT } from "src/common/constants/board.contant";
 import { Colors } from "src/common/custom/types/enum-color.type";
+import { MESSAGES } from "src/common/constants/messages.constant";
 
 @Injectable()
 export class BoardService {
@@ -39,7 +40,7 @@ export class BoardService {
   async deleteBoard(boardId: string) {
     const id = Number(boardId);
     if (isNaN(id)) {
-      throw new Error("Invalid boardId"); // 유효하지 않은 ID에 대한 오류 처리
+      throw new Error(MESSAGES.BOARD.INVALID_ACCESSED); // 유효하지 않은 ID에 대한 오류 처리
     }
     await this.boardRepository.delete({ id: id });
     return { message: BOARD_CONSTANT.DELETE_BOARD };
@@ -48,7 +49,7 @@ export class BoardService {
   async inviteBoard(boardId: string) {
     const id = Number(boardId);
     if (isNaN(id)) {
-      throw new Error("Invalid boardId"); // 유효하지 않은 ID에 대한 오류 처리
+      throw new Error(MESSAGES.BOARD.INVALID_ACCESSED); // 유효하지 않은 ID에 대한 오류 처리
     }
 
     return { message: BOARD_CONSTANT.MAKE_INVITECODE };

@@ -24,7 +24,7 @@ export class CardCommentService {
     });
 
     if (!comment) {
-      throw new BadRequestException("해당 댓글을 찾을 수 없습니다.");
+      throw new BadRequestException(MESSAGES.CARDCOMMENT.NOT_EXISTS);
     }
 
     return comment;
@@ -53,7 +53,7 @@ export class CardCommentService {
     );
 
     if (result.affected === 0) {
-      throw new BadRequestException("댓글을 수정할 권한이 없습니다.");
+      throw new BadRequestException(MESSAGES.CARDCOMMENT.NOT_AUTHORITY_UPDATE);
     }
   }
 
@@ -61,7 +61,7 @@ export class CardCommentService {
     const comment = await this.findCommentById(commentId);
 
     if (comment.userId !== userId) {
-      throw new BadRequestException("댓글을 삭제할 권한이 없습니다.");
+      throw new BadRequestException(MESSAGES.CARDCOMMENT.NOT_AUTHORITY_DELETE);
     }
 
     await this.cardCommentRepository.delete(comment.id);
@@ -70,7 +70,7 @@ export class CardCommentService {
   async dateTimeCard(cardId: number, datetime: string) {
     const data = await this.cardRepository.findOne({ where: { id: cardId } });
     if (!data) {
-      throw new BadRequestException("없는 카드입니다.");
+      throw new BadRequestException(MESSAGES.CARDCOMMENT.CARD.NOT_EXISTS);
     }
     await this.cardRepository.update({ id: cardId }, { cardDeadLine: datetime });
   }
@@ -78,7 +78,7 @@ export class CardCommentService {
   async cardCheckList(cardId: number, content: string) {
     const data = await this.cardRepository.findOne({ where: { id: cardId } });
     if (!data) {
-      throw new BadRequestException("없는 카드입니다.");
+      throw new BadRequestException(MESSAGES.CARDCOMMENT.CARD.NOT_EXISTS);
     }
     return this.cardCheckListRepository.save({ cardId, checkComment: content });
   }
@@ -86,7 +86,7 @@ export class CardCommentService {
   async checkList(checkListId: number) {
     const checkList = await this.cardCheckListRepository.findOne({ where: { id: checkListId } });
     if (!checkList) {
-      throw new BadRequestException("없는 체크리스트입니다.");
+      throw new BadRequestException(MESSAGES.CARDCOMMENT.NOT_EXISTS_CHECKLIST);
     }
     checkList.isDone = !checkList.isDone;
     await this.cardCheckListRepository.save(checkList);
