@@ -42,19 +42,19 @@ export class ListsEntity {
   @OneToMany(() => CardsEntity, (card) => card.list)
   card: CardsEntity[];
 
-  //linked
+  //linked Lisk
   private head: ListNode | null = null;
-
+  private tail: ListNode | null = null;
+  //노드생성
   addNode(value: number): void {
     const newNode = new ListNode(value);
     if (!this.head) {
       this.head = newNode;
+      this.tail = newNode;
     } else {
-      let current = this.head;
-      while (current.next) {
-        current = current.next;
-      }
-      current.next = newNode;
+      this.tail.next = newNode;
+      newNode.prev = this.tail;
+      this.tail = newNode;
     }
     this.nextIndex = newNode.value;
   }
@@ -64,6 +64,17 @@ export class ListsEntity {
 
     if (this.head.value === value) {
       this.head = this.head.next;
+      if (this.head) {
+        this.head.prev = null;
+      } else {
+        this.tail = null;
+      }
+      return;
+    }
+
+    if (this.tail.value === value) {
+      this.tail = this.tail.prev;
+      this.tail.next = null;
       return;
     }
 
@@ -71,6 +82,7 @@ export class ListsEntity {
     while (current.next) {
       if (current.next.value === value) {
         current.next = current.next.next;
+        current.next.prev = current;
         return;
       }
       current = current.next;
@@ -86,13 +98,15 @@ export class ListsEntity {
     }
   }
 }
-
+//연결노드
 class ListNode {
   value: number;
   next: ListNode | null;
+  prev: ListNode | null;
 
   constructor(value: number) {
     this.value = value;
     this.next = null;
+    this.prev = null;
   }
 }

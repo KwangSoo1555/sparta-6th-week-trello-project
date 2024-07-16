@@ -12,23 +12,12 @@ export class ListService {
   ) {}
 
   async create(createListDto: CreateListDto, boardId: number) {
-    // const list = { ...createListDto, boardId };
-    // const newList = await this.listRepository.save(list);
     const list = new ListsEntity();
     list.boardId = boardId;
     list.title = createListDto.title;
-    list.nextIndex = (await this.listRepository.count({ where: { boardId } })) + 1;
-    list.addNode(list.nextIndex);
-
-    let currentNextIndex = 1;
-    while (await this.listRepository.findOne({ where: { nextIndex: currentNextIndex, boardId } })) {
-      currentNextIndex++;
-    }
-    list.nextIndex = currentNextIndex;
-
-    const newList = await this.listRepository.save(list);
-
-    return newList;
+    list.addNode(1);
+    list.nextIndex = 2;
+    return await this.listRepository.save(list);
   }
 
   async findOne(id: number): Promise<ListsEntity> {
@@ -41,7 +30,7 @@ export class ListService {
 
   async addNode(listId: number, value: number): Promise<ListsEntity> {
     const list = await this.findOne(listId);
-    list.addNode(list.nextIndex + 1);
+    list.addNode(value);
     list.nextIndex++;
     return await this.listRepository.save(list);
   }
