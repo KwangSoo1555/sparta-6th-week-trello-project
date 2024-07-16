@@ -1,19 +1,19 @@
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
-
+import { DTO_CONSTANT } from "src/common/constants/dto.constant";
 export class UpdateCardDto {
   @IsString()
-  @IsNotEmpty({ message: "카드 제목을 입력해주세요" })
+  @IsNotEmpty({ message: DTO_CONSTANT.CARD.NOT_INPUT_TITLE })
   cardTitle: string;
 
   @IsString()
-  @IsNotEmpty({ message: "카드내용을 입력해주세요" })
+  @IsNotEmpty({ message: DTO_CONSTANT.CARD.NOT_INPUT_CONTENT })
   content: string;
 
   @IsString()
-  @IsNotEmpty({ message: "카드 색상이 입력되지 않았습니다" })
+  @IsNotEmpty({ message: DTO_CONSTANT.CARD.NOT_INPUT_BACKGROUNDCOLOR })
   backgroundColor: string;
 
   @IsNumber()
-  @IsNotEmpty({ message: "카드 작업자가 입력되지 않았습니다" })
+  @IsNotEmpty({ message: DTO_CONSTANT.CARD.NOT_INPUT_CARDMEMBER })
   cardMember: number;
 }
