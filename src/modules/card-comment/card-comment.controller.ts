@@ -5,6 +5,7 @@ import { UsersEntity } from "src/entities/users.entity";
 import { CreateCardCommentDto } from "./dto/card-comment.update.dto";
 import { UpdateCardCommentDto } from "./dto/card-comment.create.dto";
 import { JwtAccessGuards } from "../auth/jwt/jwt-strategy.service";
+import { MESSAGES } from "src/common/constants/messages.constant";
 
 @UseGuards(JwtAccessGuards)
 @Controller("cards")
@@ -27,7 +28,7 @@ export class CardCommentController {
     @RequestUserAndToken() { user: { id: userId } }: { user: Pick<UsersEntity, "id"> },
   ) {
     await this.cardCommentService.commentPatch(commentId, userId, updateCardCommentDto.content);
-    return { message: "댓글이 성공적으로 수정되었습니다." };
+    return { message: MESSAGES.CARDCOMMENT.UPDATE_CONTENT_SUCCED };
   }
 
   @Delete("comment/:commentId")
@@ -36,24 +37,24 @@ export class CardCommentController {
     @RequestUserAndToken() { user: { id: userId } }: { user: Pick<UsersEntity, "id"> },
   ) {
     await this.cardCommentService.commentDelete(userId, commentId);
-    return { message: "댓글을 성공적으로 삭제하였습니다." };
+    return { message: MESSAGES.CARDCOMMENT.DELETE_SUCCEED };
   }
 
   @Patch(":cardId/dead-line")
   async dateTimeCard(@Param("cardId") cardId: number, @Body("dataTime") dataTime: string) {
     await this.cardCommentService.dateTimeCard(cardId, dataTime);
-    return { message: "카드에 날짜 수정되었습니다." };
+    return { message: MESSAGES.CARDCOMMENT.UPDATE_DATE_SUCCEED };
   }
 
   @Post(":cardId/check-list")
   async cardCheckList(@Param("cardId") cardId: number, @Body("content") content: string) {
     const data = await this.cardCommentService.cardCheckList(cardId, content);
-    return { message: "체크리스트가 추가되었습니다.", data };
+    return { message: MESSAGES.CARDCOMMENT.CREATE_CHECKLIST, data };
   }
 
   @Patch("check-lists/:checkListId")
   async checkList(@Param("checkListId") checkListId: number) {
     const data = await this.cardCommentService.checkList(checkListId);
-    return { message: "체크리스트 변경사항되었습니다.", data };
+    return { message: MESSAGES.CARDCOMMENT.UPDATE_CHECKLIST, data };
   }
 }

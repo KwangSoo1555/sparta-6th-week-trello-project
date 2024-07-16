@@ -13,6 +13,8 @@ import { UpdateBoardDto } from "./dto/board.update.dto";
 //constant
 import { BOARD_CONSTANT } from "src/common/constants/board.contant";
 import { MemberRoles } from "src/common/custom/types/enum-member-roles";
+import { Colors } from "src/common/custom/types/enum-color.type";
+import { MESSAGES } from "src/common/constants/messages.constant";
 
 @Injectable()
 export class BoardService {
@@ -72,5 +74,22 @@ export class BoardService {
     //   throw new Error("Invalid boardId"); // 유효하지 않은 ID에 대한 오류 처리
     // }
     // return { message: BOARD_CONSTANT.MAKE_INVITECODE };
+    const id = Number(boardId);
+    if (isNaN(id)) {
+      throw new Error(MESSAGES.BOARD.INVALID_ACCESSED); // 유효하지 않은 ID에 대한 오류 처리
+    }
+    await this.boardRepository.delete({ id: id });
+    return { message: BOARD_CONSTANT.DELETE_BOARD };
   }
+
+  // 충돌 코드
+  
+  // async inviteBoard(boardId: string) {
+  //   const id = Number(boardId);
+  //   if (isNaN(id)) {
+  //     throw new Error(MESSAGES.BOARD.INVALID_ACCESSED); // 유효하지 않은 ID에 대한 오류 처리
+  //   }
+
+  //   return { message: BOARD_CONSTANT.MAKE_INVITECODE };
+  // }
 }

@@ -4,7 +4,7 @@ import { UpdateListDto } from "./dto/update-list.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { ListsEntity } from "src/entities/lists.entity";
-
+import { MESSAGES } from "src/common/constants/messages.constant";
 @Injectable()
 export class ListService {
   constructor(
@@ -30,7 +30,7 @@ export class ListService {
     const { title } = updateListDto;
     const list = await this.listRepository.findOne({ where: { id } });
     if (!list) {
-      throw new NotFoundException("해당 리스트가 존재하지 않습니다.");
+      throw new NotFoundException(MESSAGES.LIST.NOT_EXISTS);
     }
     list.title = title !== undefined ? title : list.title;
     const updateList = await this.listRepository.save(list);
