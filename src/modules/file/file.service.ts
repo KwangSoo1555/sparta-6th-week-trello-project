@@ -49,12 +49,12 @@ export class FileService {
     });
   }
 
-  async fileDelete(cardId:number, fileId:number){
-    const data = await this.fileRepository.findOne({where: {cardId, id: fileId}})
-    if(!data){
-      throw new BadRequestException('해당 카드에 파일을 찾을수없습니다.')
+  async fileDelete(cardId: number, fileId: number) {
+    const data = await this.fileRepository.findOne({ where: { cardId, id: fileId } });
+    if (!data) {
+      throw new BadRequestException("해당 카드에 파일을 찾을수없습니다.");
     }
-    
+
     this.fileRepository.delete(data.id);
   }
 }

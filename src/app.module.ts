@@ -14,6 +14,7 @@ import { CardCommentModule } from "./modules/card-comment/card-comment.module";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { EventsModule } from "./modules/events/events.module";
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { AppService } from "./app.service";
     CardModule,
     FileModule,
     CardCommentModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

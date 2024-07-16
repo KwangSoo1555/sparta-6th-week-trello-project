@@ -66,4 +66,29 @@ export class CardCommentService {
 
     await this.cardCommentRepository.delete(comment.id);
   }
+
+  async dateTimeCard(cardId: number, datetime: string) {
+    const data = await this.cardRepository.findOne({ where: { id: cardId } });
+    if (!data) {
+      throw new BadRequestException("없는 카드입니다.");
+    }
+    await this.cardRepository.update({ id: cardId }, { cardDeadLine: datetime });
+  }
+
+  async cardCheckList(cardId: number, content: string) {
+    const data = await this.cardRepository.findOne({ where: { id: cardId } });
+    if (!data) {
+      throw new BadRequestException("없는 카드입니다.");
+    }
+    return this.cardCheckListRepository.save({ cardId, checkComment: content });
+  }
+
+  async checkList(checkListId: number) {
+    const checkList = await this.cardCheckListRepository.findOne({ where: { id: checkListId } });
+    if (!checkList) {
+      throw new BadRequestException("없는 체크리스트입니다.");
+    }
+    checkList.isDone = !checkList.isDone;
+    await this.cardCheckListRepository.save(checkList);
+  }
 }
