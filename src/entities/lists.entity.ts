@@ -26,7 +26,7 @@ export class ListsEntity {
   @Column({ type: "varchar", length: 200 })
   title: string;
 
-  @Column({ type: "int", unique: true, name: "next_index" })
+  @Column({ type: "int", name: "next_index", default: 1 })
   nextIndex: number;
 
   @CreateDateColumn({ name: "created_at" })
@@ -45,8 +45,15 @@ export class ListsEntity {
   //linked Lisk
   private head: ListNode | null = null;
   private tail: ListNode | null = null;
+  get getHead(): ListNode | null {
+    return this.head;
+  }
+
+  get getTail(): ListNode | null {
+    return this.tail;
+  }
   //노드생성
-  addNode(value: number): void {
+  async addNode(value: number): Promise<void> {
     const newNode = new ListNode(value);
     if (!this.head) {
       this.head = newNode;
@@ -56,7 +63,7 @@ export class ListsEntity {
       newNode.prev = this.tail;
       this.tail = newNode;
     }
-    this.nextIndex = newNode.value;
+    this.nextIndex++;
   }
 
   removeNode(value: number): void {

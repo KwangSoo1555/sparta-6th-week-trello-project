@@ -66,7 +66,8 @@ export const MESSAGES = {
       PASSWORD: {
         CURRENT_PASSWORD_REQUIRED: "현재 비밀번호를 입력해 주세요.",
         CURRENT_PASSWORD_INCONSISTENT: "현재 비밀번호가 일치하지 않습니다.",
-        NEW_PASSWORD_NOT_EQUAL_CURRENT_PASSWORD: "현재 비밀번호와 새로운 비밀번호는 같을 수 없습니다.",
+        NEW_PASSWORD_NOT_EQUAL_CURRENT_PASSWORD:
+          "현재 비밀번호와 새로운 비밀번호는 같을 수 없습니다.",
       },
       SUCCEED: "내 정보 수정에 성공했습니다.",
     },
@@ -81,10 +82,47 @@ export const MESSAGES = {
     CREATE: {
       UPLOAD_SUCCEED: "파일이 성공적으로 업로드되었습니다.",
     },
+    DELETE: {
+      DELETE_SUCCEED: "파일이 성공적으로 삭제되었습니다.",
+    },
+    NOT_EXISTS: "해당 카드에서 파일을 찾을 수 없습니다.",
   },
   CARD: {
     NOT_CARD: {
       CARD_NOT_FOUND: "존재하지 않는 카드입니다.",
     },
-  }
+    LIST: {
+      NOT_EXISTS: "해당 리스트가 존재하지 안습니다.",
+    },
+    CREATE_SUCCEED: "카드가 성공적으로 생성되었습니다.",
+    DELETE_SUCCEED: "카드가 성공적으로 삭제되었습니다.",
+    NOT_EXISTS: "존재하지 않는 카드입니다.",
+  },
+  CARDCOMMENT: {
+    UPDATE_CONTENT_SUCCED: "댓글이 성공적으로 수정되었습니다.",
+    DELETE_SUCCEED: "댓글을 성공적으로 삭제하였습니다.",
+    UPDATE_DATE_SUCCEED: "카드에 날짜 수정되었습니다.",
+    CREATE_CHECKLIST: "체크리스트가 추가되었습니다.",
+    UPDATE_CHECKLIST: "체크리스트 변경사항되었습니다.",
+    NOT_EXISTS_CHECKLIST: "없는 체크리스트입니다.",
+    NOT_EXISTS: "해당 댓글을 찾을 수 없습니다.",
+    NOT_AUTHORITY_UPDATE: "댓글을 수정할 권한이 없습니다.",
+    NOT_AUTHORITY_DELETE: "댓글을 삭제할 권한이 없습니다.",
+
+    CARD: {
+      NOT_EXISTS: "없는 카드입니다.",
+    },
+  },
+  BOARD: {
+    CREATE_SUCCEED: "새로운 board가 생성되었습니다",
+    UPDATE_SUCCEED: "해당 board가 수정되었습니다",
+    DELETE_SUCCEED: "해당 보드가 삭제되었습니다",
+    MAKE_INVITECODE: "초대링크가 생성되었습니다!",
+    INVALID_ACCESSED: "유효하지 않은 접근입니다.",
+  },
+  LIST: {
+    CREATE_SUCCEED: "리스트가 생성되었습니다.",
+    DELETE_SUCCEED: "해당 리스트가 삭제되었습니다.",
+    NOT_EXISTS: "해당 리스트가 존재하지 않습니다.",
+  },
 };

@@ -5,6 +5,7 @@ import { Repository } from "typeorm";
 import { CreateCardDto } from "./dtos/create.cardDto";
 import { UpdateCardDto } from "./dtos/update.cardDto";
 import { CardAssigneesEntity } from "src/entities/card-assignees.entity";
+import { MESSAGES } from "src/common/constants/messages.constant";
 
 @Injectable()
 export class CardService {
@@ -33,7 +34,7 @@ export class CardService {
       },
     });
     if (!existingList) {
-      throw new BadRequestException("해당 리스트가 존재하지 안습니다.");
+      throw new BadRequestException(MESSAGES.CARD.LIST.NOT_EXISTS);
     }
 
     return existingList;
@@ -47,7 +48,7 @@ export class CardService {
     });
 
     if (!existingCard) {
-      throw new BadRequestException("존재하지 않는 카드입니다.");
+      throw new BadRequestException(MESSAGES.CARD.NOT_EXISTS);
     }
     return existingCard;
   }

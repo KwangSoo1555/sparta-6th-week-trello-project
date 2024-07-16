@@ -5,7 +5,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { ListsEntity } from "src/entities/lists.entity";
 import { CardsEntity } from "src/entities/cards.entity";
-
+import { MESSAGES } from "src/common/constants/messages.constant";
 @Injectable()
 export class ListService {
   constructor(
@@ -17,18 +17,23 @@ export class ListService {
     const list = new ListsEntity();
     list.boardId = boardId;
     list.title = createListDto.title;
-    list.addNode(1);
-    list.nextIndex = 2;
+    list.nextIndex = createListDto.nextIndex || 1;
+    list.addNode(list.nextIndex);
     return await this.listRepository.save(list);
+    // return {
+    //   ...saveList,
+    //   head: list.getHead,
+    //   tail: list.getTail,
+    // };
   }
 
   async findOne(id: number): Promise<ListsEntity> {
     const list = await this.listRepository.findOne({
       where: { id },
-      relations: ["cards"],
+      relations: ["card"],
     });
     if (!list) {
-      throw new NotFoundException("해당 리스트가 존재하지 않습니다.");
+      throw new NotFoundException({ message: MESSAGES.LIST.NOT_EXISTS });
     }
     list.card = await this.cardRepository.find({
       where: { listId: list.id },
@@ -56,7 +61,7 @@ export class ListService {
     const { title } = updateListDto;
     const list = await this.listRepository.findOne({ where: { id } });
     if (!list) {
-      throw new NotFoundException("해당 리스트가 존재하지 않습니다.");
+      throw new NotFoundException(MESSAGES.LIST.NOT_EXISTS);
     }
     list.title = title !== undefined ? title : list.title;
     const updateList = await this.listRepository.save(list);

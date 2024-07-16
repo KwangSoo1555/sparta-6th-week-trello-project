@@ -28,20 +28,11 @@ export class MembersEntity {
   boardId: number;
 
   @IsEnum(MemberRoles)
-  @Column({ type: "enum", enum: MemberRoles, default: MemberRoles.ADMIN })
+  @Column({ type: "enum", enum: MemberRoles, default: MemberRoles.ONLY_VIEW })
   role: MemberRoles;
 
-  @Column({ name: "user_agent" })
-  userAgent: Date;
-
-  @CreateDateColumn({ name: "created_ad" })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: "updated_at" })
-  updatedAt: Date;
-
-  @UpdateDateColumn({ name: "expires_at" })
-  expiresAt: Date;
+  @Column({ type: "varchar", length: 50, default: null })
+  nickname: string;
 
   @ManyToOne(() => UsersEntity, (user) => user.member)
   @JoinColumn({ name: "user_id" })
