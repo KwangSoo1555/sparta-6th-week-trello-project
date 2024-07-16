@@ -11,7 +11,7 @@ import {
 } from "@nestjs/common";
 import { FileService } from "./file.service";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { FileSizeValidationPipe } from "src/common/custom/pipes/file-size-validation.pipe"
+import { FileSizeValidationPipe } from "src/common/custom/pipes/file-size-validation.pipe";
 import { MESSAGES } from "src/common/constants/messages.constant";
 import { JwtAccessGuards } from "../auth/jwt/jwt-strategy.service";
 
@@ -40,6 +40,6 @@ export class FileController {
   @UseGuards(JwtAccessGuards)
   async fileDelete(@Param("cardId") cardId: number, @Param("fileId") fileId: number) {
     await this.fileService.fileDelete(cardId, fileId);
-    return { message: "파일이 성공적으로 삭제되었습니다." };
+    return { message: MESSAGES.FILES.DELETE.DELETE_SUCCEED };
   }
 }

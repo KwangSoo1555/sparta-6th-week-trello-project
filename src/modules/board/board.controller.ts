@@ -1,42 +1,70 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  UseGuards,
+  UsePipes,
+  ValidationPipe,
+} from "@nestjs/common";
 
-import { BoardsEntity } from "../../entities/boards.entity";
-
-import { GenerateBoardDto } from "./dto/board.generate.dto";
 import { BoardService } from "./board.service";
-import { ModifyBoardDto } from "./dto/board.modify.dto";
 
-@Controller("board")
+import { JwtAccessGuards } from "src/modules/auth/jwt/jwt-strategy.service";
+import { RequestUserAndToken } from "src/common/custom/decorator/user-request-jwt";
+
+import { RoleGuards, Roles } from "src/common/custom/decorator/user-roles-guards";
+
+import { CreateBoardDto } from "./dto/board.create.dto";
+import { UpdateBoardDto } from "./dto/board.update.dto";
+import { MemberRoles } from "src/common/custom/types/enum-member-roles";
+
+@UseGuards(JwtAccessGuards)
+@Controller("boards")
 export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
   //Board 생성
-  @Post("v1/boards")
-  async generateBoard(@Body() generateBoardDto: GenerateBoardDto) {
-    return await this.boardService.generateBoard(
-      generateBoardDto.title,
-      generateBoardDto.content,
-      generateBoardDto.color,
-    );
+  @Post()
+  async createBoard(
+    @RequestUserAndToken() { user: { id: userId } },
+    @Body() createBoardDto: CreateBoardDto,
+  ) {
+    return this.boardService.createBoard(createBoardDto, userId);
   }
 
-  @Patch("v1/boards/:boardId")
-  async modifyBoard(@Param("boardId") boardId: string, @Body() modifyBoardDto: ModifyBoardDto) {
-    return await this.boardService.modifyBoard(
-      boardId,
-      modifyBoardDto.title,
-      modifyBoardDto.content,
-      modifyBoardDto.color,
-    );
+  @Patch(":boardId")
+  @UseGuards(JwtAccessGuards, RoleGuards)
+  @Roles(MemberRoles.ADMIN, MemberRoles.EDITOR)
+  @UsePipes(ValidationPipe)
+  async updateBoard(
+    @Param("boardId") boardId,
+    @Body() updateBoardDto: UpdateBoardDto,
+  ) {
+    return this.boardService.updateBoard(boardId, updateBoardDto);
   }
 
-  @Delete("v1/boards/:boardId")
-  async deleteBoard(@Param("boardId") boardId: string) {
-    return await this.boardService.deleteBoard(boardId);
+  @Delete(":boardId")
+  @UseGuards(JwtAccessGuards, RoleGuards)
+  @Roles(MemberRoles.ADMIN)
+  @UsePipes(ValidationPipe)
+  async deleteBoard(
+    @Param("boardId", ParseIntPipe) boardId
+  ) {
+    return this.boardService.deleteBoard(boardId);
   }
 
-  @Post("v1/boards/:boardId/invite")
-  async inviteBoard(@Param("BoardId") boardId: string) {
-    return await this.boardService.inviteBoard(boardId);
+  @Post(":boardId/invite")
+  @UseGuards(JwtAccessGuards, RoleGuards)
+  @Roles(MemberRoles.ADMIN)
+  @UsePipes(ValidationPipe)
+  async inviteBoard(
+    @Param("boardId", ParseIntPipe) boardId
+  ) {
+    return this.boardService.inviteBoard(boardId);
   }
 }
