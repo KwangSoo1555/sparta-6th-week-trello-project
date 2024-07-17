@@ -72,9 +72,9 @@ export class BoardService {
 
   async inviteBoard(boardId: string) {
     const data = await this.redisClient.set(boardId, `inviteLink/board$${boardId}`);
-    const result = await this.redisClient.get("1");
+    const result = await this.redisClient.get(boardId);
 
     console.log(result);
-    return data;
+    return result;
   }
 }
