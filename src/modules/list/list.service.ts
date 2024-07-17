@@ -1,26 +1,27 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository, DataSource } from "typeorm";
+
+import { ListsEntity } from "src/entities/lists.entity";
 import { CreateListDto } from "./dto/create-list.dto";
 import { UpdateListDto } from "./dto/update-list.dto";
 import { UpdateListOrderDto } from "./dto/update-list-order.dto";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { DataSource } from "typeorm";
-import { ListsEntity } from "src/entities/lists.entity";
-import { CardsEntity } from "src/entities/cards.entity";
 import { MESSAGES } from "src/common/constants/messages.constant";
-import { ApiBadGatewayResponse } from "@nestjs/swagger";
+import { CardsEntity } from "src/entities/cards.entity";
+
 @Injectable()
 export class ListService {
   constructor(
     @InjectRepository(ListsEntity) private readonly listRepository: Repository<ListsEntity>,
+    private readonly dataSource: DataSource,
     @InjectRepository(CardsEntity) private readonly cardRepository: Repository<CardsEntity>,
   ) {}
 
   async createList(createListDto: CreateListDto, boardId: number) {
-    const list = new ListsEntity();
-    list.boardId = boardId;
-    list.title = createListDto.title;
-    return await this.listRepository.save(list);
+    const list = { ...createListDto, boardId };
+    const newList = await this.listRepository.save(list);
+
+    return newList;
   }
 
   async findOneList(id: number): Promise<ListsEntity> {
@@ -38,7 +39,7 @@ export class ListService {
     return list;
   }
 
-  async findAllList(): Promise<ListsEntity[]> {
+  async findAllLists(): Promise<ListsEntity[]> {
     return await this.listRepository.find({
       order: {
         createdAt: "ASC",
@@ -57,57 +58,82 @@ export class ListService {
     return updateList;
   }
 
-  // async delete(id: number) {
-  //   return await this.listRepository.delete({ id });
-  // }
-
-  async deleteList(id: number): Promise<void> {
-    await this.findOneList(id);
-    await this.listRepository.delete({ id });
+  async deleteList(id: number) {
+    return await this.listRepository.delete({ id });
   }
+
+  async updateOrderList(listIdIndex: number, updateListOrderDto: UpdateListOrderDto) {
+    const { newPositionId } = updateListOrderDto;
+
+    const lists = await this.listRepository.find({
+      order: { id: "ASC" },
+    });
+
+    for (let i = 0; i < lists.length; i++) {
+      lists[i].orderIndex = i;
+      await this.listRepository.save(lists[i]);
+    }
+
+    const currentIndex = lists[listIdIndex];
+
+    lists.splice(listIdIndex, 1);
+    lists.splice(newPositionId, 0, currentIndex);
+
+    // orderIndex를 순서대로 다시 초기화
+    for (let i = 0; i < lists.length; i++) {
+      lists[i].orderIndex = i;
+      await this.listRepository.save(lists[i]);
+    }
+
+    // orderIndex를 기준으로 정렬된 리스트 반환
+    const updatedLists = await this.listRepository.find({
+      order: { orderIndex: "ASC" },
+    });
+
+    return updatedLists;
+  }
+
+  // async updateOrderList(listIdIndex: number, updateListOrderDto: UpdateListOrderDto) {
+  //   const queryRunner = this.dataSource.createQueryRunner();
+  //   await queryRunner.connect();
+  //   await queryRunner.startTransaction();
+
+  //   try {
+  //     const { newPositionId } = updateListOrderDto;
+
+  //     const lists = await this.listRepository.find({
+  //       order: { id: "ASC" },
+  //     });
+
+  //     for (let i = 0; i < lists.length; i++) {
+  //       lists[i].orderIndex = i;
+  //       await this.listRepository.save(lists[i]);
+  //     }
+
+  //     const currentIndex = lists[listIdIndex];
+
+  //     lists.splice(listIdIndex, 1);
+  //     lists.splice(newPositionId, 0, currentIndex);
+
+  //     // orderIndex를 순서대로 다시 초기화
+  //     for (let i = 0; i < lists.length; i++) {
+  //       lists[i].orderIndex = i + 1; // 1부터 시작하도록 설정
+  //       await this.listRepository.save(lists[i]);
+  //     }
+
+  //     // orderIndex를 기준으로 정렬된 리스트 반환
+  //     const updatedLists = await this.listRepository.find({
+  //       order: { orderIndex: "ASC" },
+  //     });
+
+  //     await queryRunner.commitTransaction();
+
+  //     return updatedLists;
+  //   } catch (error) {
+  //     await queryRunner.rollbackTransaction();
+  //     throw error;
+  //   } finally {
+  //     await queryRunner.release();
+  //   }
+  // }
 }
-//   async updateOrderList(listId: number, updateListOrderDto: UpdateListOrderDto) {
-//     const queryRunner = this.datasorce.createQueryRunner();
-//     await queryRunner.connect();
-//     await queryRunner.startTransaction();
-
-//     try {
-//       const { newPositionId } = updateListOrderDto;
-//       const listToMove = await this.listRepository.findOne({ where: { id: listId } });
-//       if (!listToMove) {
-//         throw new NotFoundException(MESSAGES.LIST.NOT_EXISTS);
-//       }
-
-//       const lists = await this.listRepository.find({
-//         order: { id: "ASC" },
-//       });
-
-//       const currentIndex = lists.findIndex((list) => list.id === listId);
-//       console.log(currentIndex);
-//       if (currentIndex === -1) {
-//         throw new NotFoundException(MESSAGES.LIST.NOT_EXISTS);
-//       }
-//       // 여기가 60번째 줄에서 정렬된 녀석을 토대로 64번째 줄에서 찾은 녀석 부터 1개의 idx 삭제한다. 69번째 줄의 효과
-//       lists.splice(currentIndex, 1);
-//       lists.splice(newPositionId - 1, 0, listToMove);
-
-//       for (let i = 0; i < lists.length; i++) {
-//         lists[i].id = i + 1;
-//         await this.listRepository.save(lists[i]);
-//       }
-//       const updateLists = await this.listRepository.find({
-//         order: { id: "ASC" },
-//       });
-//       return updateLists;
-
-//       await queryRunner.commitTransaction();
-
-//       return lists;
-//     } catch (error) {
-//       await queryRunner.rollbackTransaction();
-//       throw error;
-//     } finally {
-//       await queryRunner.release();
-//     }
-//   }
-// }

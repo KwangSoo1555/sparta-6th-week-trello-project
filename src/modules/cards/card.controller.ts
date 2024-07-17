@@ -55,5 +55,12 @@ export class CardController {
   }
 
   // 순서이동
-  // @Patch(":id")
+  @Patch(":id")
+  async updateOrder(
+    @Param("listId", ParseIntPipe) listId: number,
+    @Param("cardId", ParseIntPipe) cardId: number,
+    @Body() updateCardDto: UpdateCardDto,
+  ) {
+    return await this.cardService.updateOrder(listId, cardId, updateCardDto);
+  }
 }

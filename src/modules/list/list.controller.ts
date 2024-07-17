@@ -1,9 +1,11 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus } from "@nestjs/common";
+
 import { ListService } from "./list.service";
+
 import { CreateListDto } from "./dto/create-list.dto";
 import { UpdateListDto } from "./dto/update-list.dto";
-import { MESSAGES } from "src/common/constants/messages.constant";
 import { UpdateListOrderDto } from "./dto/update-list-order.dto";
+import { MESSAGES } from "src/common/constants/messages.constant";
 
 @Controller("boards/:boardId/lists")
 export class ListController {
@@ -27,8 +29,8 @@ export class ListController {
   }
 
   @Get()
-  async findAllList() {
-    return await this.listService.findAllList();
+  async findAllLists() {
+    return await this.listService.findAllLists();
   }
 
   @Patch(":id")
@@ -37,7 +39,7 @@ export class ListController {
   }
 
   @Delete(":id")
-  async removeList(@Param("id") id: string) {
+  async deleteList(@Param("id") id: string) {
     await this.listService.deleteList(+id);
     return {
       statusCode: HttpStatus.OK,
@@ -46,11 +48,11 @@ export class ListController {
     };
   }
 
-  // @Patch(":listId/order")
-  // async updateCards(
-  //   @Param("listId") listId: number,
-  //   @Body() updateListOrderDto: UpdateListOrderDto,
-  // ) {
-  //   return await this.listService.updateListOrderDto(listId, updateListOrderDto);
-  // }
+  @Patch(":listIdIndex/order")
+  async updateCards(
+    @Param("listIdIndex") listIdIndex: number,
+    @Body() updateListOrderDto: UpdateListOrderDto,
+  ) {
+    return await this.listService.updateOrderList(listIdIndex, updateListOrderDto);
+  }
 }

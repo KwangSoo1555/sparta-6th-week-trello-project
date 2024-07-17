@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -49,6 +50,7 @@ export class CardsEntity {
   //-----------------------------------------------------------------------//
 
   @ManyToOne(() => ListsEntity, (list) => list.card)
+  @JoinColumn({ name: "list_id" })
   list: ListsEntity;
 
   @OneToMany(() => FilesEntity, (file) => file.card)
