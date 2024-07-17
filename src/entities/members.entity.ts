@@ -39,7 +39,7 @@ export class MembersEntity {
   @JoinColumn({ name: "user_id" })
   user: UsersEntity;
 
-  @ManyToOne(()=> CardCommentsEntity, (cardComment)=> cardComment.member)
+  @OneToMany(()=> CardCommentsEntity, (cardComment)=> cardComment.member)
   cardComment: CardCommentsEntity[]
 
   @ManyToOne(() => BoardsEntity, (board) => board.member)

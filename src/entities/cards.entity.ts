@@ -13,6 +13,8 @@ import { FilesEntity } from "./files.entity";
 import { CardCommentsEntity } from "./card-comments.entity";
 import { ListsEntity } from "./lists.entity";
 import { CardAssigneesEntity } from "./card-assignees.entity";
+import { CardCheckListEntity } from "./card-check-list.entity";
+import { NotificationEntity } from "./notification.entity";
 
 @Entity("cards")
 export class CardsEntity {
@@ -61,4 +63,10 @@ export class CardsEntity {
 
   @OneToMany(() => CardAssigneesEntity, (cardAssignee) => cardAssignee.card)
   cardAssignee: CardAssigneesEntity[];
+
+  @OneToMany(() => CardCheckListEntity, (checklist) => checklist.card)
+  checklists: CardCheckListEntity[];
+
+  @OneToMany(() => NotificationEntity, (notification) => notification.card)
+  notification: NotificationEntity[];
 }
