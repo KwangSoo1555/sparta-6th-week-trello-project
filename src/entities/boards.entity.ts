@@ -26,6 +26,9 @@ export class BoardsEntity {
   @Column({ type: "enum", enum: Colors, default: Colors.WHITE })
   color: Colors;
 
+  @Column({name: 'background_image_url', default: 'https://png.pngtree.com/thumb_back/fw800/background/20231219/pngtree-pink-pastel-background-with-pink-aesthetic-sky-image_15522922.png'})
+  backgroundImageUrl: string
+
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
 
