@@ -22,6 +22,12 @@ export class ListController {
     };
   }
 
+  @Get(":id")
+  async findOneList(@Param("id") id: number) {
+    const list = await this.listService.findOneList(id);
+    return list;
+  }
+
   @Get()
   async findAllLists() {
     return await this.listService.findAllLists();

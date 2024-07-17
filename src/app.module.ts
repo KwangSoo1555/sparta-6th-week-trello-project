@@ -34,7 +34,7 @@ import { EventsModule } from "./modules/events/events.module";
     FileModule,
     CardCommentModule,
     EventsModule,
-    //RedisModule
+    RedisModule,
   ],
   controllers: [AppController],
   providers: [AppService],

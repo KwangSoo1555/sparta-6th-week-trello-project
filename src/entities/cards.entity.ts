@@ -8,7 +8,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-
 import { FilesEntity } from "./files.entity";
 import { CardCommentsEntity } from "./card-comments.entity";
 import { ListsEntity } from "./lists.entity";
