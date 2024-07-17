@@ -8,6 +8,8 @@ import { CardAssigneesEntity } from "src/entities/card-assignees.entity";
 import { MESSAGES } from "src/common/constants/messages.constant";
 import { ListsEntity } from "src/entities/lists.entity";
 import { SwapCardDto } from "./dtos/swap.cardDto";
+import { NotificationEntity } from "src/entities/notification.entity";
+import { EventsGateway } from "../events/events.gateway";
 
 @Injectable()
 export class CardService {
@@ -18,6 +20,9 @@ export class CardService {
     private readonly cardAssigneeRepository: Repository<CardAssigneesEntity>,
     @InjectRepository(ListsEntity)
     private readonly listRepository: Repository<ListsEntity>,
+    @InjectRepository(NotificationEntity)
+    private readonly notificationRepostiory: Repository<NotificationEntity>,
+    private readonly eventsGateway: EventsGateway,
   ) {}
 
   // 카드 생성 API
@@ -73,9 +78,22 @@ export class CardService {
   // 카드 수정 API
   async update(listId: number, cardId: number, updateCardDto: UpdateCardDto) {
     // 카드리스트가 존재하는지 확인
-    await this.findByListId(listId);
-
+    const data = await this.findByListId(listId);
     const existingCard = await this.findByCardId(cardId);
+
+    const changedFields: string[] = [];
+    if (existingCard.cardTitle !== updateCardDto.cardTitle) {
+      changedFields.push("cardTitle");
+      existingCard.cardTitle = updateCardDto.cardTitle;
+    }
+    if (existingCard.content !== updateCardDto.content) {
+      changedFields.push("content");
+      existingCard.content = updateCardDto.content;
+    }
+    if (existingCard.backgroundColor !== updateCardDto.backgroundColor) {
+      changedFields.push("backgroundColor");
+      existingCard.backgroundColor = updateCardDto.backgroundColor;
+    }
 
     // 카드 내용 수정 - 1
     existingCard.cardTitle = updateCardDto.cardTitle;
@@ -100,9 +118,26 @@ export class CardService {
         cardId: cardId,
         memberId: inputCardMember,
       });
-    } else {
-      cardMember.memberId = updateCardDto.cardMember;
+    }else {
+      if (cardMember.memberId !== updateCardDto.cardMember) {
+        changedFields.push("cardMember");
+        cardMember.memberId = updateCardDto.cardMember;
+      }
     }
+
+        // 알림 생성 및 전송
+        const notificationMessage = await this.eventsGateway.createNotificationMessage(
+          cardId,
+          changedFields,
+          data.title,
+          updatedCard.cardTitle,
+        );
+        const notification = await this.notificationRepostiory.save({
+          cardId,
+          memberId: updateCardDto.cardMember,
+          message: notificationMessage,
+        });
+        this.eventsGateway.handleCardStatusChanged(notification);
 
     const saveCardMemberData = await this.cardAssigneeRepository.save(cardMember);
 

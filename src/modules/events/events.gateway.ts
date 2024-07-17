@@ -10,7 +10,6 @@ import { CardNotificationDto } from "./dto/notification.dto";
     origin: "*",
   },
 })
-
 export class EventsGateway {
   private server: Server;
 
