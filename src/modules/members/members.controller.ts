@@ -21,6 +21,7 @@ export class MembersController {
     return this.membersService.getMembers(boardId, userId);
   }
 
+  //멤버 강제 추방
   @Delete("ban")
   @UseGuards(JwtAccessGuards)
   async banMember(

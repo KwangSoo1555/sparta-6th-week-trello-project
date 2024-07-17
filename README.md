@@ -22,7 +22,6 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-
 # 🖥️ Team 광수와 아이들의 Nest.js 트렐로 만들기 프로젝트
 
 ## 프로젝트 소개
@@ -31,7 +30,7 @@
 - 내용 : 현재 사용되고 있는 트렐로와 유사한 사이트를 만들어 팀원들 팀원들 간 협업에 용이한 내용을 공유 할 수 있게 한다.
 - 구분 : 팀 프로젝트
 - GitHub : https://github.com/KwangSoo1555/sparta-6th-week-trello-project
-- 시연 영상 : https://youtu.be/Uo9lumzJrsI  <- 여기다 넣어야함. 미정
+- 시연 영상 : https://youtu.be/Uo9lumzJrsI <- 여기다 넣어야함. 미정
 - 배포 : https://currypang.shop/ <- 여기다 넣어야함. 미정
 
 <br>
@@ -76,27 +75,27 @@
   - 보드 멤버 조회
   - 멤버 강제 퇴장
   - 소셜 로그인(Naver, Kakao, Google)
-    
 - **이윤형**
+
   - 멤버 권한 변경
   - 멤버 별명 변경
   - 보드 생성
   - 보드 수정
   - 보드 삭제
   - 보드 초대링크 생성
- 
+
 - **이길현**
+
   - 리스트 생성
   - 리스트 이름 수정
   - 리스트 삭제
   - 리스트 순서 이동
- 
+
 - **송사무엘**
   - 카드 생성
   - 카드 수정
   - 카드 삭제
   - 카드 순서 이동
-    
 - **김만규**
   - 카드 댓글 생성
   - 카드 댓글 수정
@@ -115,16 +114,14 @@
 - API 명세서 : [https://west-territory-778.notion.site/Team-Ace-Node-js-API-221adeefaec14c38bf1a623f068c0c22?pvs=4](https://www.notion.so/teamsparta/294c35986a084687bda3f2ee3b2d103b?v=49f77c87142442b693e2449acdfdad20&pvs=4)
 - ERD : ![ERD](https://github.com/user-attachments/assets/78ab3742-d735-4ca2-b9bd-a21b595daf70)
 
-
 ![와이어 프레임 1](https://github.com/user-attachments/assets/f31add8e-efcf-4f91-8862-465b32e1b170)
 ![와이어 프레임 2](https://github.com/user-attachments/assets/8cd07eb0-3078-4447-aed5-8de56ea615d8)
-
 
 <br>
 
 ## 5. 주요 기능 및 설명
 
-### 5-1. 이메일 인증 API  
+### 5-1. 이메일 인증 API
 
 - 회원 가입을 위한 이메일 인증 코드를 반환하는 API입니다.
 
@@ -138,7 +135,6 @@
 
 ![이메일 인증](https://github.com/user-attachments/assets/2814efe7-0d20-44cd-ad26-678c94d9604a)
 
-
 <br>
 
 ### 5-2. 회원가입 API
@@ -150,7 +146,6 @@
 - [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/auth.routers.js#L17](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/auth/users-auth/user-auth.service.ts#L37)
 
 ![회원가입](https://github.com/user-attachments/assets/85086bea-1640-4e5b-b1fd-d8cd5a86928b)
-
 
 <br>
 
@@ -168,10 +163,9 @@
 
 ![로그인](https://github.com/user-attachments/assets/d1751d46-ff7d-4e04-9bb1-42e04e915bcf)
 
-
 <br>
 
-### 5-4. 카카오 소셜 로그인 API      미구현
+### 5-4. 카카오 소셜 로그인 API 미구현
 
 - `OAuth`를 이용한 로그인 API입니다.
 
@@ -191,7 +185,7 @@
 
 <br>
 
-### 5-5. 네이버 소셜 로그인 API    미구현
+### 5-5. 네이버 소셜 로그인 API 미구현
 
 - `OAuth`를 이용한 로그인 API입니다.
 
@@ -211,7 +205,7 @@
 
 <br>
 
-### 5-6. 토큰 재발급 API           맞는지 확인 필요
+### 5-6. 토큰 재발급 API 맞는지 확인 필요
 
 - `Refresh Token`를 새롭게 발급 API입니다.
 
@@ -237,7 +231,6 @@
 
 ![로그아웃](https://github.com/user-attachments/assets/75ce52ce-4a90-48cd-9302-c743f2987c71)
 
-
 <br>
 
 ### 5-8. 내 정보 조회 API
@@ -254,7 +247,6 @@
 
 ![내 정보 가져오기](https://github.com/user-attachments/assets/74f82e8c-ea2b-4036-8d49-b2f9383cb66f)
 
-
 <br>
 
 ### 5-9. 내 정보 수정 API
@@ -267,10 +259,9 @@
 
 ![내 정보 수정하기](https://github.com/user-attachments/assets/8f7e6b0b-299a-4fa8-a28b-21c7838e20f1)
 
-
 <br>
 
-### 5-10. 보드 생성 API   윤형님 부탁해요
+### 5-10. 보드 생성 API 윤형님 부탁해요
 
 - 판매할 상품의 정보를 입력 받아 게시물을 생성하는 API입니다.
 
@@ -365,7 +356,6 @@
 
 ![리스트 생성](https://github.com/user-attachments/assets/b6f5126f-4713-422b-9864-5ba1c47bdb6a)
 
-
 <br>
 
 ### 5-16. 리스트 전체 조회 API
@@ -377,7 +367,6 @@
 - https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L59
 
 ![리스트 전체 조회](https://github.com/user-attachments/assets/057e35e6-ca24-487f-a499-55866f1388f9)
-
 
 <br>
 
@@ -391,7 +380,6 @@
 
 ![리스트 상세 조회](https://github.com/user-attachments/assets/14ae8081-1e37-4847-aa43-8e7a23930ee6)
 
-
 <br>
 
 ### 5-18. 리스트 수정 API
@@ -403,7 +391,6 @@
 - [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L120](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L67)
 
 ![리스트 수정](https://github.com/user-attachments/assets/6281b3d8-1bc7-46e2-91c7-aacc3a57c766)
-
 
 <br>
 
@@ -417,7 +404,6 @@
 
 ![리스트 순서 이동](https://github.com/user-attachments/assets/417c965f-d12d-4de2-b39f-26af28cefbe4)
 ![리스트 순서 이동](https://github.com/user-attachments/assets/77956295-4689-44e1-8589-c2f1248fdb62)
-
 
 <br>
 
@@ -433,7 +419,6 @@
 
 ![리스트 삭제](https://github.com/user-attachments/assets/6674574d-3480-4556-8c10-408113c13120)
 
-
 <br>
 
 ### 5-21. 카드 생성 API
@@ -447,7 +432,6 @@
 - [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade-complete.router.js#L12](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L29)
 
 ![카드 생성](https://github.com/user-attachments/assets/3e22243b-29bd-4bc5-969c-b1703bfa4939)
-
 
 <br>
 
@@ -463,7 +447,6 @@
 
 ![카드 수정](https://github.com/user-attachments/assets/75c69d41-9516-44f9-8abb-aa0c78630560)
 
-
 <br>
 
 ### 5-23. 카드 삭제 API
@@ -476,6 +459,19 @@
 
 ![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
 
+<br>
+
+### 5-23. 카드 순서 변경 API
+
+- 리스트 속 카드의 순서를 API입니다.
+
+- listId 통해 특정 리스트를 지정하고 그 속의 카드를 orderIndex를 통해서 특정 위치를 가진 카드를 지정합니다.
+
+- 그 후 타켓 위치의 리스트와 카드를 "swapListIndex" 와 "swapCardOrderIndex"로 받아서 위치를 특정하여 이동할 위치를 지정합니다.
+
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+
+![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
 
 <br>
 
@@ -491,7 +487,6 @@
 
 ![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
 
-
 <br>
 
 ### 5-23. 카드 순서 변경 API
@@ -506,7 +501,6 @@
 
 ![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
 
-
 <br>
 
 ### 5-23. 카드 순서 변경 API
@@ -520,22 +514,6 @@
 - [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
 
 ![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
-
-
-<br>
-
-### 5-23. 카드 순서 변경 API
-
-- 리스트 속 카드의 순서를 API입니다.
-
-- listId 통해 특정 리스트를 지정하고 그 속의 카드를 orderIndex를 통해서 특정 위치를 가진 카드를 지정합니다.
-
-- 그 후 타켓 위치의 리스트와 카드를 "swapListIndex" 와 "swapCardOrderIndex"로 받아서 위치를 특정하여 이동할 위치를 지정합니다.
-
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
-
-![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
-
 
 <br>
 
@@ -607,20 +585,8 @@
 
 - 프론트 엔드의 작업 없이 데이터 베이스의 스키마와 로직을 통한 insomnia 테스트로만 코드 동작을 판단하기 쉽지 않았음
 
-
-
-
-
-
-
-
-
-
-
-
-
-  
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
