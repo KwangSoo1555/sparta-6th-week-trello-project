@@ -90,7 +90,7 @@ export class UserService {
     return updatedUser;
   }
 
-  async getBoard(userId: number) {
+  async getBoards(userId: number) {
     const [createdMembers, invitedMembers] = await Promise.all([
       this.memberRepository.find({ where: { userId, isCreator: true }, relations: ["board"] }),
       this.memberRepository.find({ where: { userId, isCreator: false }, relations: ["board"] })
