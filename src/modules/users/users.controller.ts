@@ -7,17 +7,16 @@ import { UsersService } from "src/modules/users/users.service";
 import { UsersUpdateDto } from "src/modules/users/users.dto";
 
 @Controller("users")
+@UseGuards(JwtAccessGuards)
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get("me")
-  @UseGuards(JwtAccessGuards)
   getUsers(@RequestUserAndToken() { user: { id: userId } }) {
     return this.usersService.getUsers(userId);
   }
 
   @Patch("me")
-  @UseGuards(JwtAccessGuards)
   @UsePipes(ValidationPipe)
   updateUser(
     @RequestUserAndToken() { user: { id: userId } },
@@ -27,8 +26,7 @@ export class UsersController {
   }
 
   @Get("boards")
-  @UseGuards(JwtAccessGuards)
   getBoards(@RequestUserAndToken() { user: { id: userId } }) {
-    return this.usersService.getBoards(userId);
+    return this.usersService.getBoard(userId);
   }
 }

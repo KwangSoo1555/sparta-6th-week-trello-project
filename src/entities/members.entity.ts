@@ -35,6 +35,9 @@ export class MembersEntity {
   @Column({ type: "varchar", length: 50, default: null })
   nickname: string;
 
+  @Column({ type: "boolean", default: false })
+  isCreator: boolean;
+  
   @ManyToOne(() => UsersEntity, (user) => user.member)
   @JoinColumn({ name: "user_id" })
   user: UsersEntity;

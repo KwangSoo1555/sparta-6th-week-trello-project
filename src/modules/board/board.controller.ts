@@ -53,11 +53,22 @@ export class BoardController {
     return this.boardService.deleteBoard(boardId);
   }
 
-  // @Post(":boardId/invite")
-  // // @UseGuards(JwtAccessGuards, RoleGuards)
-  // // @Roles(MemberRoles.ADMIN)
-  // // @UsePipes(ValidationPipe)
-  // async inviteBoard(@Param("boardId", ParseIntPipe) boardId) {
-  //   return this.boardService.inviteBoard(boardId);
-  // }
+  @Post(":boardId/invite")
+  @UseGuards(JwtAccessGuards, RoleGuards)
+  @Roles(MemberRoles.ADMIN)
+  @UsePipes(ValidationPipe)
+  async inviteBoard(
+    @Param("boardId", ParseIntPipe) boardId
+  ) {
+    return this.boardService.inviteBoard(boardId);
+  }
+
+  @Get(':boardId')
+  @UseGuards(JwtAccessGuards)
+  async findBoardId(
+    @Param('boardId') boardId: number,
+    @RequestUserAndToken() { user: { id: userId } },
+  ){
+    return this.boardService.findBoard(boardId, userId)
+  }
 }

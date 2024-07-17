@@ -22,13 +22,13 @@ export class MembersSeeder implements Seeder {
       const board = boards[Math.floor(Math.random() * boards.length)];
       const role = Object.values(MemberRoles)[Math.floor(Math.random() * Object.values(MemberRoles).length)];
 
-      // Check if user and board are defined
       if (user && board) {
         data.push({
           userId: user.id,
           boardId: board.id,
           role,
           nickname: faker.internet.userName(),
+          isCreator: role === MemberRoles.ADMIN,
           user,
           board,
         });
