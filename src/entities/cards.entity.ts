@@ -23,10 +23,10 @@ export class CardsEntity {
   @Column({ type: "int", nullable: false, name: "list_id" })
   listId: number;
 
-  @Column({ type: "varchar", nullable: true, name: "card_title" })
+  @Column({ type: "varchar", name: "card_title" })
   cardTitle: string;
 
-  @Column({ type: "varchar", nullable: false })
+  @Column({ type: "varchar", nullable: true })
   content: string;
 
   @Column({ type: "int", name: "card_order_index" })

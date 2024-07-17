@@ -15,9 +15,9 @@ import { IsNotEmpty, IsString } from "class-validator";
 
 @Entity("lists")
 export class ListsEntity {
-  cardTitle(cardId: number, changedFields: string[], cardTitle: any, cardTitle1: string) {
-    throw new Error("Method not implemented.");
-  }
+  // cardTitle(cardId: number, changedFields: string[], cardTitle: any, cardTitle1: string) {
+  //   throw new Error("Method not implemented.");
+  // }
   @PrimaryGeneratedColumn()
   id: number;
 

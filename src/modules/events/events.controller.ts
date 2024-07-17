@@ -13,14 +13,18 @@ export class EventsController {
   @UseGuards(JwtAccessGuards)
   async getNotification(
     @Body() notificationUpdate: NotificationUpdate,
-    @Query('limit') limit: string,
+    @Query("limit") limit: string,
     @RequestUserAndToken() { user: { id: userId } }: { user: Pick<UsersEntity, "id"> },
   ) {
     let limitNumber = parseInt(limit, 10);
     if (isNaN(limitNumber) || limitNumber <= 0) {
       limitNumber = 10;
     }
-    const data = await this.eventService.getNotification(notificationUpdate.boardId, userId, limitNumber)
-    return { message: '알림 조회에 성공했습니다.', data}
+    const data = await this.eventService.getNotification(
+      notificationUpdate.boardId,
+      userId,
+      limitNumber,
+    );
+    return { message: "알림 조회에 성공했습니다.", data };
   }
 }

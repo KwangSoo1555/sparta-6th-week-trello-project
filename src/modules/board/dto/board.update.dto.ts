@@ -1,4 +1,4 @@
-import { IsString,IsEnum, IsOptional} from "class-validator";
+import { IsString, IsEnum, IsOptional } from "class-validator";
 import { DTO_CONSTANT } from "src/common/constants/dto.constant";
 import { Colors } from "src/common/custom/types/enum-color.type";
 
