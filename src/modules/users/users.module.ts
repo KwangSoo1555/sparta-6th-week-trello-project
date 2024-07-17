@@ -6,9 +6,10 @@ import { UsersController } from "./users.controller";
 
 import { UsersEntity } from "src/entities/users.entity";
 import { MembersEntity } from "src/entities/members.entity";
+import { BoardsEntity } from "src/entities/boards.entity";
 
 @Module({
-  imports: [NestTypeOrmModule.forFeature([UsersEntity, MembersEntity])],
+  imports: [NestTypeOrmModule.forFeature([UsersEntity, MembersEntity, BoardsEntity])],
   controllers: [UsersController],
   providers: [UsersService],
 })
