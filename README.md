@@ -261,19 +261,16 @@
 
 - 사용자의 정보를 수정하는 API입니다.
 
-- `이메일, 별명, 수정할 비밀번호, 현재 비밀번호, 지역, 나이, 성별, 한 줄 소개`를 `req.body`를 통해 받아옵니다.
+- `이메일, 이름, 수정할 비밀번호, 수정할 비밀번호 확인`을 `req.body`를 통해 받아옵니다.
 
-- 사용자 프로필 사진은 `multer`를 이용해 `AWS S3`에 저장합니다.
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/users/users.service.ts#L35
 
-- `newPassword(수정할 비밀번호)`가 입력되어 들어올 때만 비밀번호를 수정합니다.
+![내 정보 수정하기](https://github.com/user-attachments/assets/8f7e6b0b-299a-4fa8-a28b-21c7838e20f1)
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/user.router.js#L28
-
-![사용자 정보 수정 API](./imgs/7-user-update.png)
 
 <br>
 
-### 5-10. 게시물 생성 API
+### 5-10. 보드 생성 API   윤형님 부탁해요
 
 - 판매할 상품의 정보를 입력 받아 게시물을 생성하는 API입니다.
 
@@ -291,7 +288,7 @@
 
 <br>
 
-### 5-11. 게시물 목록 조회 API
+### 5-11. 게시물 목록 조회 API 윤형님 부탁해요
 
 - 판매 등록된 상품의 정보 목록을 조회하는 API입니다.
 
@@ -310,7 +307,7 @@
 
 <br>
 
-### 5-12. 게시물 상세 조회 API
+### 5-12. 게시물 상세 조회 API 윤형님 부탁해요
 
 - 게시물의 상세한 정보를 조회하는 API입니다.
 
@@ -326,7 +323,7 @@
 
 <br>
 
-### 5-13. 게시물 수정 API
+### 5-13. 게시물 수정 API 윤형님 부탁해요
 
 - 상품 게시물의 정보를 수정하는 API입니다.
 
@@ -344,7 +341,7 @@
 
 <br>
 
-### 5-14. 게시물 삭제 API
+### 5-14. 게시물 삭제 API 윤형님 부탁해요
 
 - 상품 게시물을 선택해서 삭제하는 API입니다.
 
@@ -358,103 +355,88 @@
 
 <br>
 
-### 5-15. 게시물 좋아요 API
+### 5-15. 리스트 생성 API
 
-- 상품 게시물에 좋아요를 할 수 있는 API입니다.
+- 보드에 들어갈 리스트를 생성하는 API입니다.
 
-- `상품 게시물의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
+- 이후 리스트 속에는 카드가 들어 갈 수 있습니다.
 
-- 사용자 본인의 게시글에 좋아요를 누르거나, 이미 좋아요를 누른 경우 에러를 반환합니다.
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade.router.js#L271](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L20)
 
-- `N:M 관계`를 `암시적 테이블`로 연결하기 위해 `connect 절`을 사용해서 테이블을 연결했습니다.
+![리스트 생성](https://github.com/user-attachments/assets/b6f5126f-4713-422b-9864-5ba1c47bdb6a)
 
-- `좋아요 취소 API`는 로직이 거의 동일하기에 작성하지 않았습니다.
-
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade.router.js#L271
-
-![게시물 좋아요 API](./imgs/20-trade-like.png)
-![게시물 좋아요 취소 API](./imgs/21-trade-unlike.png)
 
 <br>
 
-### 5-16. 댓글 생성 API
+### 5-16. 리스트 전체 조회 API
 
-- 해당 상품 게시물에 댓글을 작성하는 API입니다.
+- 작성된 리스트들을 전부 조회하는 API입니다.
 
-- `accessTokenValidator 미들웨어`를 통해 생성된 `req.user`에서 로그인한 사용자의 ID를 가져옵니다.
+- :boardId를 통해 특정 보더를 지정하고 보더 속에 있는 리스트 전체를 가져옵니다.
 
-- `상품 게시물의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L59
 
-- `댓글 내용`을 `req.body`를 통해 가져옵니다.
+![리스트 전체 조회](https://github.com/user-attachments/assets/057e35e6-ca24-487f-a499-55866f1388f9)
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L12
-
-![댓글 생성 API](./imgs/22-comment-create.png)
 
 <br>
 
-### 5-17. 댓글 조회 API
+### 5-17. 리스트 상세 조회 API
 
-- 사용자들이 게시물에 작성한 댓글들을 조회하는 API입니다.
+- 작성된 리스트 중 특정 리스트 하나를 조회하는 API입니다.
 
-- 본인 뿐만 아니라 `모든 사용자의 댓글`이 보입니다.
+- :boardId를 통해 특정 보더를 지정하고 보더 속에 있는 리스트 중 :listId로 찾은 것 하나를 가져옵니다.
 
-- `상품 게시물의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L66](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L43)
 
-- 기본적으로 `오래된 댓글일 수록 위에` 보입니다.
+![리스트 상세 조회](https://github.com/user-attachments/assets/14ae8081-1e37-4847-aa43-8e7a23930ee6)
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L66
-
-![댓글 조회 API](./imgs/24-comment-list.png)
 
 <br>
 
-### 5-18. 댓글 수정 API
+### 5-18. 리스트 수정 API
 
-- 본인이 작성한 댓글을 수정하는 API입니다.
+- 작성된 리스트 중 특정 리스트 하나를 수정하는 API입니다.
 
-- `상품 게시물의 ID, 댓글의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
+- :boardId를 통해 특정 보더를 지정하고 보더 속에 있는 리스트 중 :listId로 찾은 것 하나를 선택 한 후 수정합니다.
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L120
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L120](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L67)
 
-![댓글 수정 API](./imgs/23-comment-update.png)
+![리스트 수정](https://github.com/user-attachments/assets/6281b3d8-1bc7-46e2-91c7-aacc3a57c766)
 
-<br>
-
-### 5-19. 댓글 삭제 API
-
-- 본인이 작성한 댓글을 삭제하는 API입니다.
-
-- `상품 게시물의 ID, 댓글의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
-
-- 해당 ID를 조회하고 삭제를 진행합니다. `(Hard Delete)`
-
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L358
-
-![댓글 삭제 API](./imgs/25-comment-delete.png)
 
 <br>
 
-### 5-20. 댓글 좋아요 API
+### 5-19. 리스트 순서 이동 API
 
-- 상품 게시물 댓글에 좋아요를 할 수 있는 API입니다.
+- 작성된 리스트 중 특정 리스트 하나를 타겟 리스트의 위치로 이동하게 만드는 API입니다
 
-- `상품 게시물의 ID, 댓글의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
+- :boardId를 통해 특정 보더를 지정하고 보더 속에 있는 리스트 중 :listId로 찾은 것 하나를 선택 한 후 특정 위치(newPositionId)로 이동하게 합니다.
 
-- 사용자 본인의 댓글에 좋아요를 누르거나, 이미 좋아요를 누른 경우 에러를 반환합니다.
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L358](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L93)
 
-- `N:M 관계`를 `암시적 테이블`로 연결하기 위해 `connect 절`을 사용해서 테이블을 연결했습니다.
+![리스트 순서 이동](https://github.com/user-attachments/assets/417c965f-d12d-4de2-b39f-26af28cefbe4)
+![리스트 순서 이동](https://github.com/user-attachments/assets/77956295-4689-44e1-8589-c2f1248fdb62)
 
-- `댓글 좋아요 취소 API`는 로직이 거의 동일하기에 작성하지 않았습니다.
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L195
+<br>
+
+### 5-20. 리스트 삭제 API
+
+- 작성된 리스트 중 특정 리스트 하나를 삭제하는 API입니다
+
+- :boardId를 통해 특정 보더를 지정하고 보더 속에 있는 리스트 중 :listId로 찾은 것 하나를 선택 한 후 삭제합니다.
+
+- 삭제 후 리스트의 순서를 지칭하는 order_index의 순서를 재 정립하여 오류가 발생하지 않도록 합니다.
+
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L195](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L93)
 
 ![댓글 좋아요 API](./imgs/26-comment-like.png)
 ![댓글 좋아요 취소 API](./imgs/27-comment-unlike.png)
 
 <br>
 
-### 5-21. 상품 판매/구매 완료 API
+### 5-21. 카드 생성 API
 
 - 판매자(구매자)가 상품 판매(구매)를 완료하는 API입니다.
 
