@@ -114,10 +114,10 @@ async findBoard(boardId: number, userId: number) {
 }  
   // 충돌 코드
   
-  async inviteBoard(boardId: string) {
-    const data = await this.redisClient.set(boardId, `inviteLink/board$${boardId}`);
-    const result = await this.redisClient.get(boardId);
+  // async inviteBoard(boardId: string) {
+  //   const data = await this.redisClient.set(boardId, `inviteLink/board$${boardId}`);
+  //   const result = await this.redisClient.get(boardId);
 
-    return { message: BOARD_CONSTANT.MAKE_INVITECODE };
-  } 
+  //   return { message: BOARD_CONSTANT.MAKE_INVITECODE };
+  // } 
   }
