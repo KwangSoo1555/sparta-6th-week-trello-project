@@ -23,7 +23,7 @@ export class CardCommentsEntity {
   @JoinColumn({name: 'card_id'})
   card: CardsEntity;
 
-  @ManyToOne(() => MembersEntity, (member) => member.user)
+  @ManyToOne(() => MembersEntity, (member) => member.userId)
   @JoinColumn({ name: "member_id" })
   member: MembersEntity;
 }
