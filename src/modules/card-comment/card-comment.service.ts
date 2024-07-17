@@ -48,7 +48,7 @@ export class CardCommentService {
   async commentPatch(commentId: number, userId: number, content: string) {
     await this.findCommentById(commentId);
     const result = await this.cardCommentRepository.update(
-      { id: commentId, userId: userId },
+      { id: commentId, memberId: userId },
       { content: content },
     );
 
@@ -60,7 +60,7 @@ export class CardCommentService {
   async commentDelete(userId: number, commentId: number) {
     const comment = await this.findCommentById(commentId);
 
-    if (comment.userId !== userId) {
+    if (comment.memberId !== userId) {
       throw new BadRequestException(MESSAGES.CARDCOMMENT.NOT_AUTHORITY_DELETE);
     }
 
