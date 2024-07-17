@@ -12,6 +12,7 @@ import { CardService } from "./card.service";
 import { CreateCardDto } from "./dtos/create.cardDto";
 import { UpdateCardDto } from "./dtos/update.cardDto";
 import { MESSAGES } from "src/common/constants/messages.constant";
+import { SwapCardDto } from "./dtos/swap.cardDto";
 
 @Controller("lists/:listId/cards")
 export class CardController {
@@ -30,13 +31,24 @@ export class CardController {
     };
   }
 
+  // 카드 내용 변경
   @Patch(":cardId")
   async update(
     @Param("listId", ParseIntPipe) listId: number,
     @Param("cardId", ParseIntPipe) cardId: number,
     @Body() updateCardDto: UpdateCardDto,
   ) {
-    return await this.cardService.update(cardId, listId, updateCardDto);
+    return await this.cardService.update(listId, cardId, updateCardDto);
+  }
+
+  // 순서이동;
+  @Patch(":orderIndex/order")
+  async updateOrder(
+    @Param("listId", ParseIntPipe) listId: number,
+    @Param("orderIndex", ParseIntPipe) orderIndex: number,
+    @Body() swapCardDto: SwapCardDto,
+  ) {
+    return await this.cardService.updateOrder(listId, orderIndex, swapCardDto);
   }
 
   // 카드 삭제 API
@@ -52,15 +64,5 @@ export class CardController {
       status: HttpStatus.OK,
       data,
     };
-  }
-
-  // 순서이동
-  @Patch(":id")
-  async updateOrder(
-    @Param("listId", ParseIntPipe) listId: number,
-    @Param("cardId", ParseIntPipe) cardId: number,
-    @Body() updateCardDto: UpdateCardDto,
-  ) {
-    return await this.cardService.updateOrder(listId, cardId, updateCardDto);
   }
 }
