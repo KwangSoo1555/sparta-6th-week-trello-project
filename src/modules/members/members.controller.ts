@@ -59,8 +59,8 @@ export class MembersController {
     return this.membersService.updateMemberNickname(updateMemberInfoDto, boardId, userId);
   }
 
-  // @Post("join-member")
-  // async createMember(@Body() createMemberDto: CreateMemberDto) {
-  //   return await this.membersService.createMember(createMemberDto);
-  // }
+  @Post("join-member")
+  async createMember(@Body() createMemberDto: CreateMemberDto) {
+    return await this.membersService.createMember(createMemberDto);
+  }
 }
