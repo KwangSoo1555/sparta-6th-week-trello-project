@@ -25,18 +25,29 @@ export class CardService {
   async create(createCardDto: CreateCardDto, listId: number) {
     await this.findByListId(listId);
 
-    const newItem = { ...createCardDto, listId };
+    const lastCard = await this.cardRepository.findOne({
+      order: { orderIndex: "DESC" },
+      where: { listId },
+    });
+
+    const nextOrderIndex = lastCard ? lastCard.orderIndex + 1 : 0;
+
+    // 새로운 카드 생성, orderIndex 설정
+    const newItem = { ...createCardDto, listId, orderIndex: nextOrderIndex };
+
     const newCard = await this.cardRepository.save(newItem);
 
     return newCard;
   }
 
+  // 리스트 찾는 함수
   async findByListId(listId: number) {
-    const existingList = await this.cardRepository.findOne({
+    const existingList = await this.listRepository.findOne({
       where: {
-        listId,
+        id: listId,
       },
     });
+
     if (!existingList) {
       throw new BadRequestException(MESSAGES.CARD.LIST.NOT_EXISTS);
     }
@@ -44,6 +55,7 @@ export class CardService {
     return existingList;
   }
 
+  // 카드 ID 찾는 함수
   async findByCardId(cardId: number) {
     const existingCard = await this.cardRepository.findOne({
       where: {
@@ -62,6 +74,7 @@ export class CardService {
   async update(listId: number, cardId: number, updateCardDto: UpdateCardDto) {
     // 카드리스트가 존재하는지 확인
     await this.findByListId(listId);
+
     const existingCard = await this.findByCardId(cardId);
 
     // 카드 내용 수정 - 1
@@ -99,46 +112,108 @@ export class CardService {
 
   // 카드 삭제 API
   async delete(listId: number, cardId: number) {
+    // 삭제하려는 카드의 현재 리스트가 존재하는지?
     await this.findByListId(listId);
 
-    return this.cardRepository.delete(cardId);
+    // 카드 삭제
+    await this.cardRepository.delete(cardId);
+
+    // 카드 삭제후 DB속의 모든 카드 오름 차순으로 찾기
+    const cards = await this.cardRepository.find({
+      where: { listId: listId },
+      order: { orderIndex: "ASC" },
+    });
+
+    // 카드 orderIndex 다시 정리
+    for (let i = 0; i < cards.length; i++) {
+      cards[i].orderIndex = i;
+
+      await this.listRepository.save(cards[i]);
+    }
+
+    return;
   }
 
   // 카드 순서 이동 API
-  async updateOrder(listId: number, cardId: number, swapCardDto: SwapCardDto) {
-    await this.findByListId(listId);
-    const existingCard = await this.findByCardId(cardId);
-    return;
+  // 카드 순서 옮기기
+  async updateOrder(listId: number, orderIndex: number, swapCardDto: SwapCardDto) {
+    const { swapCardOrderIndex, swapListIndex } = swapCardDto;
+
+    // 카드의 현재 위치를 찾기
+    await this.cardRepository.findOne({
+      where: {
+        orderIndex,
+      },
+    });
+
+    // 현재 리스트에서 카드를 찾기
+    const currentListCards = await this.cardRepository.find({
+      where: { listId: listId },
+      order: { orderIndex: "ASC" },
+    });
+
+    // 내 카드의 현재 위치 파악 후 배열에서 제거
+    const currentIndex = currentListCards.findIndex((card) => card.orderIndex === orderIndex);
+    const [removedCard] = currentListCards.splice(currentIndex, 1);
+
+    // 카드의 리스트를 업데이트
+    removedCard.listId = swapListIndex || listId;
+
+    // 타겟 리스트에서 카드를 찾기 (현재 리스트와 타겟 리스트가 동일하면 갱신된 currentListCards 사용)
+    const targetListCards = swapListIndex
+      ? await this.cardRepository.find({
+          where: { listId: swapListIndex },
+          order: { orderIndex: "ASC" },
+        })
+      : currentListCards;
+
+    // 타겟 리스트에 카드를 삽입
+    targetListCards.splice(swapCardOrderIndex, 0, removedCard);
+
+    // 타겟 리스트의 모든 카드의 orderIndex를 다시 설정
+    for (let i = 0; i < targetListCards.length; i++) {
+      targetListCards[i].orderIndex = i;
+      await this.cardRepository.save(targetListCards[i]);
+    }
+
+    // 현재 리스트가 타겟 리스트와 다르면, 현재 리스트도 재정렬
+    if (swapListIndex && swapListIndex !== listId) {
+      for (let i = 0; i < currentListCards.length; i++) {
+        currentListCards[i].orderIndex = i;
+        await this.cardRepository.save(currentListCards[i]);
+      }
+    }
+
+    return targetListCards;
   }
 }
+// 옮겨 간 리스트에 정렬 1
 
-// async updateOrderList(listIdIndex: number, updateListOrderDto: UpdateListOrderDto) {
-//   const { newPositionId } = updateListOrderDto;
+// 원래 있던 리스트에서 정렬 1
 
-//   const lists = await this.listRepository.find({
-//     order: { id: "ASC" },
-//   });
+// 기존에 있었던 코드
+// async updateOrder(listId: number, cardId: number, swapCardDto: SwapCardDto) {
+//   // 내가 옮기려고 하는 카드의 장소 선언
+//   const { swapCardIndex } = swapCardDto;
 
-//   for (let i = 0; i < lists.length; i++) {
-//     lists[i].orderIndex = i;
-//     await this.listRepository.save(lists[i]);
-//   }
-
-//   const currentIndex = lists[listIdIndex];
-
-//   lists.splice(listIdIndex, 1);
-//   lists.splice(newPositionId, 0, currentIndex);
-
-//   // orderIndex를 순서대로 다시 초기화
-//   for (let i = 0; i < lists.length; i++) {
-//     lists[i].orderIndex = i;
-//     await this.listRepository.save(lists[i]);
-//   }
-
-//   // orderIndex를 기준으로 정렬된 리스트 반환
-//   const updatedLists = await this.listRepository.find({
+//   // 카드의 위치 찾아
+//   const cards = await this.cardRepository.find({
+//     where: { listId: listId },
 //     order: { orderIndex: "ASC" },
 //   });
 
-//   return updatedLists;
+//   // 내 카드의 현재 위치 파악 후 재명명
+//   const currentIndex = cards[cardId];
+
+//   cards.splice(cardId, 1);
+
+//   cards.splice(swapCardIndex, 0, currentIndex);
+
+//   // orderIndex를 순서대로 다시 초기화
+//   for (let i = 0; i < cards.length; i++) {
+//     cards[i].orderIndex = i;
+//     await this.cardRepository.save(cards[i]);
+//   }
+
+//   return cards;
 // }

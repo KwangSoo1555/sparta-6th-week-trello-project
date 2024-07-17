@@ -45,17 +45,13 @@ export class ListService {
     return await this.listRepository.delete({ id });
   }
 
+  // 카드 순서 옮기기
   async updateOrderList(listIdIndex: number, updateListOrderDto: UpdateListOrderDto) {
     const { newPositionId } = updateListOrderDto;
 
     const lists = await this.listRepository.find({
-      order: { id: "ASC" },
+      order: { orderIndex: "ASC" },
     });
-
-    for (let i = 0; i < lists.length; i++) {
-      lists[i].orderIndex = i;
-      await this.listRepository.save(lists[i]);
-    }
 
     const currentIndex = lists[listIdIndex];
 
@@ -68,55 +64,38 @@ export class ListService {
       await this.listRepository.save(lists[i]);
     }
 
-    // orderIndex를 기준으로 정렬된 리스트 반환
-    const updatedLists = await this.listRepository.find({
-      order: { orderIndex: "ASC" },
-    });
-
-    return updatedLists;
+    return lists;
   }
-
-  // async updateOrderList(listIdIndex: number, updateListOrderDto: UpdateListOrderDto) {
-  //   const queryRunner = this.dataSource.createQueryRunner();
-  //   await queryRunner.connect();
-  //   await queryRunner.startTransaction();
-
-  //   try {
-  //     const { newPositionId } = updateListOrderDto;
-
-  //     const lists = await this.listRepository.find({
-  //       order: { id: "ASC" },
-  //     });
-
-  //     for (let i = 0; i < lists.length; i++) {
-  //       lists[i].orderIndex = i;
-  //       await this.listRepository.save(lists[i]);
-  //     }
-
-  //     const currentIndex = lists[listIdIndex];
-
-  //     lists.splice(listIdIndex, 1);
-  //     lists.splice(newPositionId, 0, currentIndex);
-
-  //     // orderIndex를 순서대로 다시 초기화
-  //     for (let i = 0; i < lists.length; i++) {
-  //       lists[i].orderIndex = i + 1; // 1부터 시작하도록 설정
-  //       await this.listRepository.save(lists[i]);
-  //     }
-
-  //     // orderIndex를 기준으로 정렬된 리스트 반환
-  //     const updatedLists = await this.listRepository.find({
-  //       order: { orderIndex: "ASC" },
-  //     });
-
-  //     await queryRunner.commitTransaction();
-
-  //     return updatedLists;
-  //   } catch (error) {
-  //     await queryRunner.rollbackTransaction();
-  //     throw error;
-  //   } finally {
-  //     await queryRunner.release();
-  //   }
-  // }
 }
+
+//  // 리스트 순서이동
+//  async updateOrderList(listIdIndex: number, updateListOrderDto: UpdateListOrderDto) {
+//   const { newPositionId } = updateListOrderDto;
+
+//   const lists = await this.listRepository.find({
+//     order: { orderIndex: "ASC" },
+//   });
+
+//   // for (let i = 0; i < lists.length; i++) {
+//   //   lists[i].orderIndex = i;
+//   //   await this.listRepository.save(lists[i]);
+//   // }
+
+//   const currentIndex = lists[listIdIndex];
+
+//   lists.splice(listIdIndex, 1);
+//   lists.splice(newPositionId, 0, currentIndex);
+
+//   // orderIndex를 순서대로 다시 초기화
+//   for (let i = 0; i < lists.length; i++) {
+//     lists[i].orderIndex = i;
+//     await this.listRepository.save(lists[i]);
+//   }
+
+//   // orderIndex를 기준으로 정렬된 리스트 반환
+//   // const updatedLists = await this.listRepository.find({
+//   //   order: { orderIndex: "ASC" },
+//   // });
+
+//   return lists;
+// }
