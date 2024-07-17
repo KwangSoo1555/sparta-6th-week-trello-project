@@ -58,14 +58,14 @@ export class BoardService {
   }
 
   async updateBoard(boardId: number, updateBoardDto: UpdateBoardDto) {
-    const board = await this.boardRepository.findOne({where: {id: boardId}})
+    const board = await this.boardRepository.findOne({ where: { id: boardId } });
     await this.boardRepository.update(
       { id: boardId },
       {
-        ...(board.title && {title: updateBoardDto.title}),
-        ...(board.content && {content: updateBoardDto.content}), 
-        ...(board.color && {color: updateBoardDto.color}),
-      }
+        ...(board.title && { title: updateBoardDto.title }),
+        ...(board.content && { content: updateBoardDto.content }),
+        ...(board.color && { color: updateBoardDto.color }),
+      },
     );
     return { Message: BOARD_CONSTANT.MODIFY_BOARD };
   }
@@ -115,10 +115,8 @@ async findBoard(boardId: number, userId: number) {
   // 충돌 코드
   
   // async inviteBoard(boardId: string) {
-  //   const id = Number(boardId);
-  //   if (isNaN(id)) {
-  //     throw new Error(MESSAGES.BOARD.INVALID_ACCESSED); // 유효하지 않은 ID에 대한 오류 처리
-  //   }
+  //   const data = await this.redisClient.set(boardId, `inviteLink/board$${boardId}`);
+  //   const result = await this.redisClient.get(boardId);
 
   //   return { message: BOARD_CONSTANT.MAKE_INVITECODE };
   // } 

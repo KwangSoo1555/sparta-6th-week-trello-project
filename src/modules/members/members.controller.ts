@@ -1,10 +1,11 @@
-import { Controller, Query, Body, Get, Patch, Delete } from "@nestjs/common";
+import { Controller, Query, Body, Get, Patch, Delete, Post } from "@nestjs/common";
 import { MembersService } from "./members.service";
 import { JwtAccessGuards } from "../auth/jwt/jwt-strategy.service";
 import { RoleGuards, Roles } from "src/common/custom/decorator/user-roles-guards";
 import { MemberRoles } from "src/common/custom/types/enum-member-roles";
 import { UseGuards } from "@nestjs/common";
 import { UpdateMemberInfoDto } from "./dto/member.update.dto";
+import { CreateMemberDto } from "./dto/member.create.dto";
 import { RequestUserAndToken } from "src/common/custom/decorator/user-request-jwt";
 
 @UseGuards(JwtAccessGuards)
@@ -56,5 +57,14 @@ export class MembersController {
     @Body() updateMemberInfoDto: UpdateMemberInfoDto,
   ) {
     return this.membersService.updateMemberNickname(updateMemberInfoDto, boardId, userId);
+  }
+
+  @Post("join-member")
+  @UseGuards(JwtAccessGuards)
+  async createMember(
+    @RequestUserAndToken() { user: { id: userId } },
+    @Body() createMemberDto: CreateMemberDto,
+  ) {
+    return await this.membersService.createMember(userId, createMemberDto);
   }
 }

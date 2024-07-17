@@ -36,8 +36,8 @@ import { MorganInterceptor, MorganModule } from "nest-morgan";
     FileModule,
     CardCommentModule,
     EventsModule,
-    MorganModule
-    //RedisModule
+    MorganModule,
+    RedisModule,
   ],
   controllers: [AppController],
   providers: [AppService,    {

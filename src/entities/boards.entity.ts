@@ -37,7 +37,6 @@ export class BoardsEntity {
 
   @OneToMany(() => MembersEntity, (member) => member.board)
   member: MembersEntity[];
-  
 
   @OneToMany(() => ListsEntity, (list) => list.board)
   list: ListsEntity[];

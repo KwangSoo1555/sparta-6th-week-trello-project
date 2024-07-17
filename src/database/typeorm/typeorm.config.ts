@@ -37,7 +37,7 @@ export class TypeOrmConfig implements TypeOrmOptionsFactory {
         CardAssigneesEntity,
         CardCommentsEntity,
         CardCheckListEntity,
-        NotificationEntity
+        NotificationEntity,
       ], // 수정된 부분
     };
     this.typeOrm = new DataSource(options);

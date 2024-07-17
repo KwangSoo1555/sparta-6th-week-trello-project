@@ -41,10 +41,7 @@ export class BoardController {
   @UseGuards(JwtAccessGuards, RoleGuards)
   @Roles(MemberRoles.ADMIN, MemberRoles.EDITOR)
   @UsePipes(ValidationPipe)
-  async updateBoard(
-    @Param("boardId") boardId,
-    @Body() updateBoardDto: UpdateBoardDto,
-  ) {
+  async updateBoard(@Param("boardId") boardId, @Body() updateBoardDto: UpdateBoardDto) {
     return this.boardService.updateBoard(boardId, updateBoardDto);
   }
 
@@ -52,9 +49,7 @@ export class BoardController {
   @UseGuards(JwtAccessGuards, RoleGuards)
   @Roles(MemberRoles.ADMIN)
   @UsePipes(ValidationPipe)
-  async deleteBoard(
-    @Param("boardId", ParseIntPipe) boardId
-  ) {
+  async deleteBoard(@Param("boardId", ParseIntPipe) boardId) {
     return this.boardService.deleteBoard(boardId);
   }
 
