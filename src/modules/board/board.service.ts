@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { ConflictException, Injectable } from "@nestjs/common";
+import { ConflictException, Inject, Injectable } from "@nestjs/common";
 import { DataSource, In } from "typeorm";
 
 import { Repository } from "typeorm";
@@ -18,6 +18,8 @@ import { MESSAGES } from "src/common/constants/messages.constant";
 import { CardsEntity } from "src/entities/cards.entity";
 import { ListsEntity } from "src/entities/lists.entity";
 
+import { Redis } from "ioredis";
+
 @Injectable()
 export class BoardService {
   constructor(
@@ -30,6 +32,7 @@ export class BoardService {
     private cardRepository: Repository<CardsEntity>,
     @InjectRepository(ListsEntity)
     private listRepository: Repository<ListsEntity>,
+    @Inject("REDIS_CLIENT") private redisClient: Redis,
   ) {}
 
   async createBoard(createBoardDto: CreateBoardDto, userId: number) {
@@ -74,50 +77,35 @@ export class BoardService {
     await this.boardRepository.delete(boardId);
   }
 
-  async inviteBoard(boardId: string) {
-    // const id = Number(boardId);
-    // if (isNaN(id)) {
-    //   throw new Error("Invalid boardId"); // 유효하지 않은 ID에 대한 오류 처리
-    // }
-    // return { message: BOARD_CONSTANT.MAKE_INVITECODE };
-    const id = Number(boardId);
-    if (isNaN(id)) {
-      throw new Error(MESSAGES.BOARD.INVALID_ACCESSED); // 유효하지 않은 ID에 대한 오류 처리
+  async findBoard(boardId: number, userId: number) {
+    const member = await this.memberRepository.findOne({ where: { boardId, userId } });
+    if (!member) {
+      throw new ConflictException("접근 권한이 없습니다.");
     }
-    await this.boardRepository.delete({ id: id });
-    return { message: BOARD_CONSTANT.DELETE_BOARD };
+    const board = await this.boardRepository.findOne({ where: { id: boardId } });
+    const lists = await this.listRepository.find({ where: { boardId } });
+    const listIds = lists.map((list) => list.id);
+
+    const cards = await this.cardRepository.find({
+      where: { listId: In(listIds) },
+    });
+
+    const boardData = {
+      board: board.backgroundImageUrl,
+      boardTilte: board.title,
+      lists: lists.map((list) => ({
+        ...list,
+        cards: cards.filter((card) => card.listId === list.id),
+      })),
+    };
+
+    return boardData;
   }
 
-async findBoard(boardId: number, userId: number) {
-  const member = await this.memberRepository.findOne({ where: { boardId, userId } });
-  if (!member) {
-    throw new ConflictException('접근 권한이 없습니다.');
+  async inviteBoard(boardId: string) {
+    const data = await this.redisClient.set(boardId, `inviteLink/board$${boardId}`);
+    const result = await this.redisClient.get(boardId);
+
+    return { message: BOARD_CONSTANT.MAKE_INVITECODE };
   }
-  const board = await this.boardRepository.findOne({where: {id : boardId}})
-  const lists = await this.listRepository.find({ where: { boardId } });
-  const listIds = lists.map(list => list.id);
-
-  const cards = await this.cardRepository.find({
-    where: { listId: In(listIds) }
-  });
-
-  const boardData = {
-    board: board.backgroundImageUrl,
-    boardTilte: board.title,
-    lists: lists.map(list => ({
-      ...list,
-      cards: cards.filter(card => card.listId === list.id)
-    }))
-  };
-
-  return boardData;
-}  
-  // 충돌 코드
-  
-  // async inviteBoard(boardId: string) {
-  //   const data = await this.redisClient.set(boardId, `inviteLink/board$${boardId}`);
-  //   const result = await this.redisClient.get(boardId);
-
-  //   return { message: BOARD_CONSTANT.MAKE_INVITECODE };
-  // } 
-  }
+}
