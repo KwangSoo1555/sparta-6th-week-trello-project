@@ -15,7 +15,7 @@ export class CardsSeeder implements Seeder {
 
     for (let i = 0; i < 100; i++) {
       const list = lists[Math.floor(Math.random() * lists.length)];
-      
+
       data.push({
         listId: list.id,
         cardTitle: faker.lorem.words(3),
@@ -28,7 +28,7 @@ export class CardsSeeder implements Seeder {
         list,
       });
     }
-    console.log(data)
+    console.log(data);
     await cardRepository.save(data);
   }
 }

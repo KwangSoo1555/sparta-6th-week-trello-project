@@ -8,7 +8,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-
 import { FilesEntity } from "./files.entity";
 import { CardCommentsEntity } from "./card-comments.entity";
 import { ListsEntity } from "./lists.entity";
@@ -30,8 +29,8 @@ export class CardsEntity {
   @Column({ type: "varchar", nullable: false })
   content: string;
 
-  @Column({ type: "bigint", unique: true, name: "card_next_index" })
-  nextIndex: number;
+  @Column({ type: "int", name: "card_order_index" })
+  orderIndex: number;
 
   @Column({ type: "datetime", nullable: true, name: "card_dead_line" })
   cardDeadLine: Date;

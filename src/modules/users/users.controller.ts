@@ -2,18 +2,18 @@ import { Controller, Get, Patch, UseGuards, UsePipes, ValidationPipe, Body } fro
 import { JwtAccessGuards } from "../auth/jwt/jwt-strategy.service";
 import { RequestUserAndToken } from "src/common/custom/decorator/user-request-jwt";
 
-import { UsersService } from "src/modules/users/users.service";
+import { UserService } from "src/modules/users/users.service"
 
 import { UsersUpdateDto } from "src/modules/users/users.dto";
 
 @Controller("users")
-export class UsersController {
-  constructor(private usersService: UsersService) {}
+export class UserController {
+  constructor(private userService: UserService) {}
 
   @Get("me")
   @UseGuards(JwtAccessGuards)
   getUsers(@RequestUserAndToken() { user: { id: userId } }) {
-    return this.usersService.getUsers(userId);
+    return this.userService.getUsers(userId);
   }
 
   @Patch("me")
@@ -23,7 +23,7 @@ export class UsersController {
     @RequestUserAndToken() { user: { id: userId } },
     @Body() updateUserDto: UsersUpdateDto,
   ) {
-    return this.usersService.updateUser(userId, updateUserDto);
+    return this.userService.updateUser(userId, updateUserDto);
   }
 
   @Get("boards")
@@ -31,6 +31,6 @@ export class UsersController {
   getBoards(
     @RequestUserAndToken() { user: { id: userId } }, 
   ) {
-    return this.usersService.getBoards(userId);
+    return this.userService.getBoards(userId);
   }
 }

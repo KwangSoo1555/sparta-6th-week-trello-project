@@ -5,8 +5,4 @@ export class CreateCardDto {
   @IsString()
   @IsNotEmpty({ message: DTO_CONSTANT.CARD.NOT_INPUT_CARD })
   content: string;
-
-  @IsNumber()
-  @IsNotEmpty({ message: DTO_CONSTANT.CARD.NOT_INPUT_NEXTINDEX })
-  nextIndex: number;
 }

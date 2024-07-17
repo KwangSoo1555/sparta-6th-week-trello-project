@@ -1,21 +1,21 @@
-import { Controller, Get, UseGuards, Req, Res, Ip, Headers } from "@nestjs/common";
+import { Controller, Get, UseGuards, Req, Ip, Headers } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 
 import { GooglePassportService } from "./google-passport.service";
 
-@Controller("auth")
+@Controller("auth/google")
 export class GooglePassportController {
   constructor(
     private googlePassportService: GooglePassportService
   ) {}
 
-  @Get("google")
+  @Get()
   @UseGuards(AuthGuard("google"))
   async googleRedirect() {
     // 구글 로그인 페이지로 리다이렉트
   }
 
-  @Get("google/callback")
+  @Get("callback")
   @UseGuards(AuthGuard("google"))
   async googleLogin(
     @Ip() ip: string,

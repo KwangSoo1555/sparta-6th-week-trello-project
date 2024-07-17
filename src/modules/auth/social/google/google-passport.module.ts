@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
 import { PassportModule } from "@nestjs/passport";
-import { JwtGoogleStrategy } from "./jwt-google-strategy.service";
 import { UserAuthModule } from "src/modules/auth/users-auth/user-auth.module";
 
+import { JwtGoogleStrategy } from "./jwt-google-strategy.service";
 import { GooglePassportService } from "./google-passport.service";
 import { GooglePassportController } from "./google-passport.controller";
 
