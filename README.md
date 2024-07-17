@@ -23,16 +23,14 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 
-# 🖥️ Team Ace의 Node.js 뉴스피드 프로젝트
-
-![썸네일](./imgs/thumbnail.png)
+# 🖥️ Team 광수와 아이들의 Nest.js 트렐로 만들기 프로젝트
 
 ## 프로젝트 소개
 
 - 프로젝트 이름 : 5조 트렐로 만들기
 - 내용 : 현재 사용되고 있는 트렐로와 유사한 사이트를 만들어 팀원들 팀원들 간 협업에 용이한 내용을 공유 할 수 있게 한다.
 - 구분 : 팀 프로젝트
-- GitHub : [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed](https://github.com/KwangSoo1555/sparta-6th-week-trello-project)
+- GitHub : https://github.com/KwangSoo1555/sparta-6th-week-trello-project
 - 시연 영상 : https://youtu.be/Uo9lumzJrsI  <- 여기다 넣어야함. 미정
 - 배포 : https://currypang.shop/ <- 여기다 넣어야함. 미정
 
@@ -126,7 +124,7 @@
 
 ## 5. 주요 기능 및 설명
 
-### 5-1. 이메일 인증 API
+### 5-1. 이메일 인증 API  
 
 - 회원 가입을 위한 이메일 인증 코드를 반환하는 API입니다.
 
@@ -136,21 +134,23 @@
 
 - codeObject라는 인증 코드 객체를 통해서 코드의 유효 여부를 판단합니다.
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/auth-email.router.js#L29
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/auth/email/email-verification.service.ts#L11
 
-![회원가입 이메일 인증](./imgs/2-sign-up-email.png)
+![이메일 인증](https://github.com/user-attachments/assets/2814efe7-0d20-44cd-ad26-678c94d9604a)
+
 
 <br>
 
 ### 5-2. 회원가입 API
 
-- **이메일, 비밀번호, 비밀번호 확인, 별명, 거래 지역, 나이, 성별, 이메일 인증 코드**를 Request Body(**`req.body`**)로 전달 받습니다.
+- **이메일, 비밀번호, 비밀번호 확인, 이름, 이메일 인증 코드**를 Request Body(**`req.body`**)로 전달 받습니다.
 
 - **보안을 위해 비밀번호는** 평문(Plain Text)으로 저장하지 않고 `Hash` 된 값을 저장합니다.
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/auth.routers.js#L17
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/auth.routers.js#L17](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/auth/users-auth/user-auth.service.ts#L37)
 
-![회원가입 API](./imgs/1-sign-up.png)
+![회원가입](https://github.com/user-attachments/assets/85086bea-1640-4e5b-b1fd-d8cd5a86928b)
+
 
 <br>
 
@@ -164,13 +164,14 @@
 
 - **AccessToken**와**RefreshToken**을 반환합니다.
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/auth.routers.js#L83
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/auth.routers.js#L83](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/auth/users-auth/user-auth.service.ts#L71)
 
-![로그인 API](./imgs/3-sign-in.png)
+![로그인](https://github.com/user-attachments/assets/d1751d46-ff7d-4e04-9bb1-42e04e915bcf)
+
 
 <br>
 
-### 5-4. 카카오 소셜 로그인 API
+### 5-4. 카카오 소셜 로그인 API      미구현
 
 - `OAuth`를 이용한 로그인 API입니다.
 
@@ -190,7 +191,7 @@
 
 <br>
 
-### 5-5. 네이버 소셜 로그인 API
+### 5-5. 네이버 소셜 로그인 API    미구현
 
 - `OAuth`를 이용한 로그인 API입니다.
 
@@ -210,7 +211,7 @@
 
 <br>
 
-### 5-6. 토큰 재발급 API
+### 5-6. 토큰 재발급 API           맞는지 확인 필요
 
 - `Refresh Token`를 새롭게 발급 API입니다.
 
@@ -218,9 +219,7 @@
 
 - 토큰 유효성 검사가 통과하면 새로운 Refresh 토큰을 재발급 받습니다.
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/auth.routers.js#L109
-
-![토큰 재발급 API](./imgs/8-token-reissue.png)
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/auth.routers.js#L109](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/auth/users-auth/user-auth.service.ts#L71)
 
 <br>
 
@@ -234,9 +233,10 @@
 
 - 즉, Refresh Token을 폐기하는 것입니다.
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/auth.routers.js#L126
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/auth/users-auth/user-auth.service.ts#L113
 
-![로그 아웃 API](./imgs/9-sign-out.png)
+![로그아웃](https://github.com/user-attachments/assets/75ce52ce-4a90-48cd-9302-c743f2987c71)
+
 
 <br>
 
@@ -246,13 +246,14 @@
 
 - `accessTokenValidator`를 통해서 로그인한 사용자의 `Access Token를 검증`합니다.
 
-- 토큰 유효성 검사가 통과하면 `req.user`를 통해 사용자의 정보를 가져옵니다.
+- 토큰 유효성 검사가 통과하면 `id: userId`를 통해 사용자의 정보를 가져옵니다.
 
 - 그대로 조회한 사용자 데이터를 반환합니다.
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/user.router.js#L15
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/users/users.service.ts#L28
 
-![사용자 조회 API](./imgs/6-user-information.png)
+![내 정보 가져오기](https://github.com/user-attachments/assets/74f82e8c-ea2b-4036-8d49-b2f9383cb66f)
+
 
 <br>
 
