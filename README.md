@@ -114,10 +114,13 @@
 
 ## 4. API 명세서 및 ERD, 와이어 프레임
 
-- API 명세서 : https://west-territory-778.notion.site/Team-Ace-Node-js-API-221adeefaec14c38bf1a623f068c0c22?pvs=4
-- ERD : https://drawsql.app/teams/currypangs-team/diagrams/team1
+- API 명세서 : [https://west-territory-778.notion.site/Team-Ace-Node-js-API-221adeefaec14c38bf1a623f068c0c22?pvs=4](https://www.notion.so/teamsparta/294c35986a084687bda3f2ee3b2d103b?v=49f77c87142442b693e2449acdfdad20&pvs=4)
+- ERD : ![ERD](https://github.com/user-attachments/assets/78ab3742-d735-4ca2-b9bd-a21b595daf70)
 
-![와이어프레임](./imgs/wireframe.jpg)
+
+![와이어 프레임 1](https://github.com/user-attachments/assets/f31add8e-efcf-4f91-8862-465b32e1b170)
+![와이어 프레임 2](https://github.com/user-attachments/assets/8cd07eb0-3078-4447-aed5-8de56ea615d8)
+
 
 <br>
 
