@@ -29,28 +29,28 @@
 
 ## 프로젝트 소개
 
-- 프로젝트 이름 : 둥근 마켓
-- 내용 : 현재 서비스 중인 “당근 마켓” 사이트를 오마주 하여 뉴스피드 프로젝트
+- 프로젝트 이름 : 5조 트렐로 만들기
+- 내용 : 현재 사용되고 있는 트렐로와 유사한 사이트를 만들어 팀원들 팀원들 간 협업에 용이한 내용을 공유 할 수 있게 한다.
 - 구분 : 팀 프로젝트
-- GitHub : https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed
-- 시연 영상 : https://youtu.be/Uo9lumzJrsI
-- 배포 : https://currypang.shop/
+- GitHub : [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed](https://github.com/KwangSoo1555/sparta-6th-week-trello-project)
+- 시연 영상 : https://youtu.be/Uo9lumzJrsI  <- 여기다 넣어야함. 미정
+- 배포 : https://currypang.shop/ <- 여기다 넣어야함. 미정
 
 <br>
 
 ## 팀원 구성
 
 - 팀장 : 복광수 [@KwangSoo1555](https://github.com/KwangSoo1555)
-- 팀원 : 김정찬 [@jkc-mycode](https://github.com/jkc-mycode)
-- 팀원 : 채유일 [@currypang](https://github.com/currypang)
-- 팀원 : 구남욱 [@9r3dflam3](https://github.com/9r3dflam3)
-- 팀원 : 주진아 [@ovew](https://github.com/letsovew)
+- 팀원 : 김만규 [@fierceCry](https://github.com/fierceCry)
+- 팀원 : 이윤형 [@clearghost3](https://github.com/clearghost3)
+- 팀원 : 이길현 [@leegilhyeon](https://github.com/leegilhyeon)
+- 팀원 : 송사무엘 [@SaintSSong](https://github.com/SaintSSong)
 
 <br>
 
 ## 1. 개발 기간
 
-- 2024.05.31 ~ 2024.06.06
+- 2024.07.11 ~ 2024.07.18
 
 <br>
 
@@ -67,30 +67,48 @@
 ## 3. 역할 분배
 
 - **복광수**
-  - 회원가입 기능
-  - nodemailer를 이용한 이메일 인증
-  - 내 정보 조회, 수정
-  - 게시글 판매 완료
-  - 상품 구매/판매 내역 생성, 조회
-  - passport를 이용한 네이버 소셜 로그인
-- **김정찬**
-  - 각 API 유효성 검사 스키마 구현
-  - 상수, 출력 메세지 객체 모듈화
-  - 게시물 조회, 수정, 삭제
-  - 게시물 좋아요/좋아요 취소
-  - multer를 이용한 이미지 업로더
-- **채유일**
-  - 로그인/로그아웃
-  - Access Token, Refresh Token, 역할 인가 미들웨어
-  - passport를 이용한 카카오 소셜 로그인
-  - AWS S3 구성 및 설정, 배포
-  - ERD 작성 및 테이블 스키마 설계
-  - 팔로우, 언팔로우 기능
-- **구남욱**
-  - 게시물 댓글 CRUD
-  - 게시물 댓글 좋아요/좋아요 취소
-- **주진아**
-  - 게시물 생성
+  - 이메일 인증 코드
+  - 회원가입
+  - 로그인
+  - 로그아웃
+  - 토근 재발급
+  - 사용자 프로필 조회
+  - 사용자 프로필 수정
+  - 사용자 보드 조회
+  - 보드 멤버 조회
+  - 멤버 강제 퇴장
+  - 소셜 로그인(Naver, Kakao, Google)
+    
+- **이윤형**
+  - 멤버 권한 변경
+  - 멤버 별명 변경
+  - 보드 생성
+  - 보드 수정
+  - 보드 삭제
+  - 보드 초대링크 생성
+ 
+- **이길현**
+  - 리스트 생성
+  - 리스트 이름 수정
+  - 리스트 삭제
+  - 리스트 순서 이동
+ 
+- **송사무엘**
+  - 카드 생성
+  - 카드 수정
+  - 카드 삭제
+  - 카드 순서 이동
+    
+- **김만규**
+  - 카드 댓글 생성
+  - 카드 댓글 수정
+  - 카드 댓글 삭제
+  - 카드 날짜 지정
+  - 카드 파일 업로드
+  - 카드 파일 삭제
+  - 카드 체크리스트 내용 추가
+  - 카드 체크리스트 토글 변경
+  - Socket 알림 목록조회
 
 <br>
 
