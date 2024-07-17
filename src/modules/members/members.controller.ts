@@ -32,30 +32,43 @@ export class MembersController {
     return this.membersService.banMember(userIdForBan, boardId, userId);
   }
 
-  @Patch("permission")
-  @UseGuards(JwtAccessGuards)
-  async updateMemberRoles(
-    @RequestUserAndToken() { user: { id: userId } },
-    @Query("boardId") boardId: number,
-    @Body() updateMemberInfoDto: UpdateMemberInfoDto,
-    @Body() userIdForUpdatedRole: number,
-  ) {
-    return this.membersService.updateMemberRoles(
-      updateMemberInfoDto,
-      boardId,
-      userIdForUpdatedRole,
-      userId,
-    );
-  }
+  // //멤버 역할 변경
+  // @Patch("permission")
+  // @UseGuards(JwtAccessGuards)
+  // async updateMemberRoles(
+  //   @RequestUserAndToken() { user: { id: userId } },
+  //   @Query("boardId") boardId: number,
+  //   @Body() updateMemberInfoDto: UpdateMemberInfoDto,
+  //   @Body() userIdForUpdatedRole: number,
+  // ) {
+  //   return this.membersService.updateMemberRoles(
+  //     updateMemberInfoDto,
+  //     boardId,
+  //     userIdForUpdatedRole,
+  //     userId,
+  //   );
+  // }
 
-  @Patch("nickname")
+  // //멤버 별명 변경
+  // @Patch("nickname")
+  // @UseGuards(JwtAccessGuards)
+  // async updateMemberNickname(
+  //   @RequestUserAndToken() { user: { id: userId } },
+  //   @Query("boardId") boardId: number,
+  //   @Body() updateMemberInfoDto: UpdateMemberInfoDto,
+  // ) {
+  //   return this.membersService.updateMemberNickname(updateMemberInfoDto, boardId, userId);
+  // }
+
+  //멤버 상태 변경
+  @Patch("update")
   @UseGuards(JwtAccessGuards)
-  async updateMemberNickname(
+  async updateMember(
     @RequestUserAndToken() { user: { id: userId } },
     @Query("boardId") boardId: number,
     @Body() updateMemberInfoDto: UpdateMemberInfoDto,
   ) {
-    return this.membersService.updateMemberNickname(updateMemberInfoDto, boardId, userId);
+    return this.membersService.updateMember(updateMemberInfoDto, boardId, userId);
   }
 
   @Post("join-member")
