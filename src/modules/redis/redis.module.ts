@@ -1,26 +1,27 @@
-import { NestFactory } from "@nestjs/core";
-import { AppModule } from "src/app.module";
-import { Client, Transport } from "@nestjs/microservices";
-import { MicroserviceOptions } from "@nestjs/microservices";
-import { ENV } from "src/common/constants/env.constant";
-import { Inject, Module } from "@nestjs/common";
-import { ClientsModule } from "@nestjs/microservices";
-import { ClientProxy } from "@nestjs/microservices";
+import { Module, Global } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import Redis from "ioredis";
 
+@Global()
 @Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: ENV.REDIS_DBNAME,
-        transport: Transport.REDIS,
-        options: {
-          host: ENV.REDIS_HOST,
-          port: Number(ENV.REDIS_PORT),
-        },
+  providers: [
+    {
+      provide: "REDIS_CLIENT",
+      useFactory: async (configService: ConfigService) => {
+        const redis = new Redis({
+          host: configService.get<string>("REDIS_HOST"),
+          port: configService.get<number>("REDIS_PORT"),
+          password: configService.get<string>("REDIS_PASSWORD"),
+        });
+        console.log(`Connecting to Redis at`);
+        if (!redis) {
+          console.log("No password provided for Redis.");
+        }
+        return redis;
       },
-    ]),
+      inject: [ConfigService],
+    },
   ],
+  exports: ["REDIS_CLIENT"],
 })
-export class RedisModule {
-  constructor(@Inject("Redis_Service") private client: ClientProxy) {}
-}
+export class RedisModule {}
