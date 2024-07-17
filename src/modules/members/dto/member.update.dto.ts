@@ -9,4 +9,8 @@ export class UpdateMemberInfoDto {
   @IsString()
   @IsOptional()
   nickname?: string;
+
+  @IsNumber()
+  @IsOptional()
+  targetUserId: number;
 }
