@@ -30,7 +30,7 @@ export class UserAuthService {
     private readonly refreshTokenRepository: Repository<RefreshTokensEntity>,
   ) {}
 
-  async checkUser(params: { email?: string; id?: number }) {
+  async checkUserForAuth(params: { email?: string; id?: number }) {
     return this.userRepository.findOne({ where: { ...params } });
   }
 
@@ -48,7 +48,7 @@ export class UserAuthService {
       throw new BadRequestException(MESSAGES.AUTH.SIGN_UP.EMAIL.VERIFICATION_CODE.INCONSISTENT);
 
     // 이미 존재하는 유저인 경우 에러 처리
-    const existingUser = await this.checkUser({ email });
+    const existingUser = await this.checkUserForAuth({ email });
     if (existingUser) throw new ConflictException(MESSAGES.AUTH.SIGN_UP.EMAIL.DUPLICATED);
 
     // 비밀번호 해싱
@@ -69,7 +69,7 @@ export class UserAuthService {
   }
 
   async logIn(logInDto: UserLogInDto, ip: string, userAgent: string) {
-    const user = await this.checkUser({ email: logInDto.email });
+    const user = await this.checkUserForAuth({ email: logInDto.email });
 
     // 유저 존재 여부 확인
     if (!user) throw new NotFoundException(MESSAGES.AUTH.SIGN_IN.EMAIL.NOT_FOUND);

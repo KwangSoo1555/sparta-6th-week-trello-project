@@ -1,4 +1,4 @@
-import { Controller, Query, Body, Patch, Delete } from "@nestjs/common";
+import { Controller, Query, Body, Get, Patch, Delete } from "@nestjs/common";
 import { MembersService } from "./members.service";
 import { JwtAccessGuards } from "../auth/jwt/jwt-strategy.service";
 import { RoleGuards, Roles } from "src/common/custom/decorator/user-roles-guards";
@@ -11,6 +11,14 @@ import { RequestUserAndToken } from "src/common/custom/decorator/user-request-jw
 @Controller("members")
 export class MembersController {
   constructor(private membersService: MembersService) {}
+
+  @Get()
+  async getMembers(
+    @RequestUserAndToken() { user: { id: userId } },
+    @Query("boardId") boardId: number,
+  ) {
+    return this.membersService.getMembers(boardId, userId);
+  }
 
   @Delete("ban")
   @UseGuards(JwtAccessGuards, RoleGuards)

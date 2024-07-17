@@ -1,13 +1,12 @@
-import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { MemberRoles } from "src/common/custom/types/enum-member-roles";
-import { DTO_CONSTANT } from "src/common/constants/dto.constant";
 
 export class UpdateMemberInfoDto {
-    @IsEnum(MemberRoles)
-    @IsOptional()
-    memberRole? :MemberRoles;
+  @IsEnum(MemberRoles)
+  @IsOptional()
+  memberRole?: MemberRoles;
 
-    @IsString()
-    @IsOptional()
-    nickname? :string;
+  @IsString()
+  @IsOptional()
+  nickname?: string;
 }
