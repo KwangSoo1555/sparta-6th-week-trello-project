@@ -1,6 +1,6 @@
 import _ from "lodash";
-import { Inject, Injectable } from "@nestjs/common";
-import { DataSource } from "typeorm";
+import { ConflictException, Inject, Injectable } from "@nestjs/common";
+import { DataSource, In } from "typeorm";
 
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -15,7 +15,10 @@ import { BOARD_CONSTANT } from "src/common/constants/board.contant";
 import { MemberRoles } from "src/common/custom/types/enum-member-roles";
 import { Colors } from "src/common/custom/types/enum-color.type";
 import { MESSAGES } from "src/common/constants/messages.constant";
-import Redis from "ioredis";
+import { CardsEntity } from "src/entities/cards.entity";
+import { ListsEntity } from "src/entities/lists.entity";
+
+import { Redis } from "ioredis";
 
 @Injectable()
 export class BoardService {
@@ -25,7 +28,11 @@ export class BoardService {
     private boardRepository: Repository<BoardsEntity>,
     @InjectRepository(MembersEntity)
     private memberRepository: Repository<MembersEntity>,
-    @Inject("REDIS_CLIENT") private readonly redisClient: Redis,
+    @InjectRepository(CardsEntity)
+    private cardRepository: Repository<CardsEntity>,
+    @InjectRepository(ListsEntity)
+    private listRepository: Repository<ListsEntity>,
+    @Inject("REDIS_CLIENT") private redisClient: Redis,
   ) {}
 
   async createBoard(createBoardDto: CreateBoardDto, userId: number) {
@@ -70,11 +77,35 @@ export class BoardService {
     await this.boardRepository.delete(boardId);
   }
 
+  async findBoard(boardId: number, userId: number) {
+    const member = await this.memberRepository.findOne({ where: { boardId, userId } });
+    if (!member) {
+      throw new ConflictException("접근 권한이 없습니다.");
+    }
+    const board = await this.boardRepository.findOne({ where: { id: boardId } });
+    const lists = await this.listRepository.find({ where: { boardId } });
+    const listIds = lists.map((list) => list.id);
+
+    const cards = await this.cardRepository.find({
+      where: { listId: In(listIds) },
+    });
+
+    const boardData = {
+      board: board.backgroundImageUrl,
+      boardTilte: board.title,
+      lists: lists.map((list) => ({
+        ...list,
+        cards: cards.filter((card) => card.listId === list.id),
+      })),
+    };
+
+    return boardData;
+  }
+
   async inviteBoard(boardId: string) {
     const data = await this.redisClient.set(boardId, `inviteLink/board$${boardId}`);
     const result = await this.redisClient.get(boardId);
 
-    console.log(result);
-    return result;
+    return { message: BOARD_CONSTANT.MAKE_INVITECODE };
   }
 }

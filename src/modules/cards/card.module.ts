@@ -5,9 +5,11 @@ import { CardService } from "src/modules/cards/card.service";
 import { CardsEntity } from "src/entities/cards.entity";
 import { ListsEntity } from "src/entities/lists.entity";
 import { CardAssigneesEntity } from "src/entities/card-assignees.entity";
+import { NotificationEntity } from "src/entities/notification.entity";
+import { EventsModule } from "../events/events.module";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CardsEntity, ListsEntity, CardAssigneesEntity])],
+  imports: [EventsModule,TypeOrmModule.forFeature([CardsEntity, ListsEntity, CardAssigneesEntity, NotificationEntity])],
   controllers: [CardController],
   providers: [CardService],
 })

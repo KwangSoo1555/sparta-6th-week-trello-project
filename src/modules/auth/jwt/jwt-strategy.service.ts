@@ -44,8 +44,8 @@ export class RefreshTokenStrategy extends PassportStrategy(Strategy, "refreshTok
     });
   }
 
-  async validate(payload: JwtPayload)//: Promise<UserAuthEntity> 함수의 타입을 명시합시다.
-  {
+  async validate(payload: JwtPayload) {
+    //: Promise<UserAuthEntity> 함수의 타입을 명시합시다.
     const { userId } = payload;
 
     const user = await this.userAuthService.checkUserForAuth({ id: userId });

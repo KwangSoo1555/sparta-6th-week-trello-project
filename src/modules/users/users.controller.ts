@@ -11,13 +11,11 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Get("me")
-  @UseGuards(JwtAccessGuards)
   getUsers(@RequestUserAndToken() { user: { id: userId } }) {
     return this.userService.getUsers(userId);
   }
 
   @Patch("me")
-  @UseGuards(JwtAccessGuards)
   @UsePipes(ValidationPipe)
   updateUser(
     @RequestUserAndToken() { user: { id: userId } },

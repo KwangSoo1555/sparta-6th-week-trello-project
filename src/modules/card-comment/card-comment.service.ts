@@ -38,7 +38,7 @@ export class CardCommentService {
 
     const comment = await this.cardCommentRepository.save({
       cardId: cardId,
-      userId: userId,
+      memberId: userId,
       content: content,
     });
 

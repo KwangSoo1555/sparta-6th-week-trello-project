@@ -13,6 +13,7 @@ export class BoardSeeder implements Seeder {
         title: faker.lorem.words(3),
         content: faker.lorem.sentence(1),
         color: colors[Math.floor(Math.random() * colors.length)],
+        backgroundImageUrl: faker.image.url()
       });
     }
     await dataSource.createQueryBuilder().insert().into(BoardsEntity).values(data).execute();

@@ -22,9 +22,7 @@ export class UserAuthController {
 
   @Post("sign-up")
   @UsePipes(ValidationPipe)
-  signUp(
-    @Body() signUpDto: UserSignUpDto
-  ) {
+  signUp(@Body() signUpDto: UserSignUpDto) {
     return this.userAuthService.signUp(signUpDto);
   }
 

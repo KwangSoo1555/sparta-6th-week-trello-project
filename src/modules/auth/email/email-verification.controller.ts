@@ -10,9 +10,7 @@ export class EmailVerificationController {
 
   @Post("email-verification")
   @UsePipes(ValidationPipe)
-  async sendAuthEmail(
-    @Body() emailVerificationDto: EmailVerificationDto
-  ) {
+  async sendAuthEmail(@Body() emailVerificationDto: EmailVerificationDto) {
     return this.emailVerificationService.sendAuthEmail(emailVerificationDto);
   }
 }

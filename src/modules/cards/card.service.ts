@@ -8,6 +8,8 @@ import { CardAssigneesEntity } from "src/entities/card-assignees.entity";
 import { MESSAGES } from "src/common/constants/messages.constant";
 import { ListsEntity } from "src/entities/lists.entity";
 import { SwapCardDto } from "./dtos/swap.cardDto";
+import { NotificationEntity } from "src/entities/notification.entity";
+import { EventsGateway } from "../events/events.gateway";
 
 @Injectable()
 export class CardService {
@@ -18,10 +20,12 @@ export class CardService {
     private readonly cardAssigneeRepository: Repository<CardAssigneesEntity>,
     @InjectRepository(ListsEntity)
     private readonly listRepository: Repository<ListsEntity>,
+    @InjectRepository(NotificationEntity)
+    private readonly notificationRepostiory: Repository<NotificationEntity>,
+    private readonly eventsGateway: EventsGateway,
   ) {}
 
   // 카드 생성 API
-  // id는 생성 되고 나서 발생하는 거니까 list id를 넣는다.
   async create(createCardDto: CreateCardDto, listId: number) {
     await this.findByListId(listId);
 
@@ -73,9 +77,22 @@ export class CardService {
   // 카드 수정 API
   async update(listId: number, cardId: number, updateCardDto: UpdateCardDto) {
     // 카드리스트가 존재하는지 확인
-    await this.findByListId(listId);
-
+    const data = await this.findByListId(listId);
     const existingCard = await this.findByCardId(cardId);
+
+    const changedFields: string[] = [];
+    if (existingCard.cardTitle !== updateCardDto.cardTitle) {
+      changedFields.push("cardTitle");
+      existingCard.cardTitle = updateCardDto.cardTitle;
+    }
+    if (existingCard.content !== updateCardDto.content) {
+      changedFields.push("content");
+      existingCard.content = updateCardDto.content;
+    }
+    if (existingCard.backgroundColor !== updateCardDto.backgroundColor) {
+      changedFields.push("backgroundColor");
+      existingCard.backgroundColor = updateCardDto.backgroundColor;
+    }
 
     // 카드 내용 수정 - 1
     existingCard.cardTitle = updateCardDto.cardTitle;
@@ -101,8 +118,25 @@ export class CardService {
         memberId: inputCardMember,
       });
     } else {
-      cardMember.memberId = updateCardDto.cardMember;
+      if (cardMember.memberId !== updateCardDto.cardMember) {
+        changedFields.push("cardMember");
+        cardMember.memberId = updateCardDto.cardMember;
+      }
     }
+
+    // 알림 생성 및 전송
+    const notificationMessage = await this.eventsGateway.createNotificationMessage(
+      cardId,
+      changedFields,
+      data.title,
+      updatedCard.cardTitle,
+    );
+    const notification = await this.notificationRepostiory.save({
+      cardId,
+      memberId: updateCardDto.cardMember,
+      message: notificationMessage,
+    });
+    this.eventsGateway.handleCardStatusChanged(notification);
 
     const saveCardMemberData = await this.cardAssigneeRepository.save(cardMember);
 
@@ -127,8 +161,7 @@ export class CardService {
     // 카드 orderIndex 다시 정리
     for (let i = 0; i < cards.length; i++) {
       cards[i].orderIndex = i;
-
-      await this.listRepository.save(cards[i]);
+      await this.cardRepository.save(cards[i]);
     }
 
     return;
@@ -187,33 +220,3 @@ export class CardService {
     return targetListCards;
   }
 }
-// 옮겨 간 리스트에 정렬 1
-
-// 원래 있던 리스트에서 정렬 1
-
-// 기존에 있었던 코드
-// async updateOrder(listId: number, cardId: number, swapCardDto: SwapCardDto) {
-//   // 내가 옮기려고 하는 카드의 장소 선언
-//   const { swapCardIndex } = swapCardDto;
-
-//   // 카드의 위치 찾아
-//   const cards = await this.cardRepository.find({
-//     where: { listId: listId },
-//     order: { orderIndex: "ASC" },
-//   });
-
-//   // 내 카드의 현재 위치 파악 후 재명명
-//   const currentIndex = cards[cardId];
-
-//   cards.splice(cardId, 1);
-
-//   cards.splice(swapCardIndex, 0, currentIndex);
-
-//   // orderIndex를 순서대로 다시 초기화
-//   for (let i = 0; i < cards.length; i++) {
-//     cards[i].orderIndex = i;
-//     await this.cardRepository.save(cards[i]);
-//   }
-
-//   return cards;
-// }

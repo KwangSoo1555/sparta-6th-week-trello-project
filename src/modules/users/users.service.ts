@@ -8,6 +8,7 @@ import { MembersEntity } from "src/entities/members.entity";
 import { UsersUpdateDto } from "./users.dto";
 import { MESSAGES } from "src/common/constants/messages.constant";
 import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
+import { BoardsEntity } from "src/entities/boards.entity";
 
 @Injectable()
 export class UserService {
@@ -16,6 +17,8 @@ export class UserService {
     private readonly userRepository: Repository<UsersEntity>,
     @InjectRepository(MembersEntity)
     private readonly memberRepository: Repository<MembersEntity>,
+    @InjectRepository(BoardsEntity)
+    private readonly boardRepository: Repository<BoardsEntity>
   ) {}
 
   async checkUserForUsers(params: { email?: string; id?: number }) {
@@ -87,10 +90,47 @@ export class UserService {
     return updatedUser;
   }
 
-  async getBoards(userId: number) {
-    const boards = await this.memberRepository.find({
-      where: { userId: userId },
-    });
-    return boards;
+  async getBoard(userId: number) {
+    const [createdMembers, invitedMembers] = await Promise.all([
+      this.memberRepository.find({ where: { userId, isCreator: true }, relations: ["board"] }),
+      this.memberRepository.find({ where: { userId, isCreator: false }, relations: ["board"] })
+    ]);
+  
+    // 보드의 추가 정보를 조회
+    const createdBoardsWithDetails = await Promise.all(
+      createdMembers.map(async (member) => {
+        const board = await this.boardRepository.findOne({ where: { id: member.boardId } });
+        console.log(board)
+        return {
+          boardId: member.boardId,
+          title: board.title,
+          color: board.color,
+          role: member.role,
+          backgroundImageUrl: board.backgroundImageUrl,
+          nickname: member.nickname
+        };
+      })
+    );
+  
+    const invitedBoardsWithDetails = await Promise.all(
+      invitedMembers.map(async (member) => {
+        const board = await this.boardRepository.findOne({ where: { id: member.boardId } });
+        console.log(board)
+        return {
+          boardId: member.boardId,
+          title: board.title,
+          color: board.color,
+          role: member.role,
+          backgroundImageUrl: board.backgroundImageUrl,
+          nickname: member.nickname
+        };
+      })
+    );
+  
+    return {
+      createdBoards: createdBoardsWithDetails,
+      invitedBoards: invitedBoardsWithDetails
+    };
+
   }
 }

@@ -7,6 +7,8 @@ import { ConfigModule } from "@nestjs/config";
 import { EmailVerificationModule } from "./modules/auth/email/email-verification.module";
 import { UserAuthModule } from "./modules/auth/users-auth/user-auth.module";
 import { GooglePassportModule } from "./modules/auth/social/google/google-passport.module"
+import { NaverPassportModule } from './modules/auth/social/naver/naver-passport.module';
+import { KakaoPassportModule } from './modules/auth/social/kakao/kakao-passport.module';
 import { JwtModule } from "./modules/auth/jwt/jwt.module";
 import { UserModule } from "./modules/users/users.module";
 import { MembersModule } from "./modules/members/members.module";
@@ -15,12 +17,12 @@ import { ListModule } from "./modules/list/list.module";
 import { CardModule } from "./modules/cards/card.module";
 import { FileModule } from "./modules/file/file.module";
 import { CardCommentModule } from "./modules/card-comment/card-comment.module";
+import { EventsModule } from "./modules/events/events.module";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { EventsModule } from "./modules/events/events.module";
-import { NaverPassportModule } from './modules/auth/social/naver/naver-passport.module';
-import { KakaoPassportModule } from './modules/auth/social/kakao/kakao-passport.module';
+import { APP_INTERCEPTOR } from "@nestjs/core";
+import { MorganInterceptor, MorganModule } from "nest-morgan";
 
 @Module({
   imports: [
@@ -41,8 +43,13 @@ import { KakaoPassportModule } from './modules/auth/social/kakao/kakao-passport.
     FileModule,
     CardCommentModule,
     EventsModule,
+    MorganModule,
+    RedisModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,    {
+    provide: APP_INTERCEPTOR,
+    useClass: MorganInterceptor("combined"),
+  }, ],
 })
 export class AppModule {}
