@@ -3,7 +3,7 @@ import { Seeder, SeederFactoryManager } from "typeorm-extension";
 import { CardCommentsEntity } from "../../entities/card-comments.entity";
 import { CardsEntity } from "../../entities/cards.entity";
 import { faker } from "@faker-js/faker";
-import { MembersEntity } from "src/entities/members.entity";
+import { MembersEntity } from "../../entities/members.entity";
 
 export class CardCommentsSeeder implements Seeder {
   public async run(dataSource: DataSource, factoryManager: SeederFactoryManager): Promise<void> {
