@@ -12,6 +12,7 @@ import { CardService } from "./card.service";
 import { CreateCardDto } from "./dtos/create.cardDto";
 import { UpdateCardDto } from "./dtos/update.cardDto";
 import { MESSAGES } from "src/common/constants/messages.constant";
+import { SwapCardDto } from "./dtos/swap.cardDto";
 
 @Controller("lists/:listId/cards")
 export class CardController {
@@ -55,5 +56,16 @@ export class CardController {
   }
 
   // 순서이동
-  // @Patch(":id")
+  @Patch(":id")
+  async swap(
+    @Param("listId", ParseIntPipe) listId: number,
+    @Param("cardId", ParseIntPipe) cardId: number,
+    @Body() swapCardDto: SwapCardDto,
+  ) {
+    const data = this.cardService.swapCardUpdate(listId, cardId, swapCardDto);
+
+    return {
+      data,
+    };
+  }
 }

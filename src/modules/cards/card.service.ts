@@ -6,6 +6,8 @@ import { CreateCardDto } from "./dtos/create.cardDto";
 import { UpdateCardDto } from "./dtos/update.cardDto";
 import { CardAssigneesEntity } from "src/entities/card-assignees.entity";
 import { MESSAGES } from "src/common/constants/messages.constant";
+import { ListsEntity } from "src/entities/lists.entity";
+import { SwapCardDto } from "./dtos/swap.cardDto";
 
 @Injectable()
 export class CardService {
@@ -14,6 +16,8 @@ export class CardService {
     private readonly cardRepository: Repository<CardsEntity>,
     @InjectRepository(CardAssigneesEntity)
     private readonly cardAssigneeRepository: Repository<CardAssigneesEntity>,
+    @InjectRepository(ListsEntity)
+    private readonly listRepository: Repository<ListsEntity>,
   ) {}
 
   // 카드 생성 API
@@ -99,4 +103,7 @@ export class CardService {
 
     return this.cardRepository.delete(cardId);
   }
+
+  // 카드 순서 이동 API
+  async swapCardUpdate(listId: number, cardId: number, swapCardDto: SwapCardDto) {}
 }
