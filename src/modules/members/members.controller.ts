@@ -60,7 +60,11 @@ export class MembersController {
   }
 
   @Post("join-member")
-  async createMember(@Body() createMemberDto: CreateMemberDto) {
-    return await this.membersService.createMember(createMemberDto);
+  @UseGuards(JwtAccessGuards)
+  async createMember(
+    @RequestUserAndToken() { user: { id: userId } },
+    @Body() createMemberDto: CreateMemberDto,
+  ) {
+    return await this.membersService.createMember(userId, createMemberDto);
   }
 }
