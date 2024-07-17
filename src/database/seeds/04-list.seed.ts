@@ -15,11 +15,11 @@ export class ListsSeeder implements Seeder {
 
     for (let i = 0; i < 100; i++) {
       const board = boards[Math.floor(Math.random() * boards.length)];
-      
+
       data.push({
         boardId: board.id,
         title: faker.lorem.words(3),
-        nextIndex: i + 1, // assuming nextIndex should be unique and incremental
+        orderIndex: i + 1, // assuming nextIndex should be unique and incremental
         createdAt: faker.date.past(),
         updatedAt: faker.date.recent(),
         board,

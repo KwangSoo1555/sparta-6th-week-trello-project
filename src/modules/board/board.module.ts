@@ -8,7 +8,7 @@ import { BoardsEntity } from "src/entities/boards.entity";
 import { MembersEntity } from "src/entities/members.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([BoardsEntity,MembersEntity])],
+  imports: [TypeOrmModule.forFeature([BoardsEntity, MembersEntity])],
   providers: [BoardService],
   controllers: [BoardController],
 })
