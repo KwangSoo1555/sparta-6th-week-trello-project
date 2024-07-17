@@ -12,6 +12,7 @@ import { CardService } from "./card.service";
 import { CreateCardDto } from "./dtos/create.cardDto";
 import { UpdateCardDto } from "./dtos/update.cardDto";
 import { MESSAGES } from "src/common/constants/messages.constant";
+import { SwapCardDto } from "./dtos/swap.cardDto";
 
 @Controller("lists/:listId/cards")
 export class CardController {
@@ -59,8 +60,8 @@ export class CardController {
   async updateOrder(
     @Param("listId", ParseIntPipe) listId: number,
     @Param("cardId", ParseIntPipe) cardId: number,
-    @Body() updateCardDto: UpdateCardDto,
+    @Body() swapCardDto: SwapCardDto,
   ) {
-    return await this.cardService.updateOrder(listId, cardId, updateCardDto);
+    return await this.cardService.updateOrder(listId, cardId, swapCardDto);
   }
 }

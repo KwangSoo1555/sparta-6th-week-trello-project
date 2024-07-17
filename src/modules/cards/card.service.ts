@@ -7,6 +7,7 @@ import { UpdateCardDto } from "./dtos/update.cardDto";
 import { CardAssigneesEntity } from "src/entities/card-assignees.entity";
 import { MESSAGES } from "src/common/constants/messages.constant";
 import { ListsEntity } from "src/entities/lists.entity";
+import { SwapCardDto } from "./dtos/swap.cardDto";
 
 @Injectable()
 export class CardService {
@@ -103,9 +104,41 @@ export class CardService {
     return this.cardRepository.delete(cardId);
   }
 
-  async updateOrder(listId: number, cardId: number, updateCardDto: UpdateCardDto) {
+  // 카드 순서 이동 API
+  async updateOrder(listId: number, cardId: number, swapCardDto: SwapCardDto) {
     await this.findByListId(listId);
     const existingCard = await this.findByCardId(cardId);
     return;
   }
 }
+
+// async updateOrderList(listIdIndex: number, updateListOrderDto: UpdateListOrderDto) {
+//   const { newPositionId } = updateListOrderDto;
+
+//   const lists = await this.listRepository.find({
+//     order: { id: "ASC" },
+//   });
+
+//   for (let i = 0; i < lists.length; i++) {
+//     lists[i].orderIndex = i;
+//     await this.listRepository.save(lists[i]);
+//   }
+
+//   const currentIndex = lists[listIdIndex];
+
+//   lists.splice(listIdIndex, 1);
+//   lists.splice(newPositionId, 0, currentIndex);
+
+//   // orderIndex를 순서대로 다시 초기화
+//   for (let i = 0; i < lists.length; i++) {
+//     lists[i].orderIndex = i;
+//     await this.listRepository.save(lists[i]);
+//   }
+
+//   // orderIndex를 기준으로 정렬된 리스트 반환
+//   const updatedLists = await this.listRepository.find({
+//     order: { orderIndex: "ASC" },
+//   });
+
+//   return updatedLists;
+// }
