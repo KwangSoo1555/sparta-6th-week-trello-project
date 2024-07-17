@@ -6,8 +6,12 @@ import { Repository } from "typeorm";
 import { MembersEntity } from "src/entities/members.entity";
 import { UsersEntity } from "src/entities/users.entity";
 
+//dto
 import { UpdateMemberInfoDto } from "./dto/member.update.dto";
 import { CreateMemberDto } from "./dto/member.create.dto";
+
+//enum
+import { MemberRoles } from "src/common/custom/types/enum-member-roles";
 
 @Injectable()
 export class MembersService {
@@ -70,29 +74,35 @@ export class MembersService {
     await this.MembersRepository.update({ id: member.id }, { nickname });
   }
 
-  async createMember(createMemberDto: CreateMemberDto) {
-    const [participateId, userId, token] = [
-      createMemberDto.participateId,
-      createMemberDto.userId,
-      createMemberDto.invite_token,
-    ];
+  async createMember(userId, createMemberDto: CreateMemberDto) {
+    const { invite_token } = createMemberDto;
 
     //초대코드의 타입과, 참여할 보드로 나눔.
-    const [tokenType, boardId] = token.split("$");
+    const [tokenType, boardId] = invite_token.split("$");
+
+    //토큰 타입이 다를 경우 null반환
     if (tokenType !== "inviteLink/board" || !boardId) return null;
 
-    //참여  코드의 비번 Id와 참여할 보드 Id 같지 않으면 널값 반환.
-    if (+boardId !== participateId) return null;
-
-    //모든 검증을 끝내면 유저 테이블 추가 작업에 들어감.
+    //모든 검증을 끝내면 멤버 테이블 추가 작업에 들어감.
     //해당 유저에 대한 정보를 받아오기
     const user = await this.UsersRepository.findOne({ where: { id: +userId } });
 
-    //멤버를 새로 등록하기
-    return await this.MembersRepository.save({
-      userId: userId,
-      boarId: boardId,
+    // //멤버를 새로 등록하기
+    console.log(`
+      userId:${userId},
+      boardId:${boardId},
+      nickname:${user.name}`);
+
+    const exists_Member = await this.MembersRepository.findOne({ where: { boardId: +boardId } });
+    if (exists_Member) return { message: "이미 존재하는 멤버입니다!" };
+
+    const member = await this.MembersRepository.save({
+      userId: +userId,
+      boardId: +boardId,
+      role: MemberRoles.ONLY_VIEW,
       nickname: user.name,
     });
+
+    console.log(member);
   }
 }
