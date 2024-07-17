@@ -9,9 +9,7 @@ import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
 
 @Injectable()
 export class EmailVerificationService {
-  constructor(
-    private configService: ConfigService
-  ) {}
+  constructor(private configService: ConfigService) {}
 
   smtpTransport = nodemailer.createTransport({
     service: "naver",

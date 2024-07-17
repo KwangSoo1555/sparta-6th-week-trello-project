@@ -1,10 +1,13 @@
 {
   "cSpell.words": [
     "appleboy",
+    "BACKGROUNDCOLOR",
+    "CARDMEMBER",
     "datetime",
     "dtos",
     "nestjs",
     "NEXTINDEX",
+    "Repostiory",
     "SWAPCARD",
     "SWAPLIST",
     "typeorm"

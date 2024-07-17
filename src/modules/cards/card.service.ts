@@ -26,7 +26,6 @@ export class CardService {
   ) {}
 
   // 카드 생성 API
-  // id는 생성 되고 나서 발생하는 거니까 list id를 넣는다.
   async create(createCardDto: CreateCardDto, listId: number) {
     await this.findByListId(listId);
 
@@ -118,26 +117,26 @@ export class CardService {
         cardId: cardId,
         memberId: inputCardMember,
       });
-    }else {
+    } else {
       if (cardMember.memberId !== updateCardDto.cardMember) {
         changedFields.push("cardMember");
         cardMember.memberId = updateCardDto.cardMember;
       }
     }
 
-        // 알림 생성 및 전송
-        const notificationMessage = await this.eventsGateway.createNotificationMessage(
-          cardId,
-          changedFields,
-          data.title,
-          updatedCard.cardTitle,
-        );
-        const notification = await this.notificationRepostiory.save({
-          cardId,
-          memberId: updateCardDto.cardMember,
-          message: notificationMessage,
-        });
-        this.eventsGateway.handleCardStatusChanged(notification);
+    // 알림 생성 및 전송
+    const notificationMessage = await this.eventsGateway.createNotificationMessage(
+      cardId,
+      changedFields,
+      data.title,
+      updatedCard.cardTitle,
+    );
+    const notification = await this.notificationRepostiory.save({
+      cardId,
+      memberId: updateCardDto.cardMember,
+      message: notificationMessage,
+    });
+    this.eventsGateway.handleCardStatusChanged(notification);
 
     const saveCardMemberData = await this.cardAssigneeRepository.save(cardMember);
 
@@ -162,8 +161,7 @@ export class CardService {
     // 카드 orderIndex 다시 정리
     for (let i = 0; i < cards.length; i++) {
       cards[i].orderIndex = i;
-
-      await this.listRepository.save(cards[i]);
+      await this.cardRepository.save(cards[i]);
     }
 
     return;
