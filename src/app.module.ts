@@ -5,6 +5,7 @@ import { ConfigModule } from "@nestjs/config";
 //modules
 import { EmailVerificationModule } from "./modules/auth/email/email-verification.module";
 import { UserAuthModule } from "./modules/auth/users-auth/user-auth.module";
+import { GooglePassportModule } from "./modules/auth/social/google/google-passport.module"
 import { JwtModule } from "./modules/auth/jwt/jwt.module";
 import { UsersModule } from "./modules/users/users.module";
 import { MembersModule } from "./modules/members/members.module";
@@ -25,6 +26,7 @@ import { EventsModule } from "./modules/events/events.module";
     TypeOrmModule,
     EmailVerificationModule,
     UserAuthModule,
+    GooglePassportModule,
     JwtModule,
     UsersModule,
     MembersModule,

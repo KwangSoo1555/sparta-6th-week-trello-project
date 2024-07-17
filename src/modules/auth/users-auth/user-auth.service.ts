@@ -15,7 +15,8 @@ import { EmailVerificationService } from "src/modules/auth/email/email-verificat
 
 import { UsersEntity } from "src/entities/users.entity";
 import { RefreshTokensEntity } from "src/entities/refresh-tokens.entity";
-import { UserSignUpDto, UserLogInDto } from "./user-auth.dto";
+import { UserSignUpDto } from "src/modules/auth/users-auth/dto/user-auth-sign-up.dto";
+import { UserLogInDto } from "src/modules/auth/users-auth/dto/user-auth-log-in.dto";
 import { MESSAGES } from "src/common/constants/messages.constant";
 import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
 
@@ -35,49 +36,67 @@ export class UserAuthService {
   }
 
   async signUp(signUpDto: UserSignUpDto) {
-    const { email, password, verificationCode } = signUpDto;
+    const { email, password, verificationCode, provider, socialId } = signUpDto;
 
-    // 이메일 인증 코드 확인
-    const sendedEmailCode = this.emailVerificationService.getCode(email);
+    // 소셜 회원가입 처리
+    if (provider && socialId) {
+      const existingUser = await this.checkUserForAuth({ email });
+      if (existingUser) throw new ConflictException(MESSAGES.AUTH.SIGN_UP.EMAIL.DUPLICATED);
 
-    if (
-      !sendedEmailCode ||
-      this.emailVerificationService.isExpired(sendedEmailCode.timestamp) ||
-      sendedEmailCode.code !== verificationCode
-    )
-      throw new BadRequestException(MESSAGES.AUTH.SIGN_UP.EMAIL.VERIFICATION_CODE.INCONSISTENT);
+      const user = this.userRepository.create({
+        email,
+        name: signUpDto.name,
+        socialId,
+        provider,
+      });
 
-    // 이미 존재하는 유저인 경우 에러 처리
-    const existingUser = await this.checkUserForAuth({ email });
-    if (existingUser) throw new ConflictException(MESSAGES.AUTH.SIGN_UP.EMAIL.DUPLICATED);
+      return await this.userRepository.save(user);
+    }
 
-    // 비밀번호 해싱
-    const hashedPassword = await bcrypt.hash(password, AUTH_CONSTANT.HASH_SALT_ROUNDS);
+    // 소셜 회원가입이 아닌 로컬 회원가입 처리
+    else {
+      // 이메일 인증 코드 확인
+      const sendedEmailCode = this.emailVerificationService.getCode(email);
 
-    // 유저 생성
-    const user = this.userRepository.create({
-      ...signUpDto,
-      password: hashedPassword,
-    });
+      if (
+        !sendedEmailCode ||
+        this.emailVerificationService.isExpired(sendedEmailCode.timestamp) ||
+        sendedEmailCode.code !== verificationCode
+      )
+        throw new BadRequestException(MESSAGES.AUTH.SIGN_UP.EMAIL.VERIFICATION_CODE.INCONSISTENT);
 
-    const signUpUser = await this.userRepository.save(user);
+      // 이미 존재하는 유저인 경우 에러 처리
+      const existingUser = await this.checkUserForAuth({ email });
+      if (existingUser) throw new ConflictException(MESSAGES.AUTH.SIGN_UP.EMAIL.DUPLICATED);
 
-    // 비밀번호 필드를 undefined로 설정
-    signUpUser.password = undefined;
+      // 비밀번호 해싱
+      const hashedPassword = await bcrypt.hash(password, AUTH_CONSTANT.HASH_SALT_ROUNDS);
 
-    return signUpUser;
+      // 유저 생성
+      const user = this.userRepository.create({
+        ...signUpDto,
+        password: hashedPassword,
+      });
+
+      const signUpUser = await this.userRepository.save(user);
+
+      // 비밀번호 필드를 undefined로 설정
+      signUpUser.password = undefined;
+
+      return signUpUser;
+    }
   }
 
   async logIn(logInDto: UserLogInDto, ip: string, userAgent: string) {
     const user = await this.checkUserForAuth({ email: logInDto.email });
 
     // 유저 존재 여부 확인
-    if (!user) throw new NotFoundException(MESSAGES.AUTH.SIGN_IN.EMAIL.NOT_FOUND);
+    if (!user) throw new NotFoundException(MESSAGES.AUTH.LOG_IN.LOCAL.EMAIL.NOT_FOUND);
 
     // 비밀번호 일치 여부 확인
     const isPasswordMatch = await bcrypt.compare(logInDto.password, user.password);
     if (!isPasswordMatch)
-      throw new UnauthorizedException(MESSAGES.AUTH.SIGN_IN.PASSWORD.INCONSISTENT);
+      throw new UnauthorizedException(MESSAGES.AUTH.LOG_IN.LOCAL.PASSWORD.INCONSISTENT);
 
     // JWT 발급
     const payload = { userId: user.id };
@@ -114,12 +133,12 @@ export class UserAuthService {
     await this.refreshTokenRepository.update(
       { userId },
       { refreshToken: null },
+      // accessToken expires
     );
 
     // 유저가 로그아웃 하면 유저의 모든 access token 만료
     // 왜냐? 유저가 로그아웃 하면 access token 도 expire 해야 하기 때문
     // 그렇지 않으면 유저가 로그아웃 한 후에도 crud 가 가능하기 때문
-    
 
     return {
       message: MESSAGES.AUTH.SIGN_OUT.SUCCEED,

@@ -26,7 +26,7 @@ export class ListsEntity {
   @Column({ type: "varchar", length: 200 })
   title: string;
 
-  @Column({ type: "int", name: "order_index", default: 0 })
+  @Column({ type: "int", name: "order_index" })
   orderIndex: number;
 
   @CreateDateColumn({ name: "created_at" })
