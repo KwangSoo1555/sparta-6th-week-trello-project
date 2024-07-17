@@ -24,7 +24,7 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, "accessToken
   async validate(payload: JwtPayload) {
     const { userId } = payload;
 
-    const user = await this.userAuthService.checkUser({ id: userId });
+    const user = await this.userAuthService.checkUserForAuth({ id: userId });
     if (!user) throw new UnauthorizedException(MESSAGES.AUTH.COMMON.JWT.INVALID);
 
     return user;
@@ -44,10 +44,11 @@ export class RefreshTokenStrategy extends PassportStrategy(Strategy, "refreshTok
     });
   }
 
-  async validate(payload: JwtPayload) {
+  async validate(payload: JwtPayload)//: Promise<UserAuthEntity> 함수의 타입을 명시합시다.
+  {
     const { userId } = payload;
 
-    const user = await this.userAuthService.checkUser({ id: userId });
+    const user = await this.userAuthService.checkUserForAuth({ id: userId });
     if (!user) throw new UnauthorizedException(MESSAGES.AUTH.COMMON.JWT.INVALID);
 
     return user;

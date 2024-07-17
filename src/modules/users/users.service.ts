@@ -4,6 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
 import { UsersEntity } from "src/entities/users.entity";
+import { MembersEntity } from "src/entities/members.entity";
 import { UsersUpdateDto } from "./users.dto";
 import { MESSAGES } from "src/common/constants/messages.constant";
 import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
@@ -13,28 +14,30 @@ export class UsersService {
   constructor(
     @InjectRepository(UsersEntity)
     private readonly userRepository: Repository<UsersEntity>,
+    @InjectRepository(MembersEntity)
+    private readonly memberRepository: Repository<MembersEntity>,
   ) {}
 
-  async checkUser(params: { email?: string; id?: number }) {
+  async checkUserForUsers(params: { email?: string; id?: number }) {
     return this.userRepository.findOne({ where: { ...params } });
   }
 
   async getUsers(userId: number) {
-    const user = await this.checkUser({ id: userId });
+    const user = await this.checkUserForUsers({ id: userId });
 
     user.password = undefined;
     return user;
   }
 
   async updateUser(userId: number, updateUserDto: UsersUpdateDto) {
-    const user = await this.checkUser({ id: userId });
+    const user = await this.checkUserForUsers({ id: userId });
 
     // 유저가 새로운 이메일 입력 시 이메일 중복 체크
     if (updateUserDto.email) {
-      const isEmailExist = await this.checkUser({ email: updateUserDto.email });
-      if (isEmailExist) throw new ConflictException(
-        MESSAGES.USERS.UPDATE_ME.EMAIL.DUPLICATED
-      );
+      const isEmailExist = await this.checkUserForUsers({
+        email: updateUserDto.email,
+      });
+      if (isEmailExist) throw new ConflictException(MESSAGES.USERS.UPDATE_ME.EMAIL.DUPLICATED);
     }
 
     // 유저가 새로운 비밀번호 입력 시 현재 비밀번호 체크
@@ -78,9 +81,16 @@ export class UsersService {
     );
 
     // 업데이트된 유저 정보 반환
-    const updatedUser = await this.checkUser({ id: userId });
+    const updatedUser = await this.checkUserForUsers({ id: userId });
     updatedUser.password = undefined;
 
     return updatedUser;
+  }
+
+  async getBoards(userId: number) {
+    const boards = await this.memberRepository.find({
+      where: { userId: userId },
+    });
+    return boards;
   }
 }

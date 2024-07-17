@@ -12,7 +12,7 @@ import { IsEnum } from "class-validator";
 import { RefreshTokensEntity } from "./refresh-tokens.entity";
 import { MembersEntity } from "./members.entity";
 
-import { SocialProviders } from "src/common/custom/types/enum-social-provider";
+import { SocialProviders } from "../common/custom/types/enum-social-provider";
 
 @Entity("users")
 export class UsersEntity {

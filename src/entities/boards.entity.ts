@@ -10,7 +10,7 @@ import {
 import { MembersEntity } from "./members.entity";
 import { ListsEntity } from "./lists.entity";
 
-import { Colors } from "src/common/custom/types/enum-color.type";
+import { Colors } from "../common/custom/types/enum-color.type";
 
 @Entity("boards")
 export class BoardsEntity {

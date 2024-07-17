@@ -12,6 +12,13 @@ export class MembersService {
     private MembersRepository: Repository<MembersEntity>,
   ) {}
 
+  async getMembers(boardId: number, userId: number) {
+    const members = await this.MembersRepository.find({
+      where: { boardId: boardId },
+    });
+    return members;
+  }
+
   async banMember(userIdForBan: number, boardId: number, userId: number) {
     const member = await this.MembersRepository.findOne({
       where: { userId: userIdForBan, boardId: boardId },

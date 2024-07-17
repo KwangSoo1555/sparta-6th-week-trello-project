@@ -7,7 +7,6 @@ import { UpdateCardDto } from "./dtos/update.cardDto";
 import { CardAssigneesEntity } from "src/entities/card-assignees.entity";
 import { MESSAGES } from "src/common/constants/messages.constant";
 import { ListsEntity } from "src/entities/lists.entity";
-import { SwapCardDto } from "./dtos/swap.cardDto";
 
 @Injectable()
 export class CardService {
@@ -104,6 +103,9 @@ export class CardService {
     return this.cardRepository.delete(cardId);
   }
 
-  // 카드 순서 이동 API
-  async swapCardUpdate(listId: number, cardId: number, swapCardDto: SwapCardDto) {}
+  async updateOrder(listId: number, cardId: number, updateCardDto: UpdateCardDto) {
+    await this.findByListId(listId);
+    const existingCard = await this.findByCardId(cardId);
+    return;
+  }
 }
