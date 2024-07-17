@@ -187,33 +187,3 @@ export class CardService {
     return targetListCards;
   }
 }
-// 옮겨 간 리스트에 정렬 1
-
-// 원래 있던 리스트에서 정렬 1
-
-// 기존에 있었던 코드
-// async updateOrder(listId: number, cardId: number, swapCardDto: SwapCardDto) {
-//   // 내가 옮기려고 하는 카드의 장소 선언
-//   const { swapCardIndex } = swapCardDto;
-
-//   // 카드의 위치 찾아
-//   const cards = await this.cardRepository.find({
-//     where: { listId: listId },
-//     order: { orderIndex: "ASC" },
-//   });
-
-//   // 내 카드의 현재 위치 파악 후 재명명
-//   const currentIndex = cards[cardId];
-
-//   cards.splice(cardId, 1);
-
-//   cards.splice(swapCardIndex, 0, currentIndex);
-
-//   // orderIndex를 순서대로 다시 초기화
-//   for (let i = 0; i < cards.length; i++) {
-//     cards[i].orderIndex = i;
-//     await this.cardRepository.save(cards[i]);
-//   }
-
-//   return cards;
-// }
