@@ -30,7 +30,7 @@ export class FilesEntity {
   @UpdateDateColumn({ type: "datetime", nullable: false, name: "updated_at" })
   updatedAt: Date;
 
-  @ManyToOne(() => CardsEntity, (card) => card.file)
+  @ManyToOne(() => CardsEntity, (card) => card.file, { onDelete: "CASCADE" })
   @JoinColumn({ name: "card_id" })
   card: CardsEntity;
 }

@@ -44,7 +44,7 @@ export class CardsEntity {
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @ManyToOne(() => ListsEntity, (list) => list.card)
+  @ManyToOne(() => ListsEntity, (list) => list.card, { onDelete: "CASCADE" })
   @JoinColumn({ name: "list_id" })
   list: ListsEntity;
 
