@@ -52,8 +52,7 @@ export class CardController {
   }
 
   // 카드 삭제 API
-  @Delete(":cardId")
-  // ParseIntPipe = number가 아닌 타입을 가져올 때 자동으로 숫자로 변환시켜주는 것
+  @Delete("delete/:cardId")
   async delete(
     @Param("listId", ParseIntPipe) listId: number,
     @Param("cardId", ParseIntPipe) cardId: number,

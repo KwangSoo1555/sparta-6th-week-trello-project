@@ -28,11 +28,9 @@ export class JwtService {
     if (!matchRefreshToken) throw new UnauthorizedException(MESSAGES.AUTH.COMMON.JWT.INVALID);
 
     // access token 과 refresh token 을 새롭게 발급
-    const reIssueAccessToken = jwt.sign(
-      { userId },
-      this.configService.get("ACCESS_TOKEN_SECRET"),
-      { expiresIn: AUTH_CONSTANT.ACCESS_TOKEN_EXPIRES_IN },
-    );
+    const reIssueAccessToken = jwt.sign({ userId }, this.configService.get("ACCESS_TOKEN_SECRET"), {
+      expiresIn: AUTH_CONSTANT.ACCESS_TOKEN_EXPIRES_IN,
+    });
 
     const reIssueRefreshToken = jwt.sign(
       { userId },
