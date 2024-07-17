@@ -46,7 +46,7 @@ export class CardsEntity {
   updatedAt: Date;
 
   @ManyToOne(() => ListsEntity, (list) => list.card)
-  @JoinColumn({name: 'list_id'})
+  @JoinColumn({ name: "list_id" })
   list: ListsEntity;
 
   @OneToMany(() => FilesEntity, (file) => file.card)
@@ -61,6 +61,6 @@ export class CardsEntity {
   @OneToMany(() => CardCheckListEntity, (checklist) => checklist.card)
   checklists: CardCheckListEntity[];
 
-  @OneToMany(() => NotificationEntity, (notification)=> notification.card)
+  @OneToMany(() => NotificationEntity, (notification) => notification.card)
   notification: NotificationEntity[];
 }
