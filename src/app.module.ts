@@ -18,6 +18,8 @@ import { RedisModule } from "./modules/redis/redis.module";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { EventsModule } from "./modules/events/events.module";
+import { APP_INTERCEPTOR } from "@nestjs/core";
+import { MorganInterceptor, MorganModule } from "nest-morgan";
 
 @Module({
   imports: [
@@ -34,9 +36,13 @@ import { EventsModule } from "./modules/events/events.module";
     FileModule,
     CardCommentModule,
     EventsModule,
+    MorganModule
     //RedisModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,    {
+    provide: APP_INTERCEPTOR,
+    useClass: MorganInterceptor("combined"),
+  }, ],
 })
 export class AppModule {}
