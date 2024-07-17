@@ -23,6 +23,22 @@ export class MembersService {
     private UsersRepository: Repository<UsersEntity>,
   ) {}
 
+  //convenience function section
+  async findMember(boardId: number, userId: number) {
+    const member = await this.MembersRepository.findOne({ where: { userId, boardId } });
+    return member;
+  }
+
+  async checkMemberRole(boardId: number, userId: number, role: MemberRoles) {
+    const member = await this.findMember(boardId, userId);
+    if (member.role === role) {
+      return true;
+    }
+    return false;
+  }
+
+  //==============================
+
   async getMembers(boardId: number, userId: number) {
     const members = await this.MembersRepository.find({
       where: { boardId: boardId },
@@ -74,6 +90,7 @@ export class MembersService {
     await this.MembersRepository.update({ id: member.id }, { nickname });
   }
 
+  //새로운 유저 초대받아 들어오기
   async createMember(userId, createMemberDto: CreateMemberDto) {
     const { invite_token } = createMemberDto;
 
@@ -93,8 +110,9 @@ export class MembersService {
       boardId:${boardId},
       nickname:${user.name}`);
 
-    const exists_Member = await this.MembersRepository.findOne({ where: { boardId: +boardId } });
-    if (exists_Member) return { message: "이미 존재하는 멤버입니다!" };
+    if (await this.findMember(+boardId, userId)) return { message: "이미 존재하는 멤버입니다!" };
+
+    console.log(await this.findMember(+boardId, userId));
 
     const member = await this.MembersRepository.save({
       userId: +userId,
@@ -103,6 +121,6 @@ export class MembersService {
       nickname: user.name,
     });
 
-    console.log(member);
+    return member;
   }
 }

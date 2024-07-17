@@ -37,30 +37,39 @@ export class BoardController {
     return this.boardService.createBoard(createBoardDto, userId);
   }
 
+  //보드 정보 업데이트
   @Patch(":boardId")
-  @UseGuards(JwtAccessGuards, RoleGuards)
-  @Roles(MemberRoles.ADMIN, MemberRoles.EDITOR)
+  @UseGuards(JwtAccessGuards)
   @UsePipes(ValidationPipe)
-  async updateBoard(@Param("boardId") boardId, @Body() updateBoardDto: UpdateBoardDto) {
-    return this.boardService.updateBoard(boardId, updateBoardDto);
+  async updateBoard(
+    @Param("boardId") boardId,
+    @Body() updateBoardDto: UpdateBoardDto,
+    @RequestUserAndToken() { user: { id: userId } },
+  ) {
+    return this.boardService.updateBoard(boardId, updateBoardDto, userId);
   }
 
+  //보드 삭제
   @Delete(":boardId")
-  @UseGuards(JwtAccessGuards, RoleGuards)
-  @Roles(MemberRoles.ADMIN)
+  @UseGuards(JwtAccessGuards)
   @UsePipes(ValidationPipe)
-  async deleteBoard(@Param("boardId", ParseIntPipe) boardId) {
-    return this.boardService.deleteBoard(boardId);
+  async deleteBoard(
+    @Param("boardId", ParseIntPipe) boardId,
+    @RequestUserAndToken() { user: { id: userId } },
+  ) {
+    return this.boardService.deleteBoard(boardId, userId);
   }
-
-  // @Post(":boardId/invite")
-  // @UseGuards(JwtAccessGuards, RoleGuards)
-  // @Roles(MemberRoles.ADMIN)
-  // @UsePipes(ValidationPipe)
-  // async inviteBoard(@Param("boardId", ParseIntPipe) boardId) {
-  //   return this.boardService.inviteBoard(boardId);
-  // }
-
+  //유저 초대 링크 생성
+  @Post(":boardId/invite")
+  @UseGuards(JwtAccessGuards)
+  @UsePipes(ValidationPipe)
+  async inviteBoard(
+    @Param("boardId", ParseIntPipe) boardId,
+    @RequestUserAndToken() { user: { id: userId } },
+  ) {
+    return this.boardService.inviteBoard(boardId, userId);
+  }
+  //유저 보드 정보 조회
   @Get(":boardId")
   @UseGuards(JwtAccessGuards)
   async findBoardId(

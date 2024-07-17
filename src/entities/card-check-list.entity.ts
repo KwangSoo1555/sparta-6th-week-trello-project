@@ -29,7 +29,7 @@ export class CardCheckListEntity {
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @ManyToOne(() => CardsEntity, (card) => card.checklists)
+  @ManyToOne(() => CardsEntity, (card) => card.checklists, { onDelete: "CASCADE" })
   @JoinColumn({ name: "card_id" })
   card: CardsEntity;
 }

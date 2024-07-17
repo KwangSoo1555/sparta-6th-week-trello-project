@@ -22,8 +22,7 @@ export class MembersController {
   }
 
   @Delete("ban")
-  @UseGuards(JwtAccessGuards, RoleGuards)
-  @Roles(MemberRoles.ADMIN)
+  @UseGuards(JwtAccessGuards)
   async banMember(
     @RequestUserAndToken() { user: { id: userId } },
     @Query("boardId") boardId: number,
@@ -33,8 +32,7 @@ export class MembersController {
   }
 
   @Patch("permission")
-  @UseGuards(JwtAccessGuards, RoleGuards)
-  @Roles(MemberRoles.ADMIN)
+  @UseGuards(JwtAccessGuards)
   async updateMemberRoles(
     @RequestUserAndToken() { user: { id: userId } },
     @Query("boardId") boardId: number,
