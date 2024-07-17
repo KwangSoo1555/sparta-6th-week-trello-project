@@ -431,63 +431,111 @@
 
 - [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L195](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L93)
 
-![댓글 좋아요 API](./imgs/26-comment-like.png)
-![댓글 좋아요 취소 API](./imgs/27-comment-unlike.png)
+![리스트 삭제](https://github.com/user-attachments/assets/6674574d-3480-4556-8c10-408113c13120)
+
 
 <br>
 
 ### 5-21. 카드 생성 API
 
-- 판매자(구매자)가 상품 판매(구매)를 완료하는 API입니다.
+- 리스트 속 카드를 생성하는 API입니다.
 
-- `상품 게시물의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
+- listId 통해 특정 리스트를 지정하고 그 속에서 카드를 생성합니다.
 
-- 판매 완료에서는 `구매자의 ID`을, 구매 완료에서는 `매너 상태와 판매자 ID`을 `req.body`를 통해 가져옵니다.
+- 카드 제목("cardTitle)를 `req.body`를 통해 가져옵니다.
 
-- `트랜젝션 문법`을 통해 구매 기록와 판매 기록을 `같은 트랜젝션에서 create`합니다.
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade-complete.router.js#L12](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L29)
 
-- `구매` 기록에는 상품 게시물의 ID와 `구매자의 ID`, 타입은 구매로 설정합니다.
+![카드 생성](https://github.com/user-attachments/assets/3e22243b-29bd-4bc5-969c-b1703bfa4939)
 
-- `판매` 기록에는 상품 게시물의 ID와 `판매자의 ID`, 타입은 판매로 설정합니다.
-
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade-complete.router.js#L12
-
-![거래 내역 생성 API](./imgs/28-make-history.png)
-![구매 완료 내역 생성 API](./imgs/29-make-purchase-history.png)
 
 <br>
 
-### 5-22. 상품 구매/판매 내역 조회 API
+### 5-22. 카드 수정 API
 
-- 이용자가 자신의 상품 거래 기록을 조회 할 수 있는 API 입니다.
+- 리스트 속 카드 내용을 수정하는 API입니다.
 
-- `accessTokenValidator`를 통해서 로그인한 사용자의 `Access Token`를 검증합니다.
+- listId 통해 특정 리스트를 지정하고 그 속에서 카드 내용을 변경합니다.
 
-- 토큰 유효성 검사가 통과하면 `req.user`를 통해 사용자의 정보를 가져옵니다.
+- 카드 제목, 카드 내용, 카드 배경 색상, 작업자 할당 및 변경을 `req.body`를 통해 가져옵니다.
 
-- 받아온 사용자 정보의 `id`를 통해 `history` 테이블의 거래기록에 접근 할 수 있고, 해당 테이블의 `type`에 따라 구매, 판매 내역을 조회 할 수 있습니다.
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade-history.router.js#L11](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L78)
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade-history.router.js#L11
+![카드 수정](https://github.com/user-attachments/assets/75c69d41-9516-44f9-8abb-aa0c78630560)
 
-![판매 내역 조회 API](./imgs/30-sell-history.png)
-![구매 내역 조회 API](./imgs/31-purchase-history.png)
 
 <br>
 
-### 5-23. 팔로우 API
+### 5-23. 카드 삭제 API
 
-- 사용자가 다른 이용자를 팔로우하고 해당 이용자를 트래킹 할 수 있게 해주는 API 입니다.
+- 리스트 속 카드를 삭제하는 API입니다.
 
-- `followerId`는 `accessTokenValidator` 검증을 통과 한 뒤 `req.user`를 통해 받아오고, `followingId`는 `req.params`를 통해 URL에서 가져옵니다.
+- listId 통해 특정 리스트를 지정하고 cardId를 통해서 특정 카드를 지정한 후 카드를 삭제합니다.
 
-- 팔로우 할 사용자가 이미 팔로우 되어 있는 경우 에러를 반환 합니다.
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
 
-- `언팔로우 API`는 로직이 거의 동일하기에 작성하지 않았습니다.
+![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10
 
-![팔로우 API](./imgs/10-follow.png)
-![언팔로우 API](./imgs/11-unfollow.png)
+<br>
+
+### 5-23. 카드 순서 변경 API
+
+- 리스트 속 카드의 순서를 API입니다.
+
+- listId 통해 특정 리스트를 지정하고 그 속의 카드를 orderIndex를 통해서 특정 위치를 가진 카드를 지정합니다.
+
+- 그 후 타켓 위치의 리스트와 카드를 "swapListIndex" 와 "swapCardOrderIndex"로 받아서 위치를 특정하여 이동할 위치를 지정합니다.
+
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+
+![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
+
+
+<br>
+
+### 5-23. 카드 순서 변경 API
+
+- 리스트 속 카드의 순서를 API입니다.
+
+- listId 통해 특정 리스트를 지정하고 그 속의 카드를 orderIndex를 통해서 특정 위치를 가진 카드를 지정합니다.
+
+- 그 후 타켓 위치의 리스트와 카드를 "swapListIndex" 와 "swapCardOrderIndex"로 받아서 위치를 특정하여 이동할 위치를 지정합니다.
+
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+
+![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
+
+
+<br>
+
+### 5-23. 카드 순서 변경 API
+
+- 리스트 속 카드의 순서를 API입니다.
+
+- listId 통해 특정 리스트를 지정하고 그 속의 카드를 orderIndex를 통해서 특정 위치를 가진 카드를 지정합니다.
+
+- 그 후 타켓 위치의 리스트와 카드를 "swapListIndex" 와 "swapCardOrderIndex"로 받아서 위치를 특정하여 이동할 위치를 지정합니다.
+
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+
+![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
+
+
+<br>
+
+### 5-23. 카드 순서 변경 API
+
+- 리스트 속 카드의 순서를 API입니다.
+
+- listId 통해 특정 리스트를 지정하고 그 속의 카드를 orderIndex를 통해서 특정 위치를 가진 카드를 지정합니다.
+
+- 그 후 타켓 위치의 리스트와 카드를 "swapListIndex" 와 "swapCardOrderIndex"로 받아서 위치를 특정하여 이동할 위치를 지정합니다.
+
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+
+![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
+
 
 <br>
 
