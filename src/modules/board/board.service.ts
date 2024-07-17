@@ -1,6 +1,6 @@
 import _ from "lodash";
-import { Injectable } from "@nestjs/common";
-import { DataSource } from "typeorm";
+import { ConflictException, Injectable } from "@nestjs/common";
+import { DataSource, In } from "typeorm";
 
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -15,6 +15,8 @@ import { BOARD_CONSTANT } from "src/common/constants/board.contant";
 import { MemberRoles } from "src/common/custom/types/enum-member-roles";
 import { Colors } from "src/common/custom/types/enum-color.type";
 import { MESSAGES } from "src/common/constants/messages.constant";
+import { CardsEntity } from "src/entities/cards.entity";
+import { ListsEntity } from "src/entities/lists.entity";
 
 @Injectable()
 export class BoardService {
@@ -24,6 +26,10 @@ export class BoardService {
     private boardRepository: Repository<BoardsEntity>,
     @InjectRepository(MembersEntity)
     private memberRepository: Repository<MembersEntity>,
+    @InjectRepository(CardsEntity)
+    private cardRepository: Repository<CardsEntity>,
+    @InjectRepository(ListsEntity)
+    private listRepository: Repository<ListsEntity>,
   ) {}
 
   async createBoard(createBoardDto: CreateBoardDto, userId: number) {
@@ -82,6 +88,30 @@ export class BoardService {
     return { message: BOARD_CONSTANT.DELETE_BOARD };
   }
 
+async findBoard(boardId: number, userId: number) {
+  const member = await this.memberRepository.findOne({ where: { boardId, userId } });
+  if (!member) {
+    throw new ConflictException('접근 권한이 없습니다.');
+  }
+  const board = await this.boardRepository.findOne({where: {id : boardId}})
+  const lists = await this.listRepository.find({ where: { boardId } });
+  const listIds = lists.map(list => list.id);
+
+  const cards = await this.cardRepository.find({
+    where: { listId: In(listIds) }
+  });
+
+  const boardData = {
+    board: board.backgroundImageUrl,
+    boardTilte: board.title,
+    lists: lists.map(list => ({
+      ...list,
+      cards: cards.filter(card => card.listId === list.id)
+    }))
+  };
+
+  return boardData;
+}  
   // 충돌 코드
   
   // async inviteBoard(boardId: string) {
@@ -91,5 +121,5 @@ export class BoardService {
   //   }
 
   //   return { message: BOARD_CONSTANT.MAKE_INVITECODE };
-  // }
-}
+  // } 
+  }

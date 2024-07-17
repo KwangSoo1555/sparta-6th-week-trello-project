@@ -67,4 +67,13 @@ export class BoardController {
   ) {
     return this.boardService.inviteBoard(boardId);
   }
+
+  @Get(':boardId')
+  @UseGuards(JwtAccessGuards)
+  async findBoardId(
+    @Param('boardId') boardId: number,
+    @RequestUserAndToken() { user: { id: userId } },
+  ){
+    return this.boardService.findBoard(boardId, userId)
+  }
 }
