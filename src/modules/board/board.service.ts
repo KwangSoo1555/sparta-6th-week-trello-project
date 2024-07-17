@@ -70,11 +70,11 @@ export class BoardService {
     await this.boardRepository.delete(boardId);
   }
 
-  async inviteBoard(boardId: string) {
-    const data = await this.redisClient.set(boardId, `inviteLink/board$${boardId}`);
-    const result = await this.redisClient.get(boardId);
+  // async inviteBoard(boardId: string) {
+  //   const data = await this.redisClient.set(boardId, `inviteLink/board$${boardId}`);
+  //   const result = await this.redisClient.get(boardId);
 
-    console.log(result);
-    return result;
-  }
+  //   console.log(result);
+  //   return result;
+  // }
 }

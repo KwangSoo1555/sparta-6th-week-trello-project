@@ -28,9 +28,7 @@ export class UsersController {
 
   @Get("boards")
   @UseGuards(JwtAccessGuards)
-  getBoards(
-    @RequestUserAndToken() { user: { id: userId } }, 
-  ) {
+  getBoards(@RequestUserAndToken() { user: { id: userId } }) {
     return this.usersService.getBoards(userId);
   }
 }
