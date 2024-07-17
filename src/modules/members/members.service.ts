@@ -103,7 +103,7 @@ export class MembersService {
   //   await this.MembersRepository.update({ id: member.id }, { nickname });
   // }
 
-  //===================================================
+  //====수정 중================수정 중=================수정 중==============
   async updateMember(updateMemberInfoDto: UpdateMemberInfoDto, boardId: number, userId: number) {
     if (
       (await this.checkMemberRole(boardId, userId, MemberRoles.ADMIN)) &&
@@ -112,7 +112,7 @@ export class MembersService {
       const editMember = await this.MembersRepository.update({ id: userId }, {});
     } else return { message: "권한이 없습니다" };
   }
-  //===================================================
+  //======수정 중===============수정 중===============수정 중===============
 
   //새로운 유저 초대받아 들어오기
   async createMember(userId, createMemberDto: CreateMemberDto) {
