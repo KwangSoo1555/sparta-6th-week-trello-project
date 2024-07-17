@@ -25,4 +25,12 @@ export class UsersController {
   ) {
     return this.usersService.updateUser(userId, updateUserDto);
   }
+
+  @Get("boards")
+  @UseGuards(JwtAccessGuards)
+  getBoards(
+    @RequestUserAndToken() { user: { id: userId } }, 
+  ) {
+    return this.usersService.getBoards(userId);
+  }
 }

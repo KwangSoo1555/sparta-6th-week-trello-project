@@ -99,4 +99,9 @@ export class CardService {
 
     return this.cardRepository.delete(cardId);
   }
+
+  async updateOrder(listId: number, cardId: number, updateCardDto: UpdateCardDto) {
+    await this.findByListId(listId);
+    const existingCard = await this.findByCardId(cardId);
+  }
 }

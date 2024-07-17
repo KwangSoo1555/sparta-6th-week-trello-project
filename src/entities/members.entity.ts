@@ -49,6 +49,6 @@ export class MembersEntity {
   @OneToMany(() => CardAssigneesEntity, (cardAssignee) => cardAssignee.member)
   cardAssignee: CardAssigneesEntity[];
 
-  @OneToMany(()=> NotificationEntity, (notification) => notification.members)
+  @OneToMany(() => NotificationEntity, (notification) => notification.members)
   notification: NotificationEntity[];
 }

@@ -1,10 +1,13 @@
-import { WebSocketGateway, SubscribeMessage, MessageBody } from '@nestjs/websockets';
-import { Socket, Server } from 'socket.io';
-import { CardNotificationDto } from './dto/notification.dto';
+import {
+  WebSocketGateway,
+  SubscribeMessage,
+} from "@nestjs/websockets";
+import { Socket, Server } from "socket.io";
+import { CardNotificationDto } from "./dto/notification.dto";
 
 @WebSocketGateway({
   cors: {
-    origin: '*',
+    origin: "*",
   },
 })
 
@@ -30,7 +33,7 @@ export class EventsGateway {
 
   afterInit(server: Server) {
     this.server = server;
-    console.log('Socket.IO 서버가 초기화되었습니다.');
+    console.log("Socket.IO 서버가 초기화되었습니다.");
   }
 
   handleConnection(client: Socket) {
