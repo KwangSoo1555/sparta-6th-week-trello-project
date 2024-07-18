@@ -2,6 +2,10 @@ import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-valida
 import { MemberRoles } from "src/common/custom/types/enum-member-roles";
 
 export class UpdateMemberInfoDto {
+  @IsNumber()
+  @IsOptional()
+  targetUserId: number;
+
   @IsEnum(MemberRoles)
   @IsOptional()
   memberRole?: MemberRoles;
@@ -9,8 +13,4 @@ export class UpdateMemberInfoDto {
   @IsString()
   @IsOptional()
   nickname?: string;
-
-  @IsNumber()
-  @IsOptional()
-  targetUserId: number;
 }

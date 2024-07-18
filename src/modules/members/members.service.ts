@@ -7,7 +7,8 @@ import { MembersEntity } from "src/entities/members.entity";
 import { UsersEntity } from "src/entities/users.entity";
 
 //dto
-import { UpdateMemberInfoDto } from "./dto/member.update.dto";
+import { UpdateMemberRoleDto } from "./dto/member.updaterole.dto";
+import { UpdateMembernicknameDto } from "./dto/member.updatenickname.dto";
 import { CreateMemberDto } from "./dto/member.create.dto";
 
 //enum
@@ -38,14 +39,14 @@ export class MembersService {
   }
 
   //==============================
-
+  //1.
   async getMembers(boardId: number, userId: number) {
     const members = await this.MembersRepository.find({
       where: { boardId: boardId },
     });
     return members;
   }
-
+  //2.멤버 강제 추방
   async banMember(userIdForBan: number, boardId: number, userId: number) {
     if (await this.checkMemberRole(boardId, userId, MemberRoles.ONLY_VIEW))
       throw new NotFoundException({ message: "권한이 없습니다." });
@@ -69,52 +70,33 @@ export class MembersService {
     return { message: "해당유저가 성공적으로 강퇴되었습니다." };
   }
 
-  // async updateMemberRoles(
-  //   updateMemberInfoDto: UpdateMemberInfoDto,
-  //   userId: number,
-  //   boardId: number,
-  //   userIdForUpdateRole: number,
-  // ) {
-  //   const { memberRole, nickname } = updateMemberInfoDto;
-  //   const member = await this.MembersRepository.findOne({
-  //     where: { userId: userId, boardId: boardId },
-  //   });
-  //   await this.MembersRepository.update(
-  //     { id: member.id },
-  //     {
-  //       role: memberRole,
-  //       nickname: nickname,
-  //     },
-  //   );
-  // }
+  //3.멤버 역할 수정
 
-  // async updateMemberNickname(
-  //   updateMemberInfoDto: UpdateMemberInfoDto,
-  //   boardId: number,
-  //   userId: number,
-  // ) {
-  //   const { nickname } = updateMemberInfoDto;
-  //   const member = await this.MembersRepository.findOne({
-  //     where: { userId, boardId },
-  //   });
+  async updateMemberRoles(updateMemberRoleDto, boardId: number, userId: number) {
+    const { targetUserId, memberRole } = updateMemberRoleDto;
 
-  //   if (!member) throw new NotFoundException({ message: "해당 보드에 속한 유저가 아닙니다." });
+    const targetMember = await this.findMember(boardId, targetUserId);
 
-  //   await this.MembersRepository.update({ id: member.id }, { nickname });
-  // }
+    //실행 성공 케이스
+    if (targetUserId === userId) {
+      this.MembersRepository.update({ boardId, userId }, { role: memberRole });
+    }
 
-  //====수정 중================수정 중=================수정 중==============
-  async updateMember(updateMemberInfoDto: UpdateMemberInfoDto, boardId: number, userId: number) {
-    if (
-      (await this.checkMemberRole(boardId, userId, MemberRoles.ADMIN)) &&
-      !(await this.checkMemberRole(boardId, updateMemberInfoDto.targetUserId, MemberRoles.ADMIN))
-    ) {
-      const editMember = await this.MembersRepository.update({ id: userId }, {});
-    } else return { message: "권한이 없습니다" };
+    if (await this.checkMemberRole(boardId, targetUserId, MemberRoles.ADMIN)) {
+      throw new NotFoundException({
+        message: "해당 유저는 당신과 동등하거나 더 높은 권한을 가지고 있습니다.",
+      });
+    } else if (!(await this.checkMemberRole(boardId, userId, MemberRoles.ADMIN)))
+      throw new NotFoundException("접근할 권한이 없습니다");
+    else {
+      this.MembersRepository.update({ boardId, userId }, { role: memberRole });
+    }
+    return { message: "유저 정보가 성공적으로 수정되었습니다." };
   }
-  //======수정 중===============수정 중===============수정 중===============
+  //4.멤버 닉네임 수정
+  async updateMemberNickname(updateMembernicknameDto, boardId, userId) {}
 
-  //새로운 유저 초대받아 들어오기
+  //5.새로운 유저 초대받아 들어오기
   async createMember(userId, createMemberDto: CreateMemberDto) {
     const { invite_token } = createMemberDto;
 
