@@ -25,5 +25,6 @@ export class NotificationEntity {
   card: CardsEntity[];
 
   @ManyToOne(() => MembersEntity, (members) => members.notification, { onDelete: "CASCADE" })
+  @JoinColumn({name: 'member_id'})
   members: MembersEntity[];
 }

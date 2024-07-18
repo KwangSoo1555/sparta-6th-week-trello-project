@@ -89,6 +89,6 @@ export class CardCommentService {
       throw new BadRequestException(MESSAGES.CARDCOMMENT.NOT_EXISTS_CHECKLIST);
     }
     checkList.isDone = !checkList.isDone;
-    await this.cardCheckListRepository.save(checkList);
+    return await this.cardCheckListRepository.save(checkList);
   }
 }

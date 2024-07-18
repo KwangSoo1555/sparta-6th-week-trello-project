@@ -5,8 +5,4 @@ export class CreateListDto {
   @IsString()
   @MaxLength(255)
   title: string;
-
-  @IsNotEmpty()
-  @IsNumber()
-  boardId: number;
 }

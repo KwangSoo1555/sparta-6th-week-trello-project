@@ -118,7 +118,7 @@ export const MESSAGES = {
     DELETE_SUCCEED: "댓글을 성공적으로 삭제하였습니다.",
     UPDATE_DATE_SUCCEED: "카드에 날짜 수정되었습니다.",
     CREATE_CHECKLIST: "체크리스트가 추가되었습니다.",
-    UPDATE_CHECKLIST: "체크리스트 변경사항되었습니다.",
+    UPDATE_CHECKLIST: "체크리스트 토글 변경되었습니다.",
     NOT_EXISTS_CHECKLIST: "없는 체크리스트입니다.",
     NOT_EXISTS: "해당 댓글을 찾을 수 없습니다.",
     NOT_AUTHORITY_UPDATE: "댓글을 수정할 권한이 없습니다.",
