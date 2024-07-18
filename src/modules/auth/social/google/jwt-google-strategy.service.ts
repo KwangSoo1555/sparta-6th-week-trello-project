@@ -15,7 +15,7 @@ export class JwtGoogleStrategy extends PassportStrategy(Strategy, "google") {
       scope: ["email", "profile"],
     });
   }
- 
+  
   async validate(
     profile: Profile,
     done: VerifyCallback,
