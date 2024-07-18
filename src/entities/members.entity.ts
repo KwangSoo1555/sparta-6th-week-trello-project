@@ -37,15 +37,15 @@ export class MembersEntity {
 
   @Column({ type: "boolean", default: false })
   isCreator: boolean;
-  
-  @ManyToOne(() => UsersEntity, (user) => user.member)
+
+  @ManyToOne(() => UsersEntity, (user) => user.member, { onDelete: "CASCADE" })
   @JoinColumn({ name: "user_id" })
   user: UsersEntity;
 
   @OneToMany(() => CardCommentsEntity, (cardComment) => cardComment.member)
   cardComment: CardCommentsEntity[];
 
-  @ManyToOne(() => BoardsEntity, (board) => board.member)
+  @ManyToOne(() => BoardsEntity, (board) => board.member, { onDelete: "CASCADE" })
   @JoinColumn({ name: "board_id" })
   board: BoardsEntity[];
 

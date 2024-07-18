@@ -38,7 +38,7 @@ export class ListsEntity {
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @ManyToOne(() => BoardsEntity, (board) => board.list)
+  @ManyToOne(() => BoardsEntity, (board) => board.list, { onDelete: "CASCADE" })
   @JoinColumn({ name: "board_id" })
   board: BoardsEntity;
 

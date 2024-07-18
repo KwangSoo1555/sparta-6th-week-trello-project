@@ -16,13 +16,6 @@ export class JwtGoogleStrategy extends PassportStrategy(Strategy, "google") {
     });
   }
 
-  // authorizationParams(): { [key: string]: string } {
-  //   return {
-  //     access_type: "offline",
-  //     prompt: "consent",
-  //   };
-  // }
-
   async validate(
     // 구글 로그인 시 반환되는 토큰의 타입은 다음과 같다.
     // --> accessToken: string,

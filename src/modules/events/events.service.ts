@@ -20,11 +20,11 @@ export class EventsService {
     const userData = await this.memberRepository.findOne({
       where: { boardId, userId },
     });
-
+    console.log(userData)
     const notificationData = await this.notificationRepository.find({
       where: { memberId: userData.id },
       order: { createdAt: "DESC" },
-      take: limit
+      take: +limit
     });
 
     return notificationData
