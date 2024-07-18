@@ -261,78 +261,56 @@
 
 <br>
 
-### 5-10. 보드 생성 API 윤형님 부탁해요
+### 5-10. 보드 생성 API
 
-- 판매할 상품의 정보를 입력 받아 게시물을 생성하는 API입니다.
+- 보드의 정보를 입력 받아 보드를 생성하는 API입니다.
 
-- `게시물 제목, 게시물 내용, 상품 가격, 판매 지역`을 `req.body`를 통해 받아옵니다.
+- `보드 제목, 보드 내용, 백그라운드 컬러, 닉네임`을 `req.body`를 통해 받아옵니다.
 
-- `상품 사진`들은 파일을 업로드해서 보내면 `multer 객체`를 통해 `AWS S3에 URL 형태`로 저장됩니다.
-
-- `상품 사진의 URL`은 `req.files`를 통해서 가져옵니다.
-
-- 상품 사진은 필수로 첨부해야 합니다.
-
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade.router.js#L16
-
-![게시물 생성 API](./imgs/12-trade-create.png)
+![보드 생성](https://github.com/user-attachments/assets/f16e06eb-26d0-4070-a768-4b705b76e449)
 
 <br>
 
-### 5-11. 게시물 목록 조회 API 윤형님 부탁해요
+### 5-11. 유저 강퇴 기능
 
-- 판매 등록된 상품의 정보 목록을 조회하는 API입니다.
+- 보드내에 존재하는 유저를 강퇴하는 기능입니다.
 
-- 일종의 `뉴스피드`, 모든 사용자들이 올리는 게시물을 보는 기능입니다.
+- 해당 유저가 서버에 존재하는지 확인합니다.
 
-- 기본적으로는 `시간 순`으로 정렬되며, `like 쿼리`를 통해 `좋아요 순`으로 정렬이 가능합니다.
+![서버에 존재 확인](https://github.com/user-attachments/assets/58765789-3fe8-4629-a112-8b9d636c7dea)
 
-- 상품들의 데이터 조회 시 관계가 설정된 `tradePicture 테이블`에서 `이미지 URL`를 반복해서 가져옵니다.
+- 강퇴하는 유저와, 강퇴당하는 유저의 역할을 비교 후, 강퇴를 실행합니다.
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade.router.js#L67
-
-![게시물 목록조회-기본값 API](./imgs/13-trade-list-default.png)
-![게시물 목록조회 - sort API](./imgs/14-trade-list-sort.png)
-![게시물 목록조회 - like API](./imgs/15-trade-list-like.png)
-![게시물 목록조회 - follow API](./imgs/16-trade-list-follow.png)
+![유저 강퇴](https://github.com/user-attachments/assets/2ff6398b-ac31-4ecd-afef-971ed9567890)
 
 <br>
 
-### 5-12. 게시물 상세 조회 API 윤형님 부탁해요
+### 5-12. 보드 초대 링크 생성
 
-- 게시물의 상세한 정보를 조회하는 API입니다.
+- 보드의 초대 링크를 만드는 API입니다.
 
-- 목록 조회와는 다르게 게시물의 `내용`도 포함하여 출력합니다.
+- 초대 링크의 형식은 inviteLink/board${초대 보드의 숫자} 형식을 따릅니다.
 
-- `상품 게시물의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
-
-- 상품들의 데이터 조회 시 관계가 설정된 `tradePicture 테이블`에서 `이미지 URL`를 반복해서 가져옵니다.
-
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade.router.js#L131
-
-![게시물 상세 조회 API](./imgs/17-trade-detail.png)
+- 만들어진 링크를 통해 다른 유저가 서버에 들어올 수 있습니다.
+  ![유저 초대 받기](https://github.com/user-attachments/assets/c8bb5b08-d509-4120-a846-1e6447612199)
 
 <br>
 
-### 5-13. 게시물 수정 API 윤형님 부탁해요
+### 5-13. 보드 수정 API
 
-- 상품 게시물의 정보를 수정하는 API입니다.
+- 보드의 정보를 수정하는 API입니다.
 
-- 상품 게시물 작성과 마찬가지로 `게시물 제목, 게시물 내용, 상품 가격, 판매 지역`을 `req.body`를 통해 받아옵니다.
+- 보드 작성과 마찬가지로 `보드 제목, 보드 내용, 색깔, 이미지`를 `req.body`를 통해 받아옵니다.
 
 - 위 내용은 필수로 받아오는 게 아니라 `일부만 수정이 가능`합니다.
 
-- `트랜젝션`을 사용해서 `게시물 데이터의 수정과 상품 사진 URL의 삭제, 새로 생성`을 진행합니다.
+![보드 수정](https://github.com/user-attachments/assets/3ed828c6-2b3c-4c54-9561-ccfd88b0243e)
 
-- 이미지 개수가 다를 수도 있고 어떤 이미지가 어떤 이미지로 수정되는지 알 방법이 없기 때문입니다.
-
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade.router.js#L167
-
-![게시물 수정 API](./imgs/18-trade-update.png)
+)
 
 <br>
 
-### 5-14. 게시물 삭제 API 윤형님 부탁해요
+### 5-14. 보드 삭제 API
 
 - 상품 게시물을 선택해서 삭제하는 API입니다.
 
@@ -342,7 +320,7 @@
 
 - https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade.router.js#L238
 
-![게시물 삭제 API](./imgs/19-trade-delete.png)
+![보드 삭제](https://github.com/user-attachments/assets/52afb683-d4c8-4775-96fb-196f32ac2de4)
 
 <br>
 
