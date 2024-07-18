@@ -15,15 +15,15 @@ export class CardCommentsEntity {
   cardId: number;
 
   @IsString()
-  @IsNotEmpty({message: '본문 내용을 작성해주세요.'})
+  @IsNotEmpty({ message: "본문 내용을 작성해주세요." })
   @Column({ type: "text" })
   content: string;
 
-  @ManyToOne(() => CardsEntity, (card) => card.comment)
-  @JoinColumn({name: 'card_id'})
+  @ManyToOne(() => CardsEntity, (card) => card.comment, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "card_id" })
   card: CardsEntity;
 
-  @ManyToOne(() => MembersEntity, (member) => member.userId)
+  @ManyToOne(() => MembersEntity, (member) => member.userId, { onDelete: "CASCADE" })
   @JoinColumn({ name: "member_id" })
   member: MembersEntity;
 }

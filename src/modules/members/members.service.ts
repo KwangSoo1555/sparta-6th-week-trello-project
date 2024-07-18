@@ -23,6 +23,22 @@ export class MembersService {
     private UsersRepository: Repository<UsersEntity>,
   ) {}
 
+  //convenience function section
+  async findMember(boardId: number, userId: number) {
+    const member = await this.MembersRepository.findOne({ where: { userId: userId, boardId } });
+    return member;
+  }
+
+  async checkMemberRole(boardId: number, userId: number, role: MemberRoles) {
+    const member = await this.findMember(boardId, userId);
+    if (member.role === role) {
+      return true;
+    }
+    return false;
+  }
+
+  //==============================
+
   async getMembers(boardId: number, userId: number) {
     const members = await this.MembersRepository.find({
       where: { boardId: boardId },
@@ -31,49 +47,74 @@ export class MembersService {
   }
 
   async banMember(userIdForBan: number, boardId: number, userId: number) {
-    const member = await this.MembersRepository.findOne({
-      where: { userId: userIdForBan, boardId: boardId },
-    });
+    if (await this.checkMemberRole(boardId, userId, MemberRoles.ONLY_VIEW))
+      throw new NotFoundException({ message: "권한이 없습니다." });
 
+    //강퇴할 대상을 담고있는 객체를 변수로 변경
+    const target = userIdForBan["userId"];
+
+    const member = await this.MembersRepository.findOne({
+      where: { userId: target, boardId: boardId },
+    });
+    //해당 유저가 서버에 없을 때
     if (!member) throw new NotFoundException({ message: "해당 보드에 속한 유저가 아닙니다." });
 
+    //헤당 유저가 더 권한이 높을 때
+    if (await this.checkMemberRole(boardId, target, MemberRoles.ADMIN)) {
+      throw new NotFoundException({
+        message: "해당 유저는 당신과 동등하거나 더 높은 권한을 가지고 있습니다.",
+      });
+    }
     this.MembersRepository.delete({ id: member.id });
+    return { message: "해당유저가 성공적으로 강퇴되었습니다." };
   }
 
-  async updateMemberRoles(
-    updateMemberInfoDto: UpdateMemberInfoDto,
-    userId: number,
-    boardId: number,
-    userIdForUpdateRole: number,
-  ) {
-    const { memberRole, nickname } = updateMemberInfoDto;
-    const member = await this.MembersRepository.findOne({
-      where: { userId: userId, boardId: boardId },
-    });
-    await this.MembersRepository.update(
-      { id: member.id },
-      {
-        role: memberRole,
-        nickname: nickname,
-      },
-    );
+  // async updateMemberRoles(
+  //   updateMemberInfoDto: UpdateMemberInfoDto,
+  //   userId: number,
+  //   boardId: number,
+  //   userIdForUpdateRole: number,
+  // ) {
+  //   const { memberRole, nickname } = updateMemberInfoDto;
+  //   const member = await this.MembersRepository.findOne({
+  //     where: { userId: userId, boardId: boardId },
+  //   });
+  //   await this.MembersRepository.update(
+  //     { id: member.id },
+  //     {
+  //       role: memberRole,
+  //       nickname: nickname,
+  //     },
+  //   );
+  // }
+
+  // async updateMemberNickname(
+  //   updateMemberInfoDto: UpdateMemberInfoDto,
+  //   boardId: number,
+  //   userId: number,
+  // ) {
+  //   const { nickname } = updateMemberInfoDto;
+  //   const member = await this.MembersRepository.findOne({
+  //     where: { userId, boardId },
+  //   });
+
+  //   if (!member) throw new NotFoundException({ message: "해당 보드에 속한 유저가 아닙니다." });
+
+  //   await this.MembersRepository.update({ id: member.id }, { nickname });
+  // }
+
+  //====수정 중================수정 중=================수정 중==============
+  async updateMember(updateMemberInfoDto: UpdateMemberInfoDto, boardId: number, userId: number) {
+    if (
+      (await this.checkMemberRole(boardId, userId, MemberRoles.ADMIN)) &&
+      !(await this.checkMemberRole(boardId, updateMemberInfoDto.targetUserId, MemberRoles.ADMIN))
+    ) {
+      const editMember = await this.MembersRepository.update({ id: userId }, {});
+    } else return { message: "권한이 없습니다" };
   }
+  //======수정 중===============수정 중===============수정 중===============
 
-  async updateMemberNickname(
-    updateMemberInfoDto: UpdateMemberInfoDto,
-    boardId: number,
-    userId: number,
-  ) {
-    const { nickname } = updateMemberInfoDto;
-    const member = await this.MembersRepository.findOne({
-      where: { userId, boardId },
-    });
-
-    if (!member) throw new NotFoundException({ message: "해당 보드에 속한 유저가 아닙니다." });
-
-    await this.MembersRepository.update({ id: member.id }, { nickname });
-  }
-
+  //새로운 유저 초대받아 들어오기
   async createMember(userId, createMemberDto: CreateMemberDto) {
     const { invite_token } = createMemberDto;
 
@@ -93,8 +134,9 @@ export class MembersService {
       boardId:${boardId},
       nickname:${user.name}`);
 
-    const exists_Member = await this.MembersRepository.findOne({ where: { boardId: +boardId } });
-    if (exists_Member) return { message: "이미 존재하는 멤버입니다!" };
+    if (await this.findMember(+boardId, userId)) return { message: "이미 존재하는 멤버입니다!" };
+
+    console.log(await this.findMember(+boardId, userId));
 
     const member = await this.MembersRepository.save({
       userId: +userId,
@@ -103,6 +145,6 @@ export class MembersService {
       nickname: user.name,
     });
 
-    console.log(member);
+    return member;
   }
 }

@@ -20,10 +20,10 @@ export class NotificationEntity {
   @CreateDateColumn({ type: "timestamp", name: "create_at" })
   createdAt: Date;
 
-  @ManyToOne(() => CardsEntity, (card) => card.notification)
+  @ManyToOne(() => CardsEntity, (card) => card.notification, { onDelete: "CASCADE" })
   @JoinColumn({ name: "card_id" })
   card: CardsEntity[];
 
-  @ManyToOne(() => MembersEntity, (members) => members.notification)
+  @ManyToOne(() => MembersEntity, (members) => members.notification, { onDelete: "CASCADE" })
   members: MembersEntity[];
 }

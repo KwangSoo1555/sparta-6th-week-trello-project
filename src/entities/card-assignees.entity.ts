@@ -13,11 +13,11 @@ export class CardAssigneesEntity {
   @Column({ name: "member_id" })
   memberId: number;
 
-  @ManyToOne(() => CardsEntity, (card) => card.cardAssignee)
+  @ManyToOne(() => CardsEntity, (card) => card.cardAssignee, { onDelete: "CASCADE" })
   @JoinColumn({ name: "card_id" })
   card: CardsEntity;
 
-  @ManyToOne(() => MembersEntity, (member) => member.cardAssignee)
+  @ManyToOne(() => MembersEntity, (member) => member.cardAssignee, { onDelete: "CASCADE" })
   @JoinColumn({ name: "member_id" })
   member: MembersEntity;
 }
