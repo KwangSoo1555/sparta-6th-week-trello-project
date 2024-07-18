@@ -106,11 +106,17 @@ export class BoardService {
   //보드 삭제
   async deleteBoard(boardId: string, userId: number) {
     //authorization section
-    if (await this.checkMemberRole(+boardId, userId, MemberRoles.ADMIN)) {
-      await this.boardRepository.delete(boardId);
-    }
-    throw new ConflictException("접근 권한이 없습니다.");
-    //ONLY_VIEW일 경우 권한이 없다.
+    //해당 보드의 존재를 확인한 후 실행
+    if (await this.memberRepository.findOne({ where: { userId, boardId: +boardId } })) {
+      //삭제하려는 사람의 역할을 확인한 뒤 실행
+      if (await this.checkMemberRole(+boardId, userId, MemberRoles.ADMIN)) {
+        await this.boardRepository.delete(boardId);
+        return { Message: `해당 {ID:${boardId}}보드는 성공적으로 삭제되었습니다.` };
+      } else throw new ConflictException("접근 권한이 없습니다."); //나머지 역할의 경우 권한이 없다.
+    } else
+      return {
+        Message: `해당 {ID:${boardId}}보드는 존재하지 않거나 해당 보드에 가입되어 있지 않습니다`,
+      };
   }
 
   //보드 찾기
