@@ -76,6 +76,6 @@ export class BoardController {
     @Param("boardId") boardId: number,
     @RequestUserAndToken() { user: { id: userId } },
   ) {
-    return this.boardService.findBoard(boardId, userId);
+    return this.boardService.findBoards(boardId, userId);
   }
 }
