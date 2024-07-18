@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-
+import { Redis } from "ioredis";
+import { Inject } from "@nestjs/common";
 //entities
 import { MembersEntity } from "src/entities/members.entity";
 import { UsersEntity } from "src/entities/users.entity";
@@ -21,6 +22,7 @@ export class MembersService {
 
     @InjectRepository(UsersEntity)
     private UsersRepository: Repository<UsersEntity>,
+    @Inject("REDIS_CLIENT") private redisClient: Redis,
   ) {}
 
   //convenience function section
@@ -124,6 +126,8 @@ export class MembersService {
     //토큰 타입이 다를 경우 null반환
     if (tokenType !== "inviteLink/board" || !boardId) return null;
 
+    const result = await this.redisClient.get(invite_token);
+
     //모든 검증을 끝내면 멤버 테이블 추가 작업에 들어감.
     //해당 유저에 대한 정보를 받아오기
     const user = await this.UsersRepository.findOne({ where: { id: +userId } });
@@ -131,16 +135,16 @@ export class MembersService {
     // //멤버를 새로 등록하기
     console.log(`
       userId:${userId},
-      boardId:${boardId},
+      boardId:${result},
       nickname:${user.name}`);
 
-    if (await this.findMember(+boardId, userId)) return { message: "이미 존재하는 멤버입니다!" };
+    if (await this.findMember(+result, userId)) return { message: "이미 존재하는 멤버입니다!" };
 
-    console.log(await this.findMember(+boardId, userId));
+    console.log(await this.findMember(+result, userId));
 
     const member = await this.MembersRepository.save({
       userId: +userId,
-      boardId: +boardId,
+      boardId: +result,
       role: MemberRoles.ONLY_VIEW,
       nickname: user.name,
     });
