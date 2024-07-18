@@ -195,10 +195,12 @@ export class BoardService {
     if (await this.checkMemberRole(+boardId, userId, MemberRoles.ONLY_VIEW))
       //ONLY_VIEW일 경우 권한이 없다.
       throw new ConflictException("접근 권한이 없습니다.");
+    const number = Math.floor(Math.random() * 100000);
 
-    const data = await this.redisClient.set(boardId, `inviteLink/board$${boardId}`);
-    const result = await this.redisClient.get(boardId);
+    const data = await this.redisClient.set(`inviteLink/board$${number}`, boardId);
 
-    return result;
+    const result = await this.redisClient.get(`inviteLink/board$${number}`);
+
+    return `inviteLink/board$${number}`;
   }
 }
