@@ -658,7 +658,9 @@ Nest is [MIT licensed](LICENSE).
 - **NPM** - [Official Website](https://www.npmjs.com/)
 - **TypeORM** - [Official Documentation](https://typeorm.io/#/)
 - **Faker** - [Official Documentation](https://github.com/faker-js/faker)
+
 ## 파일 구조
+
 ```
 6th-trello-project
 ├─ .github
