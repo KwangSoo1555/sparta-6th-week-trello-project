@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { BoardsEntity } from "../../entities/boards.entity";
 import { DataSource } from "typeorm";
 import { Seeder, SeederFactoryManager } from "typeorm-extension";
-import { Colors } from "../../common/custom/types/enum-color.type"; // Colors enum의 정확한 경로를 입력하세요.
+import { Colors } from "../../common/custom/types/enum-color.type";
 
 export class BoardSeeder implements Seeder {
   public async run(dataSource: DataSource, factoryManager: SeederFactoryManager): Promise<void> {

@@ -14,7 +14,6 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  // 프로젝트 초기 버전 및 start point 설정
   app.setGlobalPrefix("api/v1");
   app.enableCors();
 
@@ -26,7 +25,6 @@ async function bootstrap() {
     module.hot.dispose(() => app.close());
   }
 
-  // 포트로 서버 실행
   try {
     await app.listen(port);
     console.log(`Server is running on: ${port}, Great to see you! 😊`);

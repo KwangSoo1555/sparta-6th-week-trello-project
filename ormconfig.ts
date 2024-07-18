@@ -34,8 +34,6 @@ const config = new DataSource({
     RefreshTokensEntity,
   ],
   synchronize: true,
-  // migrations: [__dirname + "/src/database/migrations/*.ts"],
-  // cli: { migrationsDir: 'src/migrations' },
   logging: true,
 });
 

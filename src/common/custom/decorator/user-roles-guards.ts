@@ -26,9 +26,3 @@ export class RoleGuards implements CanActivate {
     return roles.some((role) => user.roles?.includes(role));
   }
 }
-
-// 위에서 정의한 RolesGuard를 사용하기 위해 아래와 같이 사용해야 함
-// @UseGuards(RolesGuard)
-// @Roles('HOST')
-// @UseGuards(RolesGuard)
-// @Roles('USER')

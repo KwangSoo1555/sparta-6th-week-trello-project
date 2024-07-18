@@ -5,22 +5,15 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+<p align="center">
+  <img src="https://img.shields.io/badge/nestjs-E0234E?style=for-the-badge&logo=nestjs&logoColor=white" alt="NestJS" />
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/typescript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/typeorm-262627?style=for-the-badge&logo=typeorm&logoColor=white" alt="TypeORM" />
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 # 🖥️ Team 광수와 아이들의 Nest.js 트렐로 만들기 프로젝트
 
@@ -29,19 +22,18 @@
 - 프로젝트 이름 : 5조 트렐로 만들기
 - 내용 : 현재 사용되고 있는 트렐로와 유사한 사이트를 만들어 팀원들 팀원들 간 협업에 용이한 내용을 공유 할 수 있게 한다.
 - 구분 : 팀 프로젝트
-- GitHub : https://github.com/KwangSoo1555/sparta-6th-week-trello-project
-- 시연 영상 : https://youtu.be/Uo9lumzJrsI <- 여기다 넣어야함. 미정
-- 배포 : https://currypang.shop/ <- 여기다 넣어야함. 미정
+- GitHub : [sparta-6th-week-trello-project](https://github.com/KwangSoo1555/sparta-6th-week-trello-project)
+- 시연 영상 : [광수와 아이들 시연영상](https://www.youtube.com/watch?v=fELSQuVY6Y0)
 
 <br>
 
 ## 팀원 구성
 
-- 팀장 : 복광수 [@KwangSoo1555](https://github.com/KwangSoo1555)
-- 팀원 : 김만규 [@fierceCry](https://github.com/fierceCry)
-- 팀원 : 이윤형 [@clearghost3](https://github.com/clearghost3)
-- 팀원 : 이길현 [@leegilhyeon](https://github.com/leegilhyeon)
-- 팀원 : 송사무엘 [@SaintSSong](https://github.com/SaintSSong)
+- 팀장 : 복광수 [KwangSoo1555](https://github.com/KwangSoo1555)
+- 팀원 : 김만규 [fierceCry](https://github.com/fierceCry)
+- 팀원 : 이윤형 [clearghost3](https://github.com/clearghost3)
+- 팀원 : 이길현 [leegilhyeon](https://github.com/leegilhyeon)
+- 팀원 : 송사무엘 [SaintSSong](https://github.com/SaintSSong)
 
 <br>
 
@@ -54,10 +46,9 @@
 ## 2. 개발 환경
 
 - 운영체제 : Window/Mac
-- FrontEnd : X
-- BackEnd : Node.js, Express, MySQL(Prisma)
+- BackEnd : Node.js, Express, MySQL(TypeORM)
 - Tool : Visual Studio Code, Insomnia, MySQL Workbench, DBeaver
-- Publish : PM2, AWS/RDS, AWS/EC2, AWS/load balancer
+- Publish : PM2, AWS/RDS, AWS/EC2
 
 <br>
 
@@ -75,8 +66,8 @@
   - 보드 멤버 조회
   - 멤버 강제 퇴장
   - 소셜 로그인(Naver, Kakao, Google)
+  
 - **이윤형**
-
   - 멤버 권한 변경
   - 멤버 별명 변경
   - 보드 생성
@@ -85,7 +76,6 @@
   - 보드 초대링크 생성
 
 - **이길현**
-
   - 리스트 생성
   - 리스트 이름 수정
   - 리스트 삭제
@@ -96,6 +86,7 @@
   - 카드 수정
   - 카드 삭제
   - 카드 순서 이동
+
 - **김만규**
   - 카드 댓글 생성
   - 카드 댓글 수정
@@ -111,7 +102,7 @@
 
 ## 4. API 명세서 및 ERD, 와이어 프레임
 
-- API 명세서 : [https://west-territory-778.notion.site/Team-Ace-Node-js-API-221adeefaec14c38bf1a623f068c0c22?pvs=4](https://www.notion.so/teamsparta/294c35986a084687bda3f2ee3b2d103b?v=49f77c87142442b693e2449acdfdad20&pvs=4)
+- API 명세서 : [광수와 아이들 API 명세서](https://www.notion.so/teamsparta/294c35986a084687bda3f2ee3b2d103b?v=49f77c87142442b693e2449acdfdad20&pvs=4)
 - ERD : ![ERD](https://github.com/user-attachments/assets/78ab3742-d735-4ca2-b9bd-a21b595daf70)
 
 ![와이어 프레임 1](https://github.com/user-attachments/assets/f31add8e-efcf-4f91-8862-465b32e1b170)
@@ -143,7 +134,7 @@
 
 - **보안을 위해 비밀번호는** 평문(Plain Text)으로 저장하지 않고 `Hash` 된 값을 저장합니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/auth.routers.js#L17](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/auth/users-auth/user-auth.service.ts#L37)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/auth/users-auth/user-auth.service.ts#L37
 
 ![회원가입](https://github.com/user-attachments/assets/85086bea-1640-4e5b-b1fd-d8cd5a86928b)
 
@@ -159,33 +150,13 @@
 
 - **AccessToken**와**RefreshToken**을 반환합니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/auth.routers.js#L83](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/auth/users-auth/user-auth.service.ts#L71)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/auth/users-auth/user-auth.service.ts#L71
 
 ![로그인](https://github.com/user-attachments/assets/d1751d46-ff7d-4e04-9bb1-42e04e915bcf)
 
 <br>
 
-### 5-4. 카카오 소셜 로그인 API 미구현
-
-- `OAuth`를 이용한 로그인 API입니다.
-
-- 외부의 로그인 인증 수단을 사용하기 위해 `passport` 모듈을 사용했습니다.
-
-- 사용하기 위해서는 https://developers.kakao.com/ 에서 애플리케이션을 등록해야 합니다.
-
-- 로그인 과정
-
-  - `/auth/kakao` 라우터를 통해 로그인 요청이 들어오면 `passport.authenticate` 메서드 호출합니다.
-  - `KakaoStrategy 전략` 실행해서 데이터베이스에 사용자 정보를 등록합니다
-  - `사용자 ID`를 담은 `JWT 토큰`을 생성해서 클라이언트에게 반환합니다.
-
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/auth-passport.router.js#L17
-
-![카카오 소셜 로그인 API](./imgs/4-kakao-social.png)
-
-<br>
-
-### 5-5. 네이버 소셜 로그인 API 미구현
+### 5-4. 구글 소셜 로그인 API
 
 - `OAuth`를 이용한 로그인 API입니다.
 
@@ -195,17 +166,57 @@
 
 - 로그인 과정
 
-  - `/auth/naver` 라우터를 통해 로그인 요청이 들어오면 `passport.authenticate` 메서드 호출합니다.
-  - `naverStrategy 전략` 실행해서 데이터베이스에 사용자 정보를 등록합니다
+  - `/auth/google/callback` 라우터를 통해 로그인 요청이 들어오면 `passport.authenticate` 메서드 호출합니다.
+  - `googleStrategy 전략` 실행해서 데이터베이스에 사용자 정보를 등록합니다
   - `사용자 ID`를 담은 `JWT 토큰`을 생성해서 클라이언트에게 반환합니다.
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/auth-passport.router.js#L38
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/0423ab1cb4585da27bcde2a7c09cab926699df77/src/modules/auth/social/google/google-passport.service.ts#L8
 
-![네이버 소셜 로그인 API](./imgs/5-naver-social.png)
+![구글 소셜 로그인 API]()
 
 <br>
 
-### 5-6. 토큰 재발급 API 맞는지 확인 필요
+### 5-5. 네이버 소셜 로그인 API
+
+- `OAuth`를 이용한 로그인 API입니다.
+
+- 외부의 로그인 인증 수단을 사용하기 위해 `passport` 모듈을 사용했습니다.
+
+- 사용하기 위해서는 https://developers.naver.com/ 에서 애플리케이션을 등록해야 합니다.
+
+- 로그인 과정
+
+  - `/auth/naver/callback` 라우터를 통해 로그인 요청이 들어오면 `passport.authenticate` 메서드 호출합니다.
+  - `naverStrategy 전략` 실행해서 데이터베이스에 사용자 정보를 등록합니다
+  - `사용자 ID`를 담은 `JWT 토큰`을 생성해서 클라이언트에게 반환합니다.
+
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/0423ab1cb4585da27bcde2a7c09cab926699df77/src/modules/auth/social/naver/naver-passport.service.ts#L8
+
+![네이버 소셜 로그인 API]()
+
+<br>
+
+### 5-6. 카카오 소셜 로그인 API 미구현
+
+- `OAuth`를 이용한 로그인 API입니다.
+
+- 외부의 로그인 인증 수단을 사용하기 위해 `passport` 모듈을 사용했습니다.
+
+- 사용하기 위해서는 https://developers.kakao.com/ 에서 애플리케이션을 등록해야 합니다.
+
+- 로그인 과정
+
+  - `/auth/kakao/callback` 라우터를 통해 로그인 요청이 들어오면 `passport.authenticate` 메서드 호출합니다.
+  - `KakaoStrategy 전략` 실행해서 데이터베이스에 사용자 정보를 등록합니다
+  - `사용자 ID`를 담은 `JWT 토큰`을 생성해서 클라이언트에게 반환합니다.
+
+- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/auth-passport.router.js#L17
+
+![카카오 소셜 로그인 API](./imgs/4-kakao-social.png)
+
+<br>
+
+### 5-7. 토큰 재발급 API 맞는지 확인 필요
 
 - `Refresh Token`를 새롭게 발급 API입니다.
 
@@ -213,11 +224,9 @@
 
 - 토큰 유효성 검사가 통과하면 새로운 Refresh 토큰을 재발급 받습니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/auth.routers.js#L109](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/auth/users-auth/user-auth.service.ts#L71)
-
 <br>
 
-### 5-7. 로그아웃 API
+### 5-8. 로그아웃 API
 
 - 로그인한 사용자가 로그아웃 하는 API입니다.
 
@@ -233,7 +242,7 @@
 
 <br>
 
-### 5-8. 내 정보 조회 API
+### 5-9. 내 정보 조회 API
 
 - 로그인한 사용자의 정보를 조회하는 API입니다.
 
@@ -249,7 +258,7 @@
 
 <br>
 
-### 5-9. 내 정보 수정 API
+### 5-10. 내 정보 수정 API
 
 - 사용자의 정보를 수정하는 API입니다.
 
@@ -261,55 +270,76 @@
 
 <br>
 
-### 5-10. 보드 생성 API
+### 5-11. 보드 생성 API
 
 - 보드의 정보를 입력 받아 보드를 생성하는 API입니다.
   
 - `보드 제목, 보드 내용, 백그라운드 컬러, 닉네임`을 `req.body`를 통해 받아옵니다.
+
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/board/board.service.ts#L24
   
 ![보드 생성](https://github.com/user-attachments/assets/f16e06eb-26d0-4070-a768-4b705b76e449)
 
 <br>
 
-### 5-11. 유저 강퇴 기능
+### 5-12. 내 보드 가져오기 API
+
+- DB에 저장된 사용자의 보드를 조회하는 API입니다.
+
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/board/board.service.ts#L24
+  
+![보드 생성](https://github.com/user-attachments/assets/f16e06eb-26d0-4070-a768-4b705b76e449)
+
+
+<br>
+
+### 5-13. 유저 강퇴 기능
 
 - 보드내에 존재하는 유저를 강퇴하는 기능입니다.
   
 - 해당 유저가 서버에 존재하는지 확인합니다.
+
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/members/members.service.ts#L26
   
 ![서버에 존재 확인](https://github.com/user-attachments/assets/58765789-3fe8-4629-a112-8b9d636c7dea)
 
 - 강퇴하는 유저와, 강퇴당하는 유저의 역할을 비교 후, 강퇴를 실행합니다.
   
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/members/members.service.ts#L33
+  
 ![유저 강퇴](https://github.com/user-attachments/assets/2ff6398b-ac31-4ecd-afef-971ed9567890)
 
-<br>
+<br>    
 
-### 5-12. 보드 초대 링크 생성
+### 5-14. 보드 초대 링크 생성
 
 - 보드의 초대 링크를 만드는 API입니다.
   
 - 초대 링크의 형식은 inviteLink/board${초대 보드의 숫자} 형식을 따릅니다.
   
 - 만들어진 링크를 통해 다른 유저가 서버에 들어올 수 있습니다.
+
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/members/members.service.ts#L77
   
   ![유저 초대 받기](https://github.com/user-attachments/assets/c8bb5b08-d509-4120-a846-1e6447612199)
   
 <br>
 
-### 5-13. 보드 수정 API
+### 5-15. 보드 수정 API
 
 - 보드의 정보를 수정하는 API입니다.
   
 - 보드 작성과 마찬가지로 `보드 제목, 보드 내용, 색깔, 이미지`를 `req.body`를 통해 받아옵니다.
   
 - 위 내용은 필수로 받아오는 게 아니라 `일부만 수정이 가능`합니다.
+
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/a261f54c8a51ac41fc61c0b6f3651210b40316cb/src/modules/board/board.service.ts#L80
   
 ![보드 수정](https://github.com/user-attachments/assets/3ed828c6-2b3c-4c54-9561-ccfd88b0243e)
 
 <br>
 
-### 5-14. 보드 삭제 API
+### 5-16. 보드 삭제 API
 
 - 상품 게시물을 선택해서 삭제하는 API입니다.
   
@@ -317,25 +347,25 @@
   
 - 해당 ID를 조회하고 삭제를 진행합니다. `(Hard Delete)`
   
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade.router.js#L238
+- 
   
 ![보드 삭제](https://github.com/user-attachments/assets/52afb683-d4c8-4775-96fb-196f32ac2de4)
 
 <br>
 
-### 5-15. 리스트 생성 API
+### 5-17. 리스트 생성 API
 
 - 보드에 들어갈 리스트를 생성하는 API입니다.
 
 - 이후 리스트 속에는 카드가 들어 갈 수 있습니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade.router.js#L271](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L20)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L20
 
 ![리스트 생성](https://github.com/user-attachments/assets/b6f5126f-4713-422b-9864-5ba1c47bdb6a)
 
 <br>
 
-### 5-16. 리스트 전체 조회 API
+### 5-18. 리스트 전체 조회 API
 
 - 작성된 리스트들을 전부 조회하는 API입니다.
 
@@ -347,7 +377,7 @@
 
 <br>
 
-### 5-17. 리스트 상세 조회 API
+### 5-19. 리스트 상세 조회 API
 
 - 작성된 리스트 중 특정 리스트 하나를 조회하는 API입니다.
 
@@ -359,7 +389,7 @@
 
 <br>
 
-### 5-18. 리스트 수정 API
+### 5-20. 리스트 수정 API
 
 - 작성된 리스트 중 특정 리스트 하나를 수정하는 API입니다.
 
@@ -371,7 +401,7 @@
 
 <br>
 
-### 5-19. 리스트 순서 이동 API
+### 5-21. 리스트 순서 이동 API
 
 - 작성된 리스트 중 특정 리스트 하나를 타겟 리스트의 위치로 이동하게 만드는 API입니다
 
@@ -384,7 +414,7 @@
 
 <br>
 
-### 5-20. 리스트 삭제 API
+### 5-22. 리스트 삭제 API
 
 - 작성된 리스트 중 특정 리스트 하나를 삭제하는 API입니다
 
@@ -398,7 +428,7 @@
 
 <br>
 
-### 5-21. 카드 생성 API
+### 5-23. 카드 생성 API
 
 - 리스트 속 카드를 생성하는 API입니다.
 
@@ -412,7 +442,7 @@
 
 <br>
 
-### 5-22. 카드 수정 API
+### 5-24. 카드 수정 API
 
 - 리스트 속 카드 내용을 수정하는 API입니다.
 
@@ -426,7 +456,7 @@
 
 <br>
 
-### 5-23. 카드 삭제 API
+### 5-25. 카드 삭제 API
 
 - 리스트 속 카드를 삭제하는 API입니다.
 
@@ -438,7 +468,7 @@
 
 <br>
 
-### 5-24. 카드 순서 변경 API
+### 5-26. 카드 순서 변경 API
 
 - 리스트 속 카드의 순서를 API입니다.
 
@@ -452,89 +482,116 @@
 
 <br>
 
-### 5-25. 카드 코멘트 생성 변경 API
+### 5-27. 카드 코멘트 생성 API
 
 - 리스트 속 카드의 코멘트를 생성하는 API입니다.
 
-- listId 통해 특정 리스트를 지정하고 그 속의 카드를 orderIndex를 통해서 특정 위치를 가진 카드를 지정합니다.
-
-- 그 후 타켓 위치의 리스트와 카드를 "swapListIndex" 와 "swapCardOrderIndex"로 받아서 위치를 특정하여 이동할 위치를 지정합니다.
+- cardId 통해 특정 카드를 지정하고 그 카드의 내용을 content를 통해서 코멘트를 생성합니다.
 
 - [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
 
-![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
+![카드 코멘트](./image/18.카드코멘트생성.png)
 
 <br>
 
-### 5-23. 카드 순서 변경 API
+### 5-28. 카드 코멘트 변경 API
 
-- 리스트 속 카드의 순서를 API입니다.
+- 리스트 속 카드의 코멘트를 변경하는 API입니다.
 
-- listId 통해 특정 리스트를 지정하고 그 속의 카드를 orderIndex를 통해서 특정 위치를 가진 카드를 지정합니다.
-
-- 그 후 타켓 위치의 리스트와 카드를 "swapListIndex" 와 "swapCardOrderIndex"로 받아서 위치를 특정하여 이동할 위치를 지정합니다.
+- cardId 통해 특정 카드를 지정하고 그 카드의 내용을 content를 통해서 변경 코멘트를 입력합니다.
 
 - [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
 
-![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
+// 카드 코멘트 변경 사진 넣어야함.
 
 <br>
 
-### 5-23. 카드 순서 변경 API
+### 5-29. 카드 코멘트 삭제 API
 
-- 리스트 속 카드의 순서를 API입니다.
+- 리스트 속 카드의 코멘트를 삭제하는 API입니다.
 
-- listId 통해 특정 리스트를 지정하고 그 속의 카드를 orderIndex를 통해서 특정 위치를 가진 카드를 지정합니다.
-
-- 그 후 타켓 위치의 리스트와 카드를 "swapListIndex" 와 "swapCardOrderIndex"로 받아서 위치를 특정하여 이동할 위치를 지정합니다.
+- cardId 통해 특정 카드를 지정하고 그 카드의 코멘트를 삭제 합니다.
 
 - [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
 
-![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
+<br>
+
+### 5-30. 카드 데드라인 수정 API
+
+- 리스트 속 카드의 데드라인을 변경하는 API입니다.
+
+- cardId 통해 특정 카드를 지정하고 그 카드의 데드라인을 dataTime을 통해서 예시와 같이 변경합니다. 예시. ("2024-07-17")
+
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+
+// 카드 데드라인 수정 사진 넣어야함.
+
+<br>
+
+### 5-31. 카드 체크리스트 등록 API
+
+- 리스트 속 카드의 체크리스트를 등록하는 API입니다.
+
+- cardId 통해 특정 카드를 지정하고 그 카드의 체크리스트를 등록합니다.
+
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+
+// 카드 코멘트 변경 사진 넣어야함.
+
+<br>
+
+### 5-32. 카드 체크리스트 수정 API
+
+- 리스트 속 카드의 체크리스트를 수정하는 API입니다.
+
+- cardId 통해 특정 카드를 지정하고 그 카드의 체크리스트를 true, false 값으로 수정합니다.
+
+- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+
+// 카드 데드라인 수정 사진 넣어야함.
 
 <br>
 
 ## 6. 어려웠던 점
 
-### 6-1. N:M 관계 vs 1:N 관계의 차이 (복광수)
+### 6-1. DB 데이터 정렬 기술 (복광수)
 
-- ERD 작성을 하면서 사용자가 게시물에 좋아요를 누를 경우에 대해서 이야기가 나왔음
+- 데이터 베이스 정렬 기술에 대해 깊게 생각해보는 프로젝트 였고 기존의 기술과
+보완된 기술의 차이점을 식별하는 방식을 많이 공부하였습니다.
 
-- 
+- DB 데이터 정렬 방식인 Integer 방식을 활용한 order index 정렬, Green Hopper, Linked List, Lexo Rank 의 정렬 방식이 있다는 것을 알게 되었고, 이 방식들의 장단점과 각 방식들의 특징들에 대해 깊게 공부하게 되었습니다.
 
 <br>
 
-### 6-2. 소셜 로그인과 기존 인증방식의 호환 (김만규)
+### 6-2. S3 file URL 보안 취약(김만규)
 
-- passport를 이용한 소셜 로그인을 구현했을 때 받아오는 토큰을 사용하면 기존 JWT를 사용하던 인증 로직을 재사용 할 수 없음
+- NestJS를 사용하여 파일 업로드 기능을 구현하는 중에, 클라이언트에게 파일 URL을 전달하는 과정에서 "https://sparta-6th-nest-s3.s3.ap-northeast-2.amazonaws.com/example.key"와 같은 URL이 노출되어 보안적인 문제에 대해 고민했습니다. 이때 Pre-Signed URL을 사용하면 클라이언트에게 직접적인 파일 저장소의 URL을 노출하지 않고, 일시적으로 유효한 URL을 제공하여 보안성을 향상시킬 수 있다는 개념을 구글링을 통해 알게 되었습니다. 하지만 이를 실제로 구현하는 과정에서 많은 어려움을 겪었습니다.
 
-- 
 
 <br>
 
 ### 6-3. Prisma 작동 로직의 이해 (이윤형)
 
-- 백엔드 작업에 필수적인 서버를 구현하는 방식인 Prisma의 이해가 잘 되지 않았음
+- 무언가를 이해하고자 할때, 얼마나 더  제대로 파고들어 이해해야 하는지를 알게 된 경험인 것 같다. 여러가지 정보와, 방식을 알게 되어 한층 더 나아졌다는 생각이 든다.
 
 - 
 
 <br>
 
-### 6-4. 계획, 설계의 부족과 테스트 여러움 (이길현)
+### 6-4. list 순서이동에 대한 코드 구현 (이길현)
 
-- 클라이언트에게 어떤 방향으로 서비스를 제공할 것인지 미리 계획을 잡지 않아 로직 구현 도중 서비스 방향성이 잡히지 않았음
-
-- 
+- 프로젝트 초기에 리스트 순서 이동을 어떻게 자유롭게 움직일 수 있도록 할 것인가에 
+고민을 하다 Linked List를 사용하여 연결 하려고 하였습니다. 처음엔 싱글 리스트 바탕으로 구상하였으나 이중 연결리스트로 해야 순서 이동에 있어 문제가 없을 거라 생각이 들어 구현하고자 하였으나 아직 개인적인 코드 이해도와 실력의 한계를 느껴 order Index를 부여하여 정렬하는 다른 방식으로 변경하게 되었습니다. 
 
 <br>
 
-### 6-4. 계획, 설계의 부족과 테스트 여러움 (송사무엘)
+### 6-4. Card의 Card간 이동 및 List 간의 삽입 코드 구현 (송사무엘)
 
-- 클라이언트에게 어떤 방향으로 서비스를 제공할 것인지 미리 계획을 잡지 않아 로직 구현 도중 서비스 방향성이 잡히지 않았음
+- 새롭게 알게 된 개념을 프로젝트에 적용하고자 했지만 안되어서 다른 대처 방안을 강구하고 프로젝트에 맞는 방법으로 변경하여 시간 내에 구현하는 것에 대해 버거웠다. 
+  하지만 그럼에도 불구하고 팀원들에게 도움을 받아 제한 시간 내에 과제를 완성한 것이 뿌듯하다.
 
-- 
+- 카드를 지정하고 순서를 변경하면서 그와 동시에 빠진 카드의 수 만큼 순서를 재정렬하는 코드를 구현하는 것에 복잡함을 느꼈다. 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 ## Description
 
@@ -544,6 +601,15 @@
 
 ```bash
 $ npm install
+```
+
+## Ready to run the app
+```bash
+# create database
+$ npm run db:create
+
+# carate Faker data
+$ npm run seed
 ```
 
 ## Running the app
@@ -567,12 +633,6 @@ $ npm run start:prod
 ```bash
 # unit tests
 $ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
 ## Support
@@ -588,6 +648,18 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## References
+
+- **NestJS** - [Official Documentation](https://docs.nestjs.com)
+- **Trello** - [API Documentation](https://developer.atlassian.com/cloud/trello/rest/)
+- **Redis** - [Official Documentation](https://redis.io/documentation)
+- **Notion** - [API Documentation](https://developers.notion.com/docs)
+- **NPM** - [Official Website](https://www.npmjs.com/)
+- **TypeORM** - [Official Documentation](https://typeorm.io/#/)
+- **Faker** - [Official Documentation](https://github.com/faker-js/faker)
+
+## 파일 구조
 
 ```
 6th-trello-project
@@ -621,6 +693,8 @@ Nest is [MIT licensed](LICENSE).
 │  │
 │  ├─ database
 │  │  ├─ redis
+│  │  │  ├─ redis.config.ts
+│  │  │  └─ redis.module.ts
 │  │  ├─ seeds
 │  │  │  ├─ 01-user-seed.ts
 │  │  │  ├─ 02-board-seed.ts

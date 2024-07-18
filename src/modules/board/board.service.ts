@@ -52,13 +52,9 @@ export class BoardService {
     return false;
   }
 
-  //==============================
-
   //보드 만들기
   async createBoard(createBoardDto: CreateBoardDto, userId: number) {
-    //authorization section
 
-    //====================================================
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
@@ -71,8 +67,6 @@ export class BoardService {
         nickname: createBoardDto.nickname,
         isCreator: true,
       });
-
-      // if(!transactionCreateBoard) throw new {}
 
       await queryRunner.commitTransaction();
 
@@ -90,7 +84,7 @@ export class BoardService {
     if (await this.checkMemberRole(+boardId, userId, MemberRoles.ONLY_VIEW))
       //ONLY_VIEW일 경우 권한이 없다.
       throw new ConflictException("접근 권한이 없습니다.");
-    //====================================================
+
     const board = await this.boardRepository.findOne({ where: { id: boardId } });
     await this.boardRepository.update(
       { id: boardId },
@@ -130,7 +124,6 @@ export class BoardService {
     if (!member) {
       throw new ConflictException("접근 권한이 없습니다.");
     }
-    //====================================================
 
     const board = await this.boardRepository.findOne({ where: { id: boardId } });
     const lists = await this.listRepository.find({ where: { boardId } });
@@ -178,15 +171,6 @@ export class BoardService {
     };
     return boardData;
   }
-  
-  // 충돌 코드
-  
-  // async inviteBoard(boardId: string) {
-  //   const data = await this.redisClient.set(boardId, `inviteLink/board$${boardId}`);
-  //   const result = await this.redisClient.get(boardId);
-
-  //   return { message: BOARD_CONSTANT.MAKE_INVITECODE };
-  // } 
 
   //보드 초대 코드 만들기
   async inviteBoard(boardId: string, userId: number) {
