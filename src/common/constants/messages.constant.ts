@@ -140,4 +140,20 @@ export const MESSAGES = {
     DELETE_SUCCEED: "해당 리스트가 삭제되었습니다.",
     NOT_EXISTS: "해당 리스트가 존재하지 않습니다.",
   },
+  MEMBER: {
+    NOT_AUTHORIZATION:"권한이 없습니다.",
+    GREATER_THEN_OR_EQUAL:"해당 유저는 당신과 동등하거나 더 높은 권한을 가지고 있습니다.",
+    NOT_EXISTS_IN_BOARD:"해당 보드에 속한 유저가 아닙니다.",
+    DELETE_SUCCEED:"해당유저가 성공적으로 강퇴되었습니다.",
+    ALEADY_EXISTS:"이미 존재하는 멤버입니다!"
+  },
+  EVENTS: {
+    ALERT_VIEW_SUCCED:"알림 조회에 성공했습니다.",
+    UPDATE_CONTENT_SUCCED:'내용이 변경되었습니다.',
+    UPDATE_BACKGROUNDCOLOR_SUCCED:'배경색이 변경되었습니다.',
+    UPDATE_CARDMEMBER:'멤버가 변경되었습니다.',
+    INIT_SOCKET_IO_SERVER:"Socket.IO 서버가 초기화되었습니다.",
+    CONNECT_TO_CLIENT:`클라이언트가 연결되었습니다:`,
+    INCONNECT_TO_CLIENT:`클라이언트가 연결이 해제되었습니다:`,
+  }
 };

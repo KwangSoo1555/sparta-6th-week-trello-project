@@ -5,6 +5,7 @@ import { JwtAccessGuards } from "../auth/jwt/jwt-strategy.service";
 import { UsersEntity } from "src/entities/users.entity";
 import { NotificationUpdate } from "./dto/notification.update.dto";
 
+import { MESSAGES } from "src/common/constants/messages.constant";
 @Controller("notification")
 export class EventsController {
   constructor(private readonly eventService: EventsService) {}
@@ -25,6 +26,6 @@ export class EventsController {
       userId,
       limitNumber,
     );
-    return { message: "알림 조회에 성공했습니다.", data };
+    return { message: MESSAGES.EVENTS.ALERT_VIEW_SUCCED, data };
   }
 }

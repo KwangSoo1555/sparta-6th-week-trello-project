@@ -5,11 +5,11 @@ module.exports = function (options, webpack) {
   return {
     ...options,
     entry: [
-      'webpack/hot/poll?100', // HMR 엔트리 포인트 수정
+      'webpack/hot/poll?100',
       options.entry
     ],
     externals: [
-      WebpackPnpExternals({ allowlist: ['webpack/hot/poll?100'] }) // allowlist 사용
+      WebpackPnpExternals({ allowlist: ['webpack/hot/poll?100'] })
     ],
     plugins: [
       ...options.plugins,
@@ -17,7 +17,7 @@ module.exports = function (options, webpack) {
       new webpack.WatchIgnorePlugin({
         paths: [/\.js$/, /\.d\.ts$/],
       }),
-      new RunScriptWebpackPlugin({ name: options.output.filename, autoRestart: true }), // autoRestart: true로 변경
+      new RunScriptWebpackPlugin({ name: options.output.filename, autoRestart: true }),
     ],
   };
 }
