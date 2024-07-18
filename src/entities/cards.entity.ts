@@ -23,7 +23,7 @@ export class CardsEntity {
   @Column({ type: "int", nullable: false, name: "list_id" })
   listId: number;
 
-  @Column({ type: "varchar", name: "card_title" })
+  @Column({ type: "varchar", name: "card_title", nullable: true })
   cardTitle: string;
 
   @Column({ type: "varchar", nullable: true })
