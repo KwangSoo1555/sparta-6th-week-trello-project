@@ -588,3 +588,182 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+```
+6th-trello-project
+├─ .github
+│  └─ workflows
+│     ├─ cd.yml
+│     └─ ci.yml
+├─ presentation
+│  ├─ drawSQL-image-export-2024-07-12.png
+│  ├─ trello figma.png
+│  └─ trello project memo.txt
+├─ src
+│  ├─ common
+│  │  ├─ constants
+│  │  │  ├─ auth.constant.ts
+│  │  │  ├─ board.contant.ts
+│  │  │  ├─ dto.constant.ts
+│  │  │  ├─ env.constant.ts
+│  │  │  └─ messages.constant.ts
+│  │  └─ custom
+│  │     ├─ decorator
+│  │     │  ├─ user-request-jwt.ts
+│  │     │  └─ user-roles-guards.ts
+│  │     ├─ pipes
+│  │     │  ├─ auth-validator.ts
+│  │     │  └─ file-size-validation.pipe.ts
+│  │     └─ types
+│  │        ├─ enum-color.type.ts
+│  │        ├─ enum-member-roles.ts
+│  │        └─ enum-social-provider.ts
+│  │
+│  ├─ database
+│  │  ├─ redis
+│  │  ├─ seeds
+│  │  │  ├─ 01-user-seed.ts
+│  │  │  ├─ 02-board-seed.ts
+│  │  │  ├─ 03-member-seed.ts
+│  │  │  ├─ 04-list-seed.ts
+│  │  │  ├─ 05-card-seed.ts
+│  │  │  ├─ 06-card-assignee-seed.ts
+│  │  │  ├─ 07-card-check-list-seed.ts
+│  │  │  ├─ 08-card-comment-seed.ts
+│  │  │  ├─ 09-file-seed.ts
+│  │  │  └─ 10-notification-seed.ts
+│  │  └─ typeorm
+│  │     ├─ typeorm.config.ts
+│  │     └─ typeorm.module.ts
+│  │
+│  ├─ entities
+│  │  ├─ boards.entity.ts
+│  │  ├─ card-assignees.entity.ts
+│  │  ├─ card-check-list.entity.ts
+│  │  ├─ card-comments.entity.ts
+│  │  ├─ cards.entity.ts
+│  │  ├─ files.entity.ts
+│  │  ├─ lists.entity.ts
+│  │  ├─ members.entity.ts
+│  │  ├─ notification.entity.ts
+│  │  ├─ refresh-tokens.entity.ts
+│  │  └─ users.entity.ts
+│  │
+│  └─ modules
+│     ├─ auth
+│     │  ├─ email
+│     │  │  ├─ email-verification.controller.ts
+│     │  │  ├─ email-verification.dto.ts
+│     │  │  ├─ email-verification.module.ts
+│     │  │  └─ email-verification.service.ts
+│     │  ├─ jwt
+│     │  │  ├─ jwt-strategy.service.ts
+│     │  │  ├─ jwt.controller.ts
+│     │  │  ├─ jwt.module.ts
+│     │  │  └─ jwt.service.ts
+│     │  ├─ social
+│     │  │  ├─ dto
+│     │  │  │  ├─ social.google.dto.ts
+│     │  │  │  ├─ social.kakao.dto.ts
+│     │  │  │  └─ social.naver.dto.ts
+│     │  │  ├─ google
+│     │  │  │  ├─ google-passport.controller.ts
+│     │  │  │  ├─ google-passport.module.ts
+│     │  │  │  ├─ google-passport.service.ts
+│     │  │  │  └─ jwt-google-strategy.service.ts
+│     │  │  ├─ kakao
+│     │  │  │  ├─ jwt-kakao-strategy.service.ts
+│     │  │  │  ├─ kakao-passport.controller.ts
+│     │  │  │  ├─ kakao-passport.module.ts
+│     │  │  │  └─ kakao-passport.service.ts
+│     │  │  └─ naver
+│     │  │     ├─ jwt-naver-strategy.service.ts
+│     │  │     ├─ naver-passport.controller.ts
+│     │  │     ├─ naver-passport.module.ts
+│     │  │     └─ naver-passport.service.ts
+│     │  └─ users-auth
+│     │     ├─ dto
+│     │     │  ├─ user-auth-log-in.dto.ts
+│     │     │  └─ user-auth-sign-up.dto.ts
+│     │     ├─ user-auth.controller.ts
+│     │     ├─ user-auth.module.ts
+│     │     └─ user-auth.service.ts
+│     ├─ board
+│     │  ├─ board.controller.ts
+│     │  ├─ board.module.ts
+│     │  ├─ board.service.ts
+│     │  └─ dto
+│     │     ├─ board.create.dto.ts
+│     │     └─ board.update.dto.ts
+│     ├─ card-comment
+│     │  ├─ card-comment.controller.ts
+│     │  ├─ card-comment.module.ts
+│     │  ├─ card-comment.service.ts
+│     │  └─ dto
+│     │     ├─ card-comment.create.dto.ts
+│     │     └─ card-comment.update.dto.ts
+│     ├─ cards
+│     │  ├─ card.controller.ts
+│     │  ├─ card.module.ts
+│     │  ├─ card.service.ts
+│     │  └─ dtos
+│     │     ├─ create.cardDto.ts
+│     │     ├─ swap.cardDto.ts
+│     │     └─ update.cardDto.ts
+│     ├─ events
+│     │  ├─ dto
+│     │  │  ├─ notification.dto.ts
+│     │  │  └─ notification.update.dto.ts
+│     │  ├─ events.controller.ts
+│     │  ├─ events.gateway.ts
+│     │  ├─ events.module.ts
+│     │  └─ events.service.ts
+│     ├─ file
+│     │  ├─ file.controller.spec.ts
+│     │  ├─ file.controller.ts
+│     │  ├─ file.module.ts
+│     │  └─ file.service.ts
+│     ├─ list
+│     │  ├─ dto
+│     │  │  ├─ create-list.dto.ts
+│     │  │  ├─ update-list-order.dto.ts
+│     │  │  └─ update-list.dto.ts
+│     │  ├─ list.controller.ts
+│     │  ├─ list.module.ts
+│     │  └─ list.service.ts
+│     ├─ members
+│     │  ├─ dto
+│     │  │  ├─ member.create.dto.ts
+│     │  │  └─ member.update.dto.ts
+│     │  ├─ members.controller.ts
+│     │  ├─ members.module.ts
+│     │  └─ members.service.ts
+│     ├─ redis
+│     │  ├─ ioredis.provider.ts
+│     │  └─ redis.module.ts
+│     ├─ users
+│     │  ├─ users.controller.ts
+│     │  ├─ users.dto.ts
+│     │  ├─ users.module.ts
+│     │  └─ users.service.ts
+│     │
+│     ├─ app.controller.ts
+│     ├─ app.module.ts
+│     ├─ app.service.ts
+│     └─ main.ts
+├─ test
+│  ├─ app.e2e-spec.ts
+│  └─ jest-e2e.json
+│
+├─ .env
+├─ .eslintrc.js
+├─ .gitignore
+├─ .prettierrc
+├─ nest-cli.json
+├─ ormconfig.ts
+├─ package-lock.json
+├─ package.json
+├─ README.md
+├─ tsconfig.build.json
+├─ tsconfig.json
+└─ webpack-hmr.config.js

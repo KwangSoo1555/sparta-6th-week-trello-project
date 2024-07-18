@@ -25,7 +25,7 @@ export class UsersEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   password: string;
 
   @Column({ name: "social_id", default: null })

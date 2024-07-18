@@ -2,18 +2,20 @@ import { Controller, Get, Patch, UseGuards, UsePipes, ValidationPipe, Body } fro
 import { JwtAccessGuards } from "../auth/jwt/jwt-strategy.service";
 import { RequestUserAndToken } from "src/common/custom/decorator/user-request-jwt";
 
-import { UsersService } from "src/modules/users/users.service";
+import { UserService } from "src/modules/users/users.service"
 
 import { UsersUpdateDto } from "src/modules/users/users.dto";
 
 @Controller("users")
 @UseGuards(JwtAccessGuards)
-export class UsersController {
-  constructor(private usersService: UsersService) {}
+export class UserController {
+  constructor(private userService: UserService) {}
 
   @Get("me")
-  getUsers(@RequestUserAndToken() { user: { id: userId } }) {
-    return this.usersService.getUsers(userId);
+  getUsers(
+    @RequestUserAndToken() { user: { id: userId } },
+  ) {
+    return this.userService.getUsers(userId);
   }
 
   @Patch("me")
@@ -22,11 +24,13 @@ export class UsersController {
     @RequestUserAndToken() { user: { id: userId } },
     @Body() updateUserDto: UsersUpdateDto,
   ) {
-    return this.usersService.updateUser(userId, updateUserDto);
+    return this.userService.updateUser(userId, updateUserDto);
   }
 
   @Get("boards")
-  getBoards(@RequestUserAndToken() { user: { id: userId } }) {
-    return this.usersService.getBoard(userId);
+  getBoards(
+    @RequestUserAndToken() { user: { id: userId } }, 
+  ) {
+    return this.userService.getBoards(userId);
   }
 }

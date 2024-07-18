@@ -31,28 +31,43 @@ export const MESSAGES = {
       },
       SUCCEED: "회원가입에 성공했습니다.",
     },
-    SIGN_IN: {
-      EMAIL: {
-        NOT_FOUND: "이메일이 존재하지 않습니다.",
+    LOG_IN: {
+      LOCAL: {
+        EMAIL: {
+          NOT_FOUND: "이메일이 존재하지 않습니다.",
+        },
+        PASSWORD: {
+          INCONSISTENT: "비밀번호가 일치하지 않습니다.",
+        },
+        SUCCEED: "로그인에 성공했습니다.",
       },
-      PASSWORD: {
-        INCONSISTENT: "비밀번호가 일치하지 않습니다.",
+      GOOGLE: {
+        EMAIL: {
+          NOT_FOUND: "이메일이 존재하지 않습니다.",
+        },
+        SUCCEED: "구글 로그인에 성공했습니다.",
+        FAIL: "구글 로그인에 실패했습니다.",
       },
-      SUCCEED: "로그인에 성공했습니다.",
+      NAVER: {
+        EMAIL: {
+          NOT_FOUND: "이메일이 존재하지 않습니다.",
+        },
+        SUCCEED: "네이버 로그인에 성공했습니다.",
+        FAIL: "네이버 로그인에 실패했습니다.",
+      },
+      KAKAO: {
+        EMAIL: {
+          NOT_FOUND: "이메일이 존재하지 않습니다.",
+        },
+        SUCCEED: "카카오 로그인에 성공했습니다.",
+        FAIL: "카카오 로그인에 실패했습니다.",
+      },
     },
     SIGN_OUT: {
       SUCCEED: "로그 아웃에 성공했습니다.",
     },
     REISSUE_TOKEN: {
       SUCCEED: "토큰 재발급에 성공했습니다.",
-    },
-    PASSPORT: {
-      COMMON: {
-        FAIL: "로그인에 실패했습니다.",
-      },
-      NAVER: {
-        SUCCEED: "네이버 로그인에 성공했습니다.",
-      },
     },
   },
   USERS: {

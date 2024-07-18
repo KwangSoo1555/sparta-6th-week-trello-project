@@ -11,7 +11,7 @@ import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
 import { BoardsEntity } from "src/entities/boards.entity";
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     @InjectRepository(UsersEntity)
     private readonly userRepository: Repository<UsersEntity>,
@@ -90,7 +90,7 @@ export class UsersService {
     return updatedUser;
   }
 
-  async getBoard(userId: number) {
+  async getBoards(userId: number) {
     const [createdMembers, invitedMembers] = await Promise.all([
       this.memberRepository.find({ where: { userId, isCreator: true }, relations: ["board"] }),
       this.memberRepository.find({ where: { userId, isCreator: false }, relations: ["board"] })

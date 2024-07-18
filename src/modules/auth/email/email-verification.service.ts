@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
-import { Injectable, HttpStatus } from "@nestjs/common";
-
+import { Redis } from "ioredis";
+import { Injectable, HttpStatus, Inject } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 
 import { EmailVerificationDto } from "src/modules/auth/email/email-verification.dto";
@@ -9,7 +9,10 @@ import { AUTH_CONSTANT } from "src/common/constants/auth.constant";
 
 @Injectable()
 export class EmailVerificationService {
-  constructor(private configService: ConfigService) {}
+  constructor(
+    @Inject("REDIS_CLIENT") private redisClient: Redis,
+    private configService: ConfigService,
+  ) {}
 
   smtpTransport = nodemailer.createTransport({
     service: "naver",
@@ -19,23 +22,24 @@ export class EmailVerificationService {
     },
   });
 
-  private codes = new Map<string, { code: number; timestamp: number }>();
-  private expirationTime = 5 * 60 * 1000; // 5분 뒤 코드 인증 만료
-
   codeNumber(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-
+  
   codeIssue() {
     return this.codeNumber(111111, 999999);
   }
 
-  isExpired(timestamp: number) {
-    return Date.now() > timestamp + this.expirationTime;
+  async isExpired(email: string) {
+    const expirationTime = 5 * 60 * 1000; // 5분 뒤 코드 인증 만료
+    const timestamp = await this.redisClient.get(`${email}:timestamp`);
+    if (!timestamp) return true;
+    return Date.now() > parseInt(timestamp) + expirationTime;
   }
 
-  getCode(email: string) {
-    return this.codes.get(email);
+  async getCode(email: string) {
+    const code = await this.redisClient.get(email);
+    return code ? parseInt(code) : null;
   }
 
   async sendAuthEmail(emailVerificationDto: EmailVerificationDto) {
@@ -53,14 +57,12 @@ export class EmailVerificationService {
         `,
     };
 
-    this.codes.set(email, {
-      code: verificationCode,
-      timestamp,
-    });
+    await this.redisClient.set(email, verificationCode.toString());
+    await this.redisClient.set(`${email}:timestamp`, timestamp.toString());
 
     await this.smtpTransport.sendMail(mailOptions);
 
-    console.log("code:", this.codes.get(email).code);
+    console.log("code:", verificationCode);
 
     const sendTime = new Date(timestamp).toLocaleString("ko-KR", {
       timeZone: "Asia/Seoul",
