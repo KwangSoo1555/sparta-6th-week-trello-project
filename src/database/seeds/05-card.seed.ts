@@ -20,7 +20,7 @@ export class CardsSeeder implements Seeder {
         listId: list.id,
         cardTitle: faker.lorem.words(3),
         content: faker.lorem.sentence(1),
-        nextIndex: i + 1, // assuming nextIndex should be unique and incremental
+        orderIndex: i + 1, // assuming nextIndex should be unique and incremental
         cardDeadLine: faker.date.future(),
         backgroundColor: faker.color.human(), // random human-readable color
         createdAt: faker.date.past(),

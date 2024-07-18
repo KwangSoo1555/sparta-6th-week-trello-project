@@ -151,6 +151,42 @@ export class BoardService {
 
     return boardData;
   }
+  
+  async findBoards(boardId: number, userId: number) {
+    const member = await this.memberRepository.findOne({ where: { boardId, userId } });
+    if (!member) {
+      throw new ConflictException('접근 권한이 없습니다.');
+    }
+    const board = await this.boardRepository.findOne({where: {id : boardId}})
+    let lists = await this.listRepository.find({ where: { boardId } });
+    const listIds = lists.map(list => list.id);
+  
+    const cards = await this.cardRepository.find({
+      where: { listId: In(listIds) }
+    });
+  
+    // orderIndex를 기준으로 리스트 정렬
+    lists = lists.sort((a, b) => a.orderIndex - b.orderIndex);
+  
+    const boardData = {
+      board: board.backgroundImageUrl,
+      boardTitle: board.title,
+      lists: lists.map(list => ({
+        ...list,
+        cards: cards.filter(card => card.listId === list.id)
+      }))
+    };
+    return boardData;
+  }
+  
+  // 충돌 코드
+  
+  // async inviteBoard(boardId: string) {
+  //   const data = await this.redisClient.set(boardId, `inviteLink/board$${boardId}`);
+  //   const result = await this.redisClient.get(boardId);
+
+  //   return { message: BOARD_CONSTANT.MAKE_INVITECODE };
+  // } 
 
   //보드 초대 코드 만들기
   async inviteBoard(boardId: string, userId: number) {
