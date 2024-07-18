@@ -383,7 +383,7 @@
 
 - :boardId를 통해 특정 보더를 지정하고 보더 속에 있는 리스트 중 :listId로 찾은 것 하나를 가져옵니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L66](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L43)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L43
 
 ![리스트 상세 조회](https://github.com/user-attachments/assets/14ae8081-1e37-4847-aa43-8e7a23930ee6)
 
@@ -395,7 +395,7 @@
 
 - :boardId를 통해 특정 보더를 지정하고 보더 속에 있는 리스트 중 :listId로 찾은 것 하나를 선택 한 후 수정합니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L120](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L67)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L67
 
 ![리스트 수정](https://github.com/user-attachments/assets/6281b3d8-1bc7-46e2-91c7-aacc3a57c766)
 
@@ -407,7 +407,7 @@
 
 - :boardId를 통해 특정 보더를 지정하고 보더 속에 있는 리스트 중 :listId로 찾은 것 하나를 선택 한 후 특정 위치(newPositionId)로 이동하게 합니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L358](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L93)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L93
 
 ![리스트 순서 이동](https://github.com/user-attachments/assets/417c965f-d12d-4de2-b39f-26af28cefbe4)
 ![리스트 순서 이동](https://github.com/user-attachments/assets/77956295-4689-44e1-8589-c2f1248fdb62)
@@ -422,7 +422,7 @@
 
 - 삭제 후 리스트의 순서를 지칭하는 order_index의 순서를 재 정립하여 오류가 발생하지 않도록 합니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L195](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L93)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/c07c6a107ae51498a53f4d7f3f8b45da6313338a/src/modules/list/list.service.ts#L93
 
 ![리스트 삭제](https://github.com/user-attachments/assets/6674574d-3480-4556-8c10-408113c13120)
 
@@ -436,7 +436,7 @@
 
 - 카드 제목("cardTitle)를 `req.body`를 통해 가져옵니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade-complete.router.js#L12](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L29)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L29
 
 ![카드 생성](https://github.com/user-attachments/assets/3e22243b-29bd-4bc5-969c-b1703bfa4939)
 
@@ -450,7 +450,7 @@
 
 - 카드 제목, 카드 내용, 카드 배경 색상, 작업자 할당 및 변경을 `req.body`를 통해 가져옵니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade-history.router.js#L11](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L78)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L78
 
 ![카드 수정](https://github.com/user-attachments/assets/75c69d41-9516-44f9-8abb-aa0c78630560)
 
@@ -462,7 +462,7 @@
 
 - listId 통해 특정 리스트를 지정하고 cardId를 통해서 특정 카드를 지정한 후 카드를 삭제합니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147
 
 ![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
 
@@ -476,7 +476,7 @@
 
 - 그 후 타켓 위치의 리스트와 카드를 "swapListIndex" 와 "swapCardOrderIndex"로 받아서 위치를 특정하여 이동할 위치를 지정합니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147
 
 ![카드 삭제](https://github.com/user-attachments/assets/41f1e68b-39e3-4469-b8de-1ed2f29394ae)
 
@@ -488,7 +488,7 @@
 
 - cardId 통해 특정 카드를 지정하고 그 카드의 내용을 content를 통해서 코멘트를 생성합니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147
 
 ![카드 코멘트](./image/18.카드코멘트생성.png)
 
@@ -500,7 +500,7 @@
 
 - cardId 통해 특정 카드를 지정하고 그 카드의 내용을 content를 통해서 변경 코멘트를 입력합니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147
 
 // 카드 코멘트 변경 사진 넣어야함.
 
@@ -512,7 +512,7 @@
 
 - cardId 통해 특정 카드를 지정하고 그 카드의 코멘트를 삭제 합니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147
 
 <br>
 
@@ -522,7 +522,7 @@
 
 - cardId 통해 특정 카드를 지정하고 그 카드의 데드라인을 dataTime을 통해서 예시와 같이 변경합니다. 예시. ("2024-07-17")
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147
 
 // 카드 데드라인 수정 사진 넣어야함.
 
@@ -534,7 +534,7 @@
 
 - cardId 통해 특정 카드를 지정하고 그 카드의 체크리스트를 등록합니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147
 
 // 카드 코멘트 변경 사진 넣어야함.
 
@@ -546,7 +546,7 @@
 
 - cardId 통해 특정 카드를 지정하고 그 카드의 체크리스트를 true, false 값으로 수정합니다.
 
-- [https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10](https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147)
+- https://github.com/KwangSoo1555/sparta-6th-week-trello-project/blob/6ae86b21af9a9cb412ca8555811d34fc9a2a7409/src/modules/cards/card.service.ts#L147
 
 // 카드 데드라인 수정 사진 넣어야함.
 
