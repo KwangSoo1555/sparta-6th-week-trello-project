@@ -56,12 +56,12 @@ export class UserAuthService {
     // 소셜 회원가입이 아닌 로컬 회원가입 처리
     else {
       // 이메일 인증 코드 확인
-      const sendedEmailCode = this.emailVerificationService.getCode(email);
-
+      const sendedEmailCode = await this.emailVerificationService.getCode(email);
+      const isExpired = await this.emailVerificationService.isExpired(email);
       if (
         !sendedEmailCode ||
-        this.emailVerificationService.isExpired(sendedEmailCode.timestamp) ||
-        sendedEmailCode.code !== verificationCode
+        isExpired ||
+        sendedEmailCode !== verificationCode
       )
         throw new BadRequestException(MESSAGES.AUTH.SIGN_UP.EMAIL.VERIFICATION_CODE.INCONSISTENT);
 

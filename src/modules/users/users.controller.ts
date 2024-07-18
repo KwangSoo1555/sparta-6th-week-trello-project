@@ -7,11 +7,14 @@ import { UserService } from "src/modules/users/users.service"
 import { UsersUpdateDto } from "src/modules/users/users.dto";
 
 @Controller("users")
+@UseGuards(JwtAccessGuards)
 export class UserController {
   constructor(private userService: UserService) {}
 
   @Get("me")
-  getUsers(@RequestUserAndToken() { user: { id: userId } }) {
+  getUsers(
+    @RequestUserAndToken() { user: { id: userId } },
+  ) {
     return this.userService.getUsers(userId);
   }
 
@@ -25,7 +28,6 @@ export class UserController {
   }
 
   @Get("boards")
-  @UseGuards(JwtAccessGuards)
   getBoards(
     @RequestUserAndToken() { user: { id: userId } }, 
   ) {

@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
-import { TypeOrmModule } from "./database/typeorm/typeorm.module";
-import { RedisModule } from "./modules/redis/redis.module";
 import { ConfigModule } from "@nestjs/config";
+import { TypeOrmModule } from "./database/typeorm/typeorm.module";
+import { RedisModule } from "./database/redis/redis.module";
 
 //modules
 import { EmailVerificationModule } from "./modules/auth/email/email-verification.module";
