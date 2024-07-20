@@ -2,7 +2,8 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand, GetObjectCommand} from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 import { FilesEntity } from "src/entities/files.entity";
 import { CardsEntity } from "src/entities/cards.entity";
@@ -34,21 +35,36 @@ export class FileService {
     if (!cardCheck) {
       throw new BadRequestException(MESSAGES.CARD.NOT_CARD.CARD_NOT_FOUND);
     }
-    const command = new PutObjectCommand({
+  
+    const key = `${Date.now()}-${file.originalname}`;
+  
+    const uploadCommand = new PutObjectCommand({
       Bucket: this.configService.get("AWS_BUCKET"),
-      Key: file.originalname,
+      Key: key,
       Body: file.buffer,
     });
-
-    this.s3.send(command);
-
-    return this.fileRepository.save({
+  
+    await this.s3.send(uploadCommand);
+  
+    const getObjectCommand = new GetObjectCommand({
+      Bucket: this.configService.get("AWS_BUCKET"),
+      Key: key,
+    });
+  
+    const preSignedUrl = await getSignedUrl(this.s3, getObjectCommand, { expiresIn: 3600 });
+  
+    const savedFile = await this.fileRepository.save({
       cardId: cardId,
       title: file.originalname,
-      fileUrl: `https://${this.configService.get("AWS_BUCKET")}.s3.${this.configService.get("AWS_S3_REGION")}.amazonaws.com/${file.originalname}`,
+      fileUrl: key,
     });
+  
+    return {
+      ...savedFile,
+      preSignedUrl,
+    };
   }
-
+  
   async fileDelete(cardId: number, fileId: number) {
     const data = await this.fileRepository.findOne({ where: { cardId, id: fileId } });
     if (!data) {
