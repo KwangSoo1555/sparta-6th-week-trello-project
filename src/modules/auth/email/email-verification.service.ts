@@ -15,7 +15,7 @@ export class EmailVerificationService {
   ) {}
 
   smtpTransport = nodemailer.createTransport({
-    service: "naver",
+    service: this.configService.get<string>("MEIL_SERVICE"),
     auth: {
       user: this.configService.get<string>("MAIL_AUTH_USER"),
       pass: this.configService.get<string>("MAIL_AUTH_PASS"),
@@ -60,7 +60,7 @@ export class EmailVerificationService {
     await this.redisClient.set(email, verificationCode.toString());
     await this.redisClient.set(`${email}:timestamp`, timestamp.toString());
 
-    await this.smtpTransport.sendMail(mailOptions);
+    this.smtpTransport.sendMail(mailOptions);
 
     console.log("code:", verificationCode);
 
